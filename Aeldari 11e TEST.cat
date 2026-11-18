@@ -3,6 +3,10 @@
   <selectionEntries>
     <selectionEntry id="unit-rangers-11e0" name="Rangers (5 models)" hidden="false" type="unit">
       <profiles>
+        <profile id="rangers-infiltrators-11e0" name="Infiltrators" hidden="false" typeId="ability-11e0" typeName="Abilities"><characteristics><characteristic name="Description" typeId="description-11e0">When deploying, this unit can be set up more than 8" horizontally from enemy units and the enemy deployment zone.</characteristic></characteristics></profile>
+        <profile id="rangers-stealth-11e0" name="Stealth" hidden="false" typeId="ability-11e0" typeName="Abilities"><characteristics><characteristic name="Description" typeId="description-11e0">If every model has Stealth, the unit receives the benefit of cover against ranged attacks.</characteristic></characteristics></profile>
+        <profile id="rangers-path-11e0" name="Path of the Outcast" hidden="false" typeId="ability-11e0" typeName="Abilities"><characteristics><characteristic name="Description" typeId="description-11e0">In the opponent’s Movement phase, after an enemy finishes a move within 8", this unit may make a Normal move of up to D6" if not engaged.</characteristic></characteristics></profile>
+        <profile id="rangers-focus-11e0" name="Battle Focus (Faction)" hidden="false" typeId="ability-11e0" typeName="Abilities"><characteristics><characteristic name="Description" typeId="description-11e0">Aeldari faction ability. Consult the current 11e Battle Focus rules for tokens and Agile Manoeuvres; this test does not encode token management.</characteristic></characteristics></profile>
         <profile id="profile-rangers-11e0" name="Rangers" hidden="false" typeId="stat-11e0" typeName="Unit">
           <characteristics>
             <characteristic name="M" typeId="m-11e0">7"</characteristic>
@@ -20,6 +24,11 @@
       </profiles>
       <categoryLinks>
         <categoryLink id="unit-category-rangers-11e0" name="Units" hidden="false" targetId="cat-units-11e0" primary="true"/>
+        <categoryLink id="rangers-infantry-11e0" name="Infantry" hidden="false" targetId="cat-infantry-11e0"/>
+        <categoryLink id="rangers-aeldari-11e0" name="Aeldari" hidden="false" targetId="cat-aeldari-11e0"/>
+        <categoryLink id="rangers-name-11e0" name="Rangers" hidden="false" targetId="cat-rangers-11e0"/>
+        <categoryLink id="rangers-asuryani-11e0" name="Asuryani" hidden="false" targetId="cat-asuryani-11e0"/>
+        <categoryLink id="rangers-ynnari-11e0" name="Ynnari" hidden="false" targetId="cat-ynnari-11e0"/>
       </categoryLinks>
       <costs><cost name="pts" typeId="pts-11e0" value="60"/></costs>
     </selectionEntry>
