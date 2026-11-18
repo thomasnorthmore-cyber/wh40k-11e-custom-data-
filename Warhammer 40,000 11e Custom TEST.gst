@@ -34,6 +34,31 @@
         <characteristicType id="faction-keywords-11e0" name="Faction Keywords"/>
       </characteristicTypes>
     </profileType>
+    <profileType id="fd-ranged-type" name="Ranged Weapons">
+      <characteristicTypes>
+        <characteristicType id="fd-rng" name="Range"/>
+        <characteristicType id="fd-rna" name="A"/>
+        <characteristicType id="fd-rbs" name="BS"/>
+        <characteristicType id="fd-rs" name="S"/>
+        <characteristicType id="fd-rap" name="AP"/>
+        <characteristicType id="fd-rd" name="D"/>
+        <characteristicType id="fd-rkw" name="Keywords"/>
+      </characteristicTypes>
+    </profileType>
+    <profileType id="fd-melee-type" name="Melee Weapons">
+      <characteristicTypes>
+        <characteristicType id="fd-mrng" name="Range"/>
+        <characteristicType id="fd-ma" name="A"/>
+        <characteristicType id="fd-mws" name="WS"/>
+        <characteristicType id="fd-ms" name="S"/>
+        <characteristicType id="fd-map" name="AP"/>
+        <characteristicType id="fd-md" name="D"/>
+        <characteristicType id="fd-mkw" name="Keywords"/>
+      </characteristicTypes>
+    </profileType>
+    <profileType id="fd-rule-type" name="Rules">
+      <characteristicTypes><characteristicType id="fd-rule-description" name="Description"/></characteristicTypes>
+    </profileType>
   </profileTypes>
   <categoryEntries>
     <categoryEntry id="cat-units-11e0" name="Units" hidden="false"/>
@@ -42,6 +67,9 @@
     <categoryEntry id="cat-rangers-11e0" name="Rangers" hidden="false"/>
     <categoryEntry id="cat-asuryani-11e0" name="Asuryani" hidden="false"/>
     <categoryEntry id="cat-ynnari-11e0" name="Ynnari" hidden="false"/>
+    <categoryEntry id="fd-category-0" name="Grenades" hidden="false"/>
+    <categoryEntry id="fd-category-1" name="Fire Dragons" hidden="false"/>
+    <categoryEntry id="fd-category-2" name="Aspect Warriors" hidden="false"/>
   </categoryEntries>
   <forceEntries>
     <forceEntry id="force-11e0" name="Test Army" hidden="false">
