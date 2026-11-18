@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<catalogue xmlns="http://www.battlescribe.net/schema/catalogueSchema" id="cat-aeldari-11e0" name="Aeldari — 11e TEST" revision="1" battleScribeVersion="2.03" gameSystemId="a78e-11e0-40k0-0001" gameSystemRevision="1" library="false">
+  <selectionEntries>
+    <selectionEntry id="unit-rangers-11e0" name="Rangers (5 models)" hidden="false" type="unit">
+      <profiles>
+        <profile id="profile-rangers-11e0" name="Rangers" hidden="false" typeId="stat-11e0" typeName="Unit">
+          <characteristics>
+            <characteristic name="M" typeId="m-11e0">7"</characteristic>
+            <characteristic name="T" typeId="t-11e0">3</characteristic>
+            <characteristic name="Sv" typeId="sv-11e0">5+</characteristic>
+            <characteristic name="Inv" typeId="inv-11e0">5+ (ranged only)</characteristic>
+            <characteristic name="W" typeId="w-11e0">1</characteristic>
+            <characteristic name="Ld" typeId="ld-11e0">7+</characteristic>
+            <characteristic name="OC" typeId="oc-11e0">1</characteristic>
+          </characteristics>
+        </profile>
+        <profile id="weapon-longrifle-11e0" name="Long rifle" hidden="false" typeId="weapon-11e0" typeName="Weapon"><characteristics><characteristic name="Range" typeId="range-11e0">36"</characteristic><characteristic name="A" typeId="attacks-11e0">1</characteristic><characteristic name="BS/WS" typeId="skill-11e0">3+</characteristic><characteristic name="S" typeId="strength-11e0">4</characteristic><characteristic name="AP" typeId="ap-11e0">-1</characteristic><characteristic name="D" typeId="damage-11e0">2</characteristic></characteristics></profile>
+        <profile id="weapon-pistol-11e0" name="Shuriken pistol" hidden="false" typeId="weapon-11e0" typeName="Weapon"><characteristics><characteristic name="Range" typeId="range-11e0">12"</characteristic><characteristic name="A" typeId="attacks-11e0">1</characteristic><characteristic name="BS/WS" typeId="skill-11e0">2+</characteristic><characteristic name="S" typeId="strength-11e0">4</characteristic><characteristic name="AP" typeId="ap-11e0">-1</characteristic><characteristic name="D" typeId="damage-11e0">1</characteristic></characteristics></profile>
+        <profile id="weapon-melee-11e0" name="Close combat weapon" hidden="false" typeId="weapon-11e0" typeName="Weapon"><characteristics><characteristic name="Range" typeId="range-11e0">Melee</characteristic><characteristic name="A" typeId="attacks-11e0">1</characteristic><characteristic name="BS/WS" typeId="skill-11e0">3+</characteristic><characteristic name="S" typeId="strength-11e0">3</characteristic><characteristic name="AP" typeId="ap-11e0">0</characteristic><characteristic name="D" typeId="damage-11e0">1</characteristic></characteristics></profile>
+      </profiles>
+      <categoryLinks>
+        <categoryLink id="unit-category-rangers-11e0" name="Units" hidden="false" targetId="cat-units-11e0" primary="true"/>
+      </categoryLinks>
+      <costs><cost name="pts" typeId="pts-11e0" value="60"/></costs>
+    </selectionEntry>
+  </selectionEntries>
+</catalogue>
