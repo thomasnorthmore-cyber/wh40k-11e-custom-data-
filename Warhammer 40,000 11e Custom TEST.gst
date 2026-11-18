@@ -4,7 +4,7 @@
     <costType id="pts-11e0" name="pts" defaultCostLimit="-1" hidden="false"/>
   </costTypes>
   <profileTypes>
-    <profileType id="stat-11e0" name="Unit">
+    <profileType id="stat-11e0" name="Units">
       <characteristicTypes>
         <characteristicType id="m-11e0" name="M"/>
         <characteristicType id="t-11e0" name="T"/>
@@ -13,25 +13,6 @@
         <characteristicType id="w-11e0" name="W"/>
         <characteristicType id="ld-11e0" name="Ld"/>
         <characteristicType id="oc-11e0" name="OC"/>
-      </characteristicTypes>
-    </profileType>
-    <profileType id="weapon-11e0" name="Weapon">
-      <characteristicTypes>
-        <characteristicType id="range-11e0" name="Range"/>
-        <characteristicType id="attacks-11e0" name="A"/>
-        <characteristicType id="skill-11e0" name="BS/WS"/>
-        <characteristicType id="strength-11e0" name="S"/>
-        <characteristicType id="ap-11e0" name="AP"/>
-        <characteristicType id="damage-11e0" name="D"/>
-      </characteristicTypes>
-    </profileType>
-    <profileType id="ability-11e0" name="Abilities">
-      <characteristicTypes><characteristicType id="description-11e0" name="Description"/></characteristicTypes>
-    </profileType>
-    <profileType id="keywords-11e0" name="Keywords">
-      <characteristicTypes>
-        <characteristicType id="unit-keywords-11e0" name="Keywords"/>
-        <characteristicType id="faction-keywords-11e0" name="Faction Keywords"/>
       </characteristicTypes>
     </profileType>
     <profileType id="fd-ranged-type" name="Ranged Weapons">
@@ -56,8 +37,27 @@
         <characteristicType id="fd-mkw" name="Keywords"/>
       </characteristicTypes>
     </profileType>
+    <profileType id="ability-11e0" name="Abilities">
+      <characteristicTypes><characteristicType id="description-11e0" name="Description"/></characteristicTypes>
+    </profileType>
     <profileType id="fd-rule-type" name="Rules">
       <characteristicTypes><characteristicType id="fd-rule-description" name="Description"/></characteristicTypes>
+    </profileType>
+    <profileType id="keywords-11e0" name="Keywords">
+      <characteristicTypes>
+        <characteristicType id="unit-keywords-11e0" name="Keywords"/>
+        <characteristicType id="faction-keywords-11e0" name="Faction Keywords"/>
+      </characteristicTypes>
+    </profileType>
+    <profileType id="weapon-11e0" name="Weapon">
+      <characteristicTypes>
+        <characteristicType id="range-11e0" name="Range"/>
+        <characteristicType id="attacks-11e0" name="A"/>
+        <characteristicType id="skill-11e0" name="BS/WS"/>
+        <characteristicType id="strength-11e0" name="S"/>
+        <characteristicType id="ap-11e0" name="AP"/>
+        <characteristicType id="damage-11e0" name="D"/>
+      </characteristicTypes>
     </profileType>
   </profileTypes>
   <categoryEntries>
