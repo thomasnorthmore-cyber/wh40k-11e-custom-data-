@@ -49,16 +49,6 @@
         <characteristicType id="faction-keywords-11e0" name="Faction Keywords"/>
       </characteristicTypes>
     </profileType>
-    <profileType id="weapon-11e0" name="Weapon">
-      <characteristicTypes>
-        <characteristicType id="range-11e0" name="Range"/>
-        <characteristicType id="attacks-11e0" name="A"/>
-        <characteristicType id="skill-11e0" name="BS/WS"/>
-        <characteristicType id="strength-11e0" name="S"/>
-        <characteristicType id="ap-11e0" name="AP"/>
-        <characteristicType id="damage-11e0" name="D"/>
-      </characteristicTypes>
-    </profileType>
   </profileTypes>
   <categoryEntries>
     <categoryEntry id="cat-units-11e0" name="Units" hidden="false"/>
