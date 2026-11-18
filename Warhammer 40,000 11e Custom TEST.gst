@@ -15,9 +15,6 @@
         <characteristicType id="oc-11e0" name="OC"/>
       </characteristicTypes>
     </profileType>
-    <profileType id="ability-11e0" name="Abilities">
-      <characteristicTypes><characteristicType id="description-11e0" name="Description"/></characteristicTypes>
-    </profileType>
     <profileType id="weapon-11e0" name="Weapon">
       <characteristicTypes>
         <characteristicType id="range-11e0" name="Range"/>
@@ -26,6 +23,15 @@
         <characteristicType id="strength-11e0" name="S"/>
         <characteristicType id="ap-11e0" name="AP"/>
         <characteristicType id="damage-11e0" name="D"/>
+      </characteristicTypes>
+    </profileType>
+    <profileType id="ability-11e0" name="Abilities">
+      <characteristicTypes><characteristicType id="description-11e0" name="Description"/></characteristicTypes>
+    </profileType>
+    <profileType id="keywords-11e0" name="Keywords">
+      <characteristicTypes>
+        <characteristicType id="unit-keywords-11e0" name="Keywords"/>
+        <characteristicType id="faction-keywords-11e0" name="Faction Keywords"/>
       </characteristicTypes>
     </profileType>
   </profileTypes>
