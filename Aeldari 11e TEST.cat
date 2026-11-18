@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <catalogue xmlns="http://www.battlescribe.net/schema/catalogueSchema" id="cat-aeldari-11e0" name="Aeldari — 11e TEST" revision="1" battleScribeVersion="2.03" gameSystemId="a78e-11e0-40k0-0001" gameSystemRevision="1" library="false">
   <selectionEntries>
-    <selectionEntry id="unit-rangers-11e0" name="Rangers (5 models)" hidden="false" type="unit">
+    <selectionEntry id="unit-rangers-11e0" name="Rangers" hidden="false" type="unit">
       <profiles>
         <profile id="profile-rangers-11e0" name="Rangers" hidden="false" typeId="stat-11e0" typeName="Unit">
           <characteristics>
@@ -21,6 +21,12 @@
         <profile id="rangers-stealth-11e0" name="Stealth" hidden="false" typeId="ability-11e0" typeName="Abilities"><characteristics><characteristic name="Description" typeId="description-11e0">If every model has Stealth, the unit receives the benefit of cover against ranged attacks.</characteristic></characteristics></profile>
         <profile id="rangers-path-11e0" name="Path of the Outcast" hidden="false" typeId="ability-11e0" typeName="Abilities"><characteristics><characteristic name="Description" typeId="description-11e0">In the opponent’s Movement phase, after an enemy finishes a move within 8", this unit may make a Normal move of up to D6" if not engaged.</characteristic></characteristics></profile>
         <profile id="rangers-focus-11e0" name="Battle Focus (Faction)" hidden="false" typeId="ability-11e0" typeName="Abilities"><characteristics><characteristic name="Description" typeId="description-11e0">Aeldari faction ability. Consult the current 11e Battle Focus rules for tokens and Agile Manoeuvres; this test does not encode token management.</characteristic></characteristics></profile>
+        <profile id="rangers-keywords-profile-11e0" name="Rangers Keywords" hidden="false" typeId="keywords-11e0" typeName="Keywords">
+          <characteristics>
+            <characteristic name="Keywords" typeId="unit-keywords-11e0">Infantry, Aeldari, Rangers</characteristic>
+            <characteristic name="Faction Keywords" typeId="faction-keywords-11e0">Asuryani, Ynnari</characteristic>
+          </characteristics>
+        </profile>
       </profiles>
       <categoryLinks>
         <categoryLink id="unit-category-rangers-11e0" name="Units" hidden="false" targetId="cat-units-11e0" primary="true"/>
@@ -30,7 +36,23 @@
         <categoryLink id="rangers-asuryani-11e0" name="Asuryani" hidden="false" targetId="cat-asuryani-11e0"/>
         <categoryLink id="rangers-ynnari-11e0" name="Ynnari" hidden="false" targetId="cat-ynnari-11e0"/>
       </categoryLinks>
-      <costs><cost name="pts" typeId="pts-11e0" value="60"/></costs>
+      <selectionEntryGroups>
+        <selectionEntryGroup id="rangers-size-choice-11e0" name="Unit Size (choose one)" hidden="false" defaultSelectionEntryId="rangers-five-11e0">
+          <constraints>
+            <constraint field="selections" scope="parent" value="1" percentValue="false" shared="true" includeChildSelections="false" includeChildForces="false" id="rangers-size-min-11e0" type="min"/>
+            <constraint field="selections" scope="parent" value="1" percentValue="false" shared="true" includeChildSelections="false" includeChildForces="false" id="rangers-size-max-11e0" type="max"/>
+          </constraints>
+          <selectionEntries>
+            <selectionEntry id="rangers-five-11e0" name="5 Rangers" hidden="false" type="upgrade">
+              <costs><cost name="pts" typeId="pts-11e0" value="60"/></costs>
+            </selectionEntry>
+            <selectionEntry id="rangers-ten-11e0" name="10 Rangers" hidden="false" type="upgrade">
+              <costs><cost name="pts" typeId="pts-11e0" value="110"/></costs>
+            </selectionEntry>
+          </selectionEntries>
+        </selectionEntryGroup>
+      </selectionEntryGroups>
+      <costs><cost name="pts" typeId="pts-11e0" value="0"/></costs>
     </selectionEntry>
   </selectionEntries>
 </catalogue>
