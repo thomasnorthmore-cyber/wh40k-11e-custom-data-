@@ -15,6 +15,9 @@
         <characteristicType id="oc-11e0" name="OC"/>
       </characteristicTypes>
     </profileType>
+    <profileType id="ability-11e0" name="Abilities">
+      <characteristicTypes><characteristicType id="description-11e0" name="Description"/></characteristicTypes>
+    </profileType>
     <profileType id="weapon-11e0" name="Weapon">
       <characteristicTypes>
         <characteristicType id="range-11e0" name="Range"/>
@@ -28,11 +31,17 @@
   </profileTypes>
   <categoryEntries>
     <categoryEntry id="cat-units-11e0" name="Units" hidden="false"/>
+    <categoryEntry id="cat-infantry-11e0" name="Infantry" hidden="false"/>
+    <categoryEntry id="cat-aeldari-11e0" name="Aeldari" hidden="false"/>
+    <categoryEntry id="cat-rangers-11e0" name="Rangers" hidden="false"/>
+    <categoryEntry id="cat-asuryani-11e0" name="Asuryani" hidden="false"/>
+    <categoryEntry id="cat-ynnari-11e0" name="Ynnari" hidden="false"/>
   </categoryEntries>
   <forceEntries>
     <forceEntry id="force-11e0" name="Test Army" hidden="false">
       <categoryLinks>
         <categoryLink id="force-unit-link-11e0" name="Units" hidden="false" targetId="cat-units-11e0"/>
+        <categoryLink id="force-infantry-link-11e0" name="Infantry" hidden="false" targetId="cat-infantry-11e0"/>
       </categoryLinks>
     </forceEntry>
   </forceEntries>
