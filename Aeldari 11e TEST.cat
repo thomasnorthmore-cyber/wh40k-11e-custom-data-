@@ -29,8 +29,8 @@
         </profile>
       </profiles>
       <categoryLinks>
-        <categoryLink id="unit-category-rangers-11e0" name="Units" hidden="false" targetId="cat-units-11e0" primary="true"/>
-        <categoryLink id="rangers-infantry-11e0" name="Infantry" hidden="false" targetId="cat-infantry-11e0"/>
+        <categoryLink id="unit-category-rangers-11e0" name="Units" hidden="true" targetId="cat-units-11e0"/>
+        <categoryLink id="rangers-infantry-11e0" name="Infantry" hidden="false" targetId="cat-infantry-11e0" primary="true"/>
         <categoryLink id="rangers-aeldari-11e0" name="Aeldari" hidden="false" targetId="cat-aeldari-11e0"/>
         <categoryLink id="rangers-name-11e0" name="Rangers" hidden="false" targetId="cat-rangers-11e0"/>
         <categoryLink id="rangers-asuryani-11e0" name="Asuryani" hidden="false" targetId="cat-asuryani-11e0"/>
@@ -67,8 +67,8 @@
 <characteristic name="Faction Keywords" typeId="faction-keywords-11e0">Asuryani, Ynnari</characteristic>
 </characteristics></profile></profiles>
       <categoryLinks>
-      <categoryLink id="fd-unit-maincat" name="Units" hidden="false" targetId="cat-units-11e0" primary="true"/>
-      <categoryLink id="fd-kw-infantry" name="Infantry" hidden="false" targetId="cat-infantry-11e0"/>
+      <categoryLink id="fd-unit-maincat" name="Units" hidden="true" targetId="cat-units-11e0"/>
+      <categoryLink id="fd-kw-infantry" name="Infantry" hidden="false" targetId="cat-infantry-11e0" primary="true"/>
       <categoryLink id="fd-kw-aeldari" name="Aeldari" hidden="false" targetId="cat-aeldari-11e0"/>
       <categoryLink id="fd-kw-asuryani" name="Asuryani" hidden="false" targetId="cat-asuryani-11e0"/>
       <categoryLink id="fd-kw-ynnari" name="Ynnari" hidden="false" targetId="cat-ynnari-11e0"/>
@@ -101,7 +101,7 @@
       <modifiers>
         <modifier type="set" field="pts-11e0" value="240">
           <conditions>
-            <condition type="atLeast" value="5" field="selections" scope="parent" childId="fd-regular-5" shared="true" includeChildSelections="false" includeChildForces="false"/>
+            <condition type="atLeast" value="5" field="selections" scope="parent" childId="fd-regular-5" shared="true" includeChildSelections="true" includeChildForces="false"/>
           </conditions>
         </modifier>
       </modifiers>
