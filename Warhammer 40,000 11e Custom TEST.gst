@@ -74,7 +74,6 @@
   <forceEntries>
     <forceEntry id="force-11e0" name="Test Army" hidden="false">
       <categoryLinks>
-        <categoryLink id="force-unit-link-11e0" name="Units" hidden="false" targetId="cat-units-11e0"/>
         <categoryLink id="force-infantry-link-11e0" name="Infantry" hidden="false" targetId="cat-infantry-11e0"/>
       </categoryLinks>
     </forceEntry>
