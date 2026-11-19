@@ -18,6 +18,7 @@ import argparse
 from collections import Counter
 from io import BytesIO
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from zipfile import ZipFile, ZIP_DEFLATED
 import xml.etree.ElementTree as ET
 
@@ -102,7 +103,27 @@ def self_test():
     unit = next(x for x in sample.iter("selection") if x.get("type") == "unit")
     ET.SubElement(unit.find("profiles"), "profile", name="Root gun", typeName="Ranged Weapons")
     assert inspect(sample)["unit_root_weapons"] == [("Test squad", "Root gun")]
-    print("PASS: 11e ID and Unit-profile normalization; root-weapon incompatibility flagged")
+    # Exercise the actual compressed roster path, not just an in-memory node.
+    with TemporaryDirectory() as tmp:
+        raw_path = Path(tmp) / "source.rosz"
+        converted_path = Path(tmp) / "compatible.rosz"
+        raw_root = ET.fromstring('''<roster gameSystemId="a78e-11e0-40k0-0001">
+            <forces><force><selections><selection name="Test" type="unit">
+            <profiles><profile name="Test" typeName="Units"/></profiles>
+            <selections><selection name="Model" type="model"><profiles>
+            <profile name="Gun" typeName="Ranged Weapons"/>
+            </profiles></selection></selections>
+            </selection></selections></force></forces></roster>''')
+        write_roster(raw_root, raw_path, True, "list.ros")
+        loaded, zipped, name = read_roster(raw_path)
+        assert zipped and name == "list.ros"
+        assert normalize(loaded) == 1
+        write_roster(loaded, converted_path, zipped, name)
+        reread, zipped, _ = read_roster(converted_path)
+        assert zipped and inspect(reread)["system_id"] == EXPECTED_ID
+        assert inspect(reread)["profiles"]["Unit"] == 1
+        assert inspect(reread)["profiles"]["Ranged Weapons"] == 1
+    print("PASS: actual .rosz ZIP round-trip, 11e ID/Unit conversion and root-weapon warning")
 
 
 def main():
