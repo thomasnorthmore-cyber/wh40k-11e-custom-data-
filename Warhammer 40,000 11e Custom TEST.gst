@@ -71,7 +71,7 @@
       <categoryEntry id="smoke-cat-8" name="Walker" hidden="false"/>
       <categoryEntry id="smoke-cat-9" name="Battleline" hidden="false"/>
       <categoryEntry id="smoke-cat-10" name="Aircraft" hidden="false"/>
-      <categoryEntry id="smoke-cat-11" name="Fortifications" hidden="false"/>
+      <categoryEntry id="smoke-cat-11" name="Fortification" hidden="false"/>
       <categoryEntry id="smoke-cat-12" name="Titanic" hidden="false"/>
       <categoryEntry id="smoke-cat-13" name="Dedicated Transport" hidden="false"/>
   </categoryEntries>
@@ -85,6 +85,7 @@
         <categoryLink id="force-canonical-4" name="Mounted" hidden="false" targetId="smoke-cat-3"/>
         <categoryLink id="force-canonical-5" name="Monster" hidden="false" targetId="smoke-cat-5"/>
         <categoryLink id="force-canonical-6" name="Vehicle" hidden="false" targetId="smoke-cat-6"/>
+        <categoryLink id="force-canonical-fortification" name="Fortification" hidden="false" targetId="smoke-cat-11"/>
         <categoryLink id="force-canonical-7" name="Dedicated Transport" hidden="false" targetId="smoke-cat-13"/>
       </categoryLinks>
     </forceEntry>
