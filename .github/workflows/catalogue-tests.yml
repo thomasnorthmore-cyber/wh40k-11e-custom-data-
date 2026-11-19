@@ -4,7 +4,7 @@ on:
     paths:
       - '*.gst'
       - '*.cat'
-      - 'scripts/validate_catalogue.py'
+      - 'scripts/*.py'
       - '.github/workflows/catalogue-tests.yml'
   pull_request:
 jobs:
@@ -19,6 +19,10 @@ jobs:
         run: python scripts/validate_catalogue.py
       - name: Validate role-category samples
         run: python scripts/validate_category_smoke.py
+      - name: Validate all unit standardisation
+        run: python scripts/validate_all_units.py
+      - name: Validate full squad weapon quantities
+        run: python scripts/validate_squad_weapon_counts.py
       - name: Validate multi-wargear selections
         run: python scripts/validate_multi_wargear.py
       - name: Validate other unit wargear choices
