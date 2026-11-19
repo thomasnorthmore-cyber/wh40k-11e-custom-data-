@@ -531,11 +531,7 @@
           "id": "fd-group-leader",
           "name": "Leader",
           "kind": "group",
-          "parent_id": "fd-unit-root",
-          "bounds": {
-            "min": 1,
-            "max": 1
-          }
+          "parent_id": "fd-unit-root"
         },
         {
           "id": "fd-exarch-5",
@@ -562,11 +558,7 @@
           "id": "fd-gear-default-5",
           "name": "Exarch’s Dragon fusion gun",
           "kind": "upgrade",
-          "parent_id": "fd-exarch-gear-5",
-          "bounds": {
-            "min": 1,
-            "max": 1
-          }
+          "parent_id": "fd-exarch-gear-5"
         },
         {
           "id": "fd-gear-default-5-melee-equip-0",
@@ -582,11 +574,7 @@
           "id": "fd-gear-flamer-5",
           "name": "Dragon’s breath flamer",
           "kind": "upgrade",
-          "parent_id": "fd-exarch-gear-5",
-          "bounds": {
-            "min": 1,
-            "max": 1
-          }
+          "parent_id": "fd-exarch-gear-5"
         },
         {
           "id": "fd-gear-flamer-5-melee-equip-0",
@@ -602,11 +590,7 @@
           "id": "fd-gear-pistol-5",
           "name": "Dragon fusion pistol & Dragon axe",
           "kind": "upgrade",
-          "parent_id": "fd-exarch-gear-5",
-          "bounds": {
-            "min": 1,
-            "max": 1
-          }
+          "parent_id": "fd-exarch-gear-5"
         },
         {
           "id": "fd-gear-pistol-5-melee-equip-0",
@@ -622,11 +606,7 @@
           "id": "fd-gear-pike-5",
           "name": "Firepike",
           "kind": "upgrade",
-          "parent_id": "fd-exarch-gear-5",
-          "bounds": {
-            "min": 1,
-            "max": 1
-          }
+          "parent_id": "fd-exarch-gear-5"
         },
         {
           "id": "fd-gear-pike-5-melee-equip-0",
@@ -642,11 +622,7 @@
           "id": "fd-group-units",
           "name": "Units",
           "kind": "group",
-          "parent_id": "fd-unit-root",
-          "bounds": {
-            "min": 4,
-            "max": 9
-          }
+          "parent_id": "fd-unit-root"
         },
         {
           "id": "fd-regular-5",
@@ -682,11 +658,7 @@
           "id": "fd-group-extra",
           "name": "Additional Wargear",
           "kind": "group",
-          "parent_id": "fd-unit-root",
-          "bounds": {
-            "min": 1,
-            "max": 2
-          }
+          "parent_id": "fd-unit-root"
         },
         {
           "id": "fd-token-5",
@@ -1370,11 +1342,7 @@
           "id": "dr-group-leader",
           "name": "Leader",
           "kind": "group",
-          "parent_id": "dr-unit-root",
-          "bounds": {
-            "min": 1,
-            "max": 1
-          }
+          "parent_id": "dr-unit-root"
         },
         {
           "id": "dr-exarch",
@@ -1401,11 +1369,7 @@
           "id": "dr-exarch-choice-reaper",
           "name": "Reaper launcher",
           "kind": "upgrade",
-          "parent_id": "dr-exarch-gear",
-          "bounds": {
-            "min": 1,
-            "max": 1
-          }
+          "parent_id": "dr-exarch-gear"
         },
         {
           "id": "dr-exarch-choice-reaper-melee-equip-0",
@@ -1421,11 +1385,7 @@
           "id": "dr-exarch-choice-missile",
           "name": "Missile launcher",
           "kind": "upgrade",
-          "parent_id": "dr-exarch-gear",
-          "bounds": {
-            "min": 1,
-            "max": 1
-          }
+          "parent_id": "dr-exarch-gear"
         },
         {
           "id": "dr-exarch-choice-missile-melee-equip-0",
@@ -1441,11 +1401,7 @@
           "id": "dr-exarch-choice-shuriken",
           "name": "Shuriken cannon",
           "kind": "upgrade",
-          "parent_id": "dr-exarch-gear",
-          "bounds": {
-            "min": 1,
-            "max": 1
-          }
+          "parent_id": "dr-exarch-gear"
         },
         {
           "id": "dr-exarch-choice-shuriken-melee-equip-0",
@@ -1461,11 +1417,7 @@
           "id": "dr-exarch-choice-tempest",
           "name": "Tempest launcher",
           "kind": "upgrade",
-          "parent_id": "dr-exarch-gear",
-          "bounds": {
-            "min": 1,
-            "max": 1
-          }
+          "parent_id": "dr-exarch-gear"
         },
         {
           "id": "dr-exarch-choice-tempest-melee-equip-0",
@@ -1481,11 +1433,7 @@
           "id": "dr-group-units",
           "name": "Units",
           "kind": "group",
-          "parent_id": "dr-unit-root",
-          "bounds": {
-            "min": 4,
-            "max": 9
-          }
+          "parent_id": "dr-unit-root"
         },
         {
           "id": "dr-regular",
@@ -1521,11 +1469,7 @@
           "id": "dr-group-wargear",
           "name": "Additional Wargear",
           "kind": "group",
-          "parent_id": "dr-unit-root",
-          "bounds": {
-            "min": 1,
-            "max": 2
-          }
+          "parent_id": "dr-unit-root"
         },
         {
           "id": "dr-aspect-token",
