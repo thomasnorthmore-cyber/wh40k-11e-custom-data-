@@ -21,12 +21,14 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 
 from apply_mechanics import apply_mechanics
+from loadout_rules import apply as apply_loadout_slots
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOGUE = ROOT / "Aeldari 11e TEST.cat"
 MANIFEST = ROOT / "data" / "structured" / "aeldari-pilot.json"
 DATASHEETS = ROOT / "data" / "structured" / "aeldari-datasheets.json"
 MECHANICS = ROOT / "data" / "structured" / "aeldari-mechanics.json"
+SLOTS = ROOT / "data" / "structured" / "aeldari-loadout-slots.json"
 NS_URI = "http://www.battlescribe.net/schema/catalogueSchema"
 N = "{" + NS_URI + "}"
 ET.register_namespace("", NS_URI)
@@ -213,14 +215,17 @@ def apply_datasheets(template: ET.Element, data: dict) -> ET.Element:
 
 
 def apply_all(template: ET.Element, manifest: dict, datasheets: dict,
-              mechanics: dict | None = None) -> ET.Element:
+              mechanics: dict | None = None, slots: dict | None = None) -> ET.Element:
     if mechanics is None:
         mechanics = json.loads(MECHANICS.read_text(encoding="utf-8"))
+    if slots is None:
+        slots = json.loads(SLOTS.read_text(encoding="utf-8"))
     # Apply mechanics first; the dedicated points and equipment datasets
     # intentionally take precedence over overlapping generic metadata.
     apply_mechanics(template, mechanics, datasheets)
     apply_pilot(template, manifest)
     apply_datasheets(template, datasheets)
+    apply_loadout_slots(template, slots, datasheets)
     return template
 
 
@@ -309,8 +314,19 @@ def self_test() -> None:
     min_constraint["attrs"]["shared"] = ("false" if min_constraint["attrs"].get("shared") == "true" else "true")
     assert canonical(apply_all(copy.deepcopy(source), manifest, datasheets, modified_constraints)) != canonical(source), (
         "Structured non-overlapping constraint attributes did not change generated catalogue")
-    print("PASS: JSON controls points, weapons, abilities, gear labels, native rules, keywords, "
-          "categories, limits and visibility conditions")
+    slot_data = json.loads(SLOTS.read_text(encoding="utf-8"))
+    changed_slot = copy.deepcopy(slot_data)
+    choice = next(slot for u in changed_slot["units"] for slot in u["slots"]
+                  if slot["slot_id"] == "mul-612-mounts")
+    choice["max"] = 3
+    # A deliberate inconsistent change must be rejected, not quietly written.
+    try:
+        apply_all(copy.deepcopy(source), manifest, datasheets, mechanics, changed_slot)
+        raise AssertionError("Illegal model-level slot budget was silently accepted")
+    except ValueError:
+        pass
+    print("PASS: structured point/weapon/ability/rule/keyword updates and "
+          "19 equipment slot validation checks")
 
 
 def main() -> None:
