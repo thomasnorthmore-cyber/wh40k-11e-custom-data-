@@ -64,7 +64,8 @@ def assert_model_scope(unit, slot):
             f"{unit['name']}/{gid}: incorrect model budget scope")
     for c in slot["choices"]:
         choice = entries[c["id"]]
-        require(choice["name"] == c["name"], f"{unit['name']}/{gid}: choice name changed")
+        # Human-readable choice names are owned by aeldari-datasheets.json;
+        # renames must not invalidate a stable-ID equipment relationship.
         require(c["max"] == choice.get("bounds", {}).get("max", slot["max"]),
                 f"{unit['name']}/{gid}/{c['id']}: max differs")
         profiles = sorted(p["id"] for p in unit["profiles"]
