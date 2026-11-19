@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 
 root=Path(__file__).resolve().parents[1]
 C="{http://www.battlescribe.net/schema/catalogueSchema}"
-cat=ET.parse(root/"Aeldari 11e TEST.cat").getroot()
+cat=ET.parse(root/"tests/fixtures/aeldari-v6.cat").getroot()
 weapons=[p for p in cat.iter(C+"profile") if p.get("typeName") in ("Ranged Weapons","Melee Weapons")]
 assert weapons,"No weapon profiles found"
 count=0

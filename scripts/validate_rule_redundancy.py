@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
 C = "{http://www.battlescribe.net/schema/catalogueSchema}"
-cat = ET.parse(ROOT / "Aeldari 11e TEST.cat").getroot()
+cat = ET.parse(ROOT / "tests/fixtures/aeldari-v6.cat").getroot()
 
 def normal(text):
     return re.sub(r"\s+", " ", (text or "").strip()).casefold()

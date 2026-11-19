@@ -1,0 +1,752 @@
+[
+  {
+    "datasheet_id": "000000568",
+    "line": "1",
+    "description": "1 Eldrad Ulthran – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000570",
+    "line": "1",
+    "description": "1 Illic Nightspear – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000571",
+    "line": "1",
+    "description": "1 Asurmen – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000572",
+    "line": "1",
+    "description": "1 Jain Zar – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000573",
+    "line": "1",
+    "description": "1 Karandras – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000574",
+    "line": "1",
+    "description": "1 Fuegan – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000575",
+    "line": "1",
+    "description": "1 Baharroth – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000576",
+    "line": "1",
+    "description": "1 Maugan Ra",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000577",
+    "line": "1",
+    "description": "1 Autarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000580",
+    "line": "1",
+    "description": "1 Autarch Skyrunner",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000581",
+    "line": "1",
+    "description": "1 Avatar of Khaine – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000582",
+    "line": "1",
+    "description": "1 Farseer",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000583",
+    "line": "1",
+    "description": "1 Farseer Skyrunner",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000584",
+    "line": "1",
+    "description": "2-4 Warlocks",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000585",
+    "line": "1",
+    "description": "1 Warlock",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000587",
+    "line": "1",
+    "description": "1-2 Warlock Skyrunners",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000588",
+    "line": "1",
+    "description": "1 Spiritseer",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000589",
+    "line": "1",
+    "description": "10 Guardian Defenders",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000589",
+    "line": "2",
+    "description": "1 Heavy Weapon Platform",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000590",
+    "line": "1",
+    "description": "10 Storm Guardians",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000590",
+    "line": "2",
+    "description": "1 Serpent’s Scale Platform",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000591",
+    "line": "1",
+    "description": "3-6 Windriders",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000592",
+    "line": "1",
+    "description": "5-10 Rangers",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000593",
+    "line": "1",
+    "description": "1 Dire Avenger Exarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000593",
+    "line": "2",
+    "description": "4-9 Dire Avengers",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000594",
+    "line": "1",
+    "description": "1 Howling Banshee Exarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000594",
+    "line": "2",
+    "description": "4-9 Howling Banshees",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000595",
+    "line": "1",
+    "description": "1 Striking Scorpion Exarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000595",
+    "line": "2",
+    "description": "4-9 Striking Scorpions",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000596",
+    "line": "1",
+    "description": "1 Fire Dragon Exarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000596",
+    "line": "2",
+    "description": "4-9 Fire Dragons",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000597",
+    "line": "1",
+    "description": "5 Wraithguard",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000598",
+    "line": "1",
+    "description": "5 Wraithblades",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000599",
+    "line": "1",
+    "description": "1 Wave Serpent",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000600",
+    "line": "1",
+    "description": "1 Swooping Hawk Exarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000600",
+    "line": "2",
+    "description": "4-9 Swooping Hawks",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000601",
+    "line": "1",
+    "description": "1 Warp Spider Exarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000601",
+    "line": "2",
+    "description": "4-9 Warp Spiders",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000602",
+    "line": "1",
+    "description": "1 Shining Spear Exarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000602",
+    "line": "2",
+    "description": "2-5 Shining Spears",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000603",
+    "line": "1",
+    "description": "1 Crimson Hunter",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000605",
+    "line": "1",
+    "description": "1-2 Vypers",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000606",
+    "line": "1",
+    "description": "1 Hemlock Wraithfighter",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000607",
+    "line": "1",
+    "description": "1 Dark Reaper Exarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000607",
+    "line": "2",
+    "description": "4-9 Dark Reapers",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000609",
+    "line": "1",
+    "description": "1 Falcon",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000610",
+    "line": "1",
+    "description": "1 Fire Prism",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000611",
+    "line": "1",
+    "description": "1 Night Spinner",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000612",
+    "line": "1",
+    "description": "1-2 War Walkers",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000613",
+    "line": "1",
+    "description": "1 Wraithlord",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000614",
+    "line": "1",
+    "description": "1 Wraithknight",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000615",
+    "line": "1",
+    "description": "0-1 Shadow Spectre Exarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000615",
+    "line": "2",
+    "description": "5-10 Shadow Spectres",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000616",
+    "line": "1",
+    "description": "1 Wasp Assault Walker",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000617",
+    "line": "1",
+    "description": "1 Wraithseer",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000618",
+    "line": "1",
+    "description": "1 Hornet",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000619",
+    "line": "1",
+    "description": "1 Warp Hunter",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000620",
+    "line": "1",
+    "description": "1 Lynx",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000621",
+    "line": "1",
+    "description": "1 Scorpion",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000622",
+    "line": "1",
+    "description": "1 Cobra",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000623",
+    "line": "1",
+    "description": "1 Nightwing",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000624",
+    "line": "1",
+    "description": "1 Phoenix",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000625",
+    "line": "1",
+    "description": "1 Vampire Raider",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000626",
+    "line": "1",
+    "description": "1 Vampire Hunter",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000627",
+    "line": "1",
+    "description": "1 Skathach Wraithknight",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000628",
+    "line": "1",
+    "description": "1 Revenant Titan",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000629",
+    "line": "1",
+    "description": "0-1 Cloud Dancer Felarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000629",
+    "line": "2",
+    "description": "3-6 Corsair Cloud Dancers",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000630",
+    "line": "1",
+    "description": "1 Irillyth – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000631",
+    "line": "1",
+    "description": "1 Phantom Titan",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000632",
+    "line": "1",
+    "description": "0-1 Corsair Reaver Felarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000000632",
+    "line": "2",
+    "description": "5-10 Corsair Reavers",
+    "": ""
+  },
+  {
+    "datasheet_id": "000001393",
+    "line": "1",
+    "description": "1 Firestorm",
+    "": ""
+  },
+  {
+    "datasheet_id": "000001400",
+    "line": "1",
+    "description": "1 Bonesinger",
+    "": ""
+  },
+  {
+    "datasheet_id": "000001598",
+    "line": "1",
+    "description": "1 Amallyn Shadowguide – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002459",
+    "line": "1",
+    "description": "2 Wraithbone Arches",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002531",
+    "line": "1",
+    "description": "1 Voidreaver Felarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002531",
+    "line": "2",
+    "description": "4-9 Corsair Voidreavers",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002532",
+    "line": "1",
+    "description": "This unit can contain a maximum of 10 models.",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002532",
+    "line": "2",
+    "description": "1 Voidscarred Felarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002532",
+    "line": "3",
+    "description": "4-9 Corsair Voidscarred",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002532",
+    "line": "4",
+    "description": "0-1 Shade Runner",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002532",
+    "line": "5",
+    "description": "0-1 Soul Weaver",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002532",
+    "line": "6",
+    "description": "0-1 Way Seeker",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002533",
+    "line": "1",
+    "description": "3-6 Shroud Runners",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002534",
+    "line": "1",
+    "description": "1 Troupe Master",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002535",
+    "line": "1",
+    "description": "1 Shadowseer",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002536",
+    "line": "1",
+    "description": "1 Lead Player",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002536",
+    "line": "2",
+    "description": "4-11 Players",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002537",
+    "line": "1",
+    "description": "1 Death Jester",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002538",
+    "line": "1",
+    "description": "1 Solitaire – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002539",
+    "line": "1",
+    "description": "2-4 Skyweavers",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002540",
+    "line": "1",
+    "description": "1 Voidweaver",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002541",
+    "line": "1",
+    "description": "1 Starweaver",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002542",
+    "line": "1",
+    "description": "1 Yvraine – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002543",
+    "line": "1",
+    "description": "1 Visarch – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002544",
+    "line": "1",
+    "description": "1 Yncarne – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000002759",
+    "line": "1",
+    "description": "1 Autarch Wayleaper",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003909",
+    "line": "1",
+    "description": "1 Lhykhis – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003910",
+    "line": "1",
+    "description": "1 D-cannon Platform",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003911",
+    "line": "1",
+    "description": "1 Shadow Weaver Platform",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003912",
+    "line": "1",
+    "description": "1 Vibro Cannon Platform",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003913",
+    "line": "1",
+    "description": "1 Wraithknight",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003914",
+    "line": "1",
+    "description": "1 Archon",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003915",
+    "line": "1",
+    "description": "1 Succubus",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003916",
+    "line": "1",
+    "description": "1 Sybarite",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003916",
+    "line": "2",
+    "description": "9 Kabalite Warriors",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003917",
+    "line": "1",
+    "description": "1 Hekatrix",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003917",
+    "line": "2",
+    "description": "9 Wyches",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003918",
+    "line": "1",
+    "description": "1 Klaivex",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003918",
+    "line": "2",
+    "description": "4-9 Incubi",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003919",
+    "line": "1",
+    "description": "1 Arena Champion",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003919",
+    "line": "2",
+    "description": "2-5 Reavers",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003920",
+    "line": "1",
+    "description": "1 Raider",
+    "": ""
+  },
+  {
+    "datasheet_id": "000003921",
+    "line": "1",
+    "description": "1 Venom",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004193",
+    "line": "1",
+    "description": "1 Prince Yriel – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004194",
+    "line": "1",
+    "description": "1 Kharseth – <span class=\"kwb\">EPIC</span> <span class=\"kwb\">HERO</span>",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004195",
+    "line": "1",
+    "description": "1-2 Starfangs",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004196",
+    "line": "1",
+    "description": "1 Skyreaver Felarch",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004196",
+    "line": "2",
+    "description": "4-9 Skyreavers",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004235",
+    "line": "1",
+    "description": "1 Dragon Knight Leader model",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004235",
+    "line": "2",
+    "description": "2-5 Dragon Knights models",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004236",
+    "line": "1",
+    "description": "1 Leystalker model",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004237",
+    "line": "1",
+    "description": "1 Stonesinger model",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004238",
+    "line": "1",
+    "description": "1 Clanblade model",
+    "": ""
+  }
+]

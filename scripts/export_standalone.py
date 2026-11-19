@@ -23,7 +23,7 @@ import build_catalogue as legacy
 ROOT = Path(__file__).resolve().parents[1]
 DATA = ROOT / "data" / "structured"
 GAME_SYSTEM = "Warhammer 40,000 11e Custom TEST.gst"
-CATALOGUE = "Aeldari 11e TEST.cat"
+CATALOGUE = "tests/fixtures/aeldari-v6.cat"
 CAT_TREE = DATA / "catalogue-tree.json"
 GAME_TREE = DATA / "game-system-tree.json"
 

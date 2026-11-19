@@ -4,7 +4,7 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 
 C="{http://www.battlescribe.net/schema/catalogueSchema}"
-cat=ET.parse(Path(__file__).resolve().parents[1]/"Aeldari 11e TEST.cat").getroot()
+cat=ET.parse(Path(__file__).resolve().parents[1]/"tests/fixtures/aeldari-v6.cat").getroot()
 units={u.get("id"):u for u in cat.findall("./"+C+"selectionEntries/"+C+"selectionEntry")}
 specs={
  "582":{"staff":2},

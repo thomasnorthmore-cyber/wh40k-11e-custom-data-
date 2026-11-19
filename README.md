@@ -2,7 +2,39 @@
 
 This project aims to provide New Recruit-compatible custom game-system and faction catalogues covering **all 25 factions** in the source export.
 
-> **Status: Aeldari v6 New Recruit preview (17 units), with a JSON-based standalone catalogue exporter.** New Recruit rendering still requires manual verification, and Yellowscribe compatibility remains unresolved. Raw Wahapedia CSV exports are not directly importable as game catalogues.
+> **Status: full Aeldari v7 preview generation (99 source datasheets), preserving the 17 verified v6 units.** New Recruit rendering still requires manual verification, and Yellowscribe compatibility remains unresolved. Raw Wahapedia CSV exports are not directly importable as game catalogues.
+
+## All Aeldari datasheets from the user's export
+
+The original user-uploaded 11th Edition Wahapedia source archive includes
+**99 Aeldari datasheets**. The first 17 were already hand-tested in v6.
+The new source datasets include all 99 datasheet records plus their Aeldari
+model stats, weapons, costs, composition, options, abilities, keywords, and
+Leader attachment relationships.
+
+- `data/structured/aeldari-source-datasheets.json`
+- `data/structured/source/` (source-specific linked tables)
+
+`scripts/expand_aeldari.py` reconstructs the Aeldari catalogue with
+**82 additional datasheets** while retaining the entire set of original
+17 v6 entries unchanged. To generate a preview:
+
+```sh
+python scripts/expand_aeldari.py --out /tmp/aeldari-full-preview.cat
+python scripts/validate_full_aeldari.py /tmp/aeldari-full-preview.cat
+```
+
+The new source-driven units include their model characteristics, all ranged
+and melee weapon profiles, abilities, unit composition, keyword definitions,
+points tables and written wargear options. **Replacement restrictions for
+complex new units are not yet translated into fully enforced selectors.**
+Those entries show their exact source options in Rules and expose provisional
+model-level weapons, pending detailed legal-loadout configuration. The existing
+17 tested units are not changed.
+
+The `publish-aeldari-full.yml` GitHub Action validates and publishes v7 to
+`main` when the source importer is merged. New Recruit can then refresh
+the existing custom Aeldari catalogue from the same GitHub file.
 
 ## New Recruit preview release — v6
 
