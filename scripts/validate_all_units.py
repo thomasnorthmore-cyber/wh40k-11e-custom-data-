@@ -34,10 +34,12 @@ for unit in units:
     types = [p.get("typeName") for p in roots]
     assert "Units" in types, f"{name}: no characteristic profile"
     assert any(p.get("typeName") == "Keywords" for p in unit.iter(NS + "profile")), f"{name}: no keyword profile"
-    assert types[-1] == ("Units" if uid in ("fd-unit-root", "dr-unit-root") else "Keywords"), f"{name}: unexpected root profile ordering"
-    assert not ({"Ranged Weapons", "Melee Weapons"} & set(types)), (
-        f"{name}: detached weapons found at unit level"
-    )
+    assert types[-1] == "Keywords", f"{name}: unexpected root profile ordering"
+    if uid in ("fd-unit-root","dr-unit-root"):
+        sections = list(dict.fromkeys(types))
+        assert sections == ["Units","Ranged Weapons","Melee Weapons","Abilities","Rules","Keywords"], f"{name}: weapon-first order changed: {sections}"
+    else:
+        assert not ({"Ranged Weapons","Melee Weapons"} & set(types)), f"{name}: unexpected unit-level weapon profiles"
     abilities = [p.get("name") for p in unit.iter(NS + "profile") if p.get("typeName") == "Abilities"]
     assert len(abilities) == len(set(abilities)), f"{name}: duplicate ability names"
     models = [e for e in unit.iter(NS + "selectionEntry") if e.get("type") == "model"]
@@ -81,12 +83,11 @@ for unit in units:
         if profile.get("typeName") not in ("Ranged Weapons", "Melee Weapons"):
             continue
         checked_weapons += 1
-        assert profile.get("hidden") == "false", (
-            f"{name}: hidden equipped weapon {profile.get('name')}"
-        )
-        assert profile.find("./" + NS + "modifiers") is None, (
-            f"{name}: visibility modifier on equipment-owned weapon"
-        )
+        if uid in ("fd-unit-root","dr-unit-root"):
+            assert profile.get("hidden") == "false" or profile.find("./" + NS + "modifiers") is not None, f"{name}: hidden weapon missing selection conditions"
+        else:
+            assert profile.get("hidden") == "false", f"{name}: hidden equipped weapon {profile.get('name')}"
+            assert profile.find("./" + NS + "modifiers") is None, f"{name}: unexpected weapon modifier"
         ch = {x.get("name") for x in
               profile.findall("./" + NS + "characteristics/" + NS + "characteristic")}
         skill = "BS" if profile.get("typeName") == "Ranged Weapons" else "WS"

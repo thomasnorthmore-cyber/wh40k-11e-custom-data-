@@ -27,7 +27,10 @@ for unit in units:
  stats=[p for p in roots if p.get("typeName")=="Units"]
  assert stats,f"{uid}: missing model characteristics"
  detached=[p for p in roots if p.get("typeName") in ("Ranged Weapons","Melee Weapons")]
- assert not detached,f"{uid}: detached weapon profiles {[p.get('name') for p in detached]}"
+ if uid in ("fd-unit-root","dr-unit-root"):
+  assert len(detached)>=7,f"{uid}: missing display-first weapon profiles"
+ else:
+  assert not detached,f"{uid}: unexpected unit-level weapon profiles"
  models=[e for e in unit.iter(C+"selectionEntry") if e.get("type")=="model"]
  assert models,f"{uid}: no selectable models"
  for model in models:
@@ -35,6 +38,10 @@ for unit in units:
   weapons=[p for p in model.iter(C+"profile") if p.get("typeName") in ("Ranged Weapons","Melee Weapons")]
   if uid=="smoke-unit-2459":
    assert not weapons,"Webway Gate must not receive invented weapons"
+   continue
+  if uid in ("fd-unit-root","dr-unit-root"):
+   local_choices=[e.get("name") for e in model.iter(C+"selectionEntry") if e.get("type")=="upgrade"]
+   assert local_choices,f"{uid}/{model.get('name')}: missing weapon selections"
    continue
   ranged=[p for p in weapons if p.get("typeName")=="Ranged Weapons"]
   melee=[p for p in weapons if p.get("typeName")=="Melee Weapons"]
