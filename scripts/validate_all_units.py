@@ -93,5 +93,45 @@ for unit in units:
         assert {"Range", "A", skill, "S", "AP", "D"} <= ch, (
             f"{name}: missing weapon characteristics for {profile.get('name')}"
         )
+
+# Shared aspect equipment labels must remain consistent across units.
+by_id = {u.get("id"): u for u in units}
+token_names = []
+for uid, token_id in (("fd-unit-root", "fd-token-5"),
+                      ("dr-unit-root", "dr-aspect-token")):
+    token = next((e for e in by_id[uid].iter(NS + "selectionEntry")
+                  if e.get("id") == token_id), None)
+    assert token is not None, f"{uid}: missing Aspect Shrine Token"
+    token_names.append(token.get("name"))
+assert token_names == ["Aspect Shrine Token (1 per 5 models)"] * 2, (
+    f"Nonstandard Aspect Shrine Token labels: {token_names}"
+)
+
+# Squad-size points conditions must count the chosen models, not their wargear.
+for uid, model_id, size_trigger, full_size_points in (
+    ("smoke-unit-591", "smoke-591-model-0", "4", "170"),
+    ("smoke-unit-605", "smoke-605-model-0", "2", "140"),
+    ("smoke-unit-612", "smoke-612-model-0", "2", "160"),
+):
+    matches = [
+        modifier for modifier in by_id[uid].findall(
+            "./" + NS + "modifiers/" + NS + "modifier"
+        )
+        if modifier.get("field") == "pts-11e0"
+        and modifier.get("value") == full_size_points
+    ]
+    assert len(matches) == 1, f"{uid}: missing large-squad points tier"
+    conditions = matches[0].findall(
+        "./" + NS + "conditions/" + NS + "condition"
+    )
+    assert len(conditions) == 1, f"{uid}: unexpected points conditions"
+    c = conditions[0]
+    assert (c.get("childId") == model_id
+            and c.get("value") == size_trigger
+            and c.get("includeChildSelections") == "true"), (
+        f"{uid}: model-count points condition not configured consistently"
+    )
+assert int(catalogue.get("revision")) >= 3, "Updated catalogue must publish v3"
+
 print(f"PASS: {len(units)} units, {checked_models} model entries, "
       f"{checked_groups} choice groups, {checked_weapons} weapon profiles")
