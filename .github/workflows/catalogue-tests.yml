@@ -19,3 +19,5 @@ jobs:
         run: python scripts/validate_catalogue.py
       - name: Validate role-category samples
         run: python scripts/validate_category_smoke.py
+      - name: Validate multi-wargear selections
+        run: python scripts/validate_multi_wargear.py
