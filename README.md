@@ -27,6 +27,26 @@ python scripts/build_catalogue.py --out /tmp/Aeldari-generated.cat
 
 See [structured migration documentation](data/structured/README.md).
 
+## Standalone catalogue export
+
+Both the Aeldari catalogue and custom 11th Edition game-system XML can now
+be generated directly from JSON, without loading the existing XML template.
+
+```sh
+python scripts/export_standalone.py --check
+python scripts/export_standalone.py --out-dir /tmp/standalone
+python scripts/yellowscribe_compat.py --audit my-roster.rosz
+```
+
+The first version uses a JSON representation of the legacy XML structure,
+overlaid with our four structured Aeldari data layers. It is independent of
+the original `.cat` as a generation input, but it is not yet a fully
+semantic, faction-generic New Recruit JSON exporter.
+
+Yellowscribe formatting can be checked and normalized with
+`scripts/yellowscribe_compat.py`; models with root-level weapons may
+still require a proper model-ownership export fix.
+
 ## Roadmap
 
 - [x] Establish a New Recruit-compatible test catalogue with 17 Aeldari units.
