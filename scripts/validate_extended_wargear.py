@@ -75,8 +75,9 @@ for id, groups in specs.items():
  for profile in conditional:
   assert profile.get("hidden")=="true", f"{id}: optional weapon visible by default"
   con=profile.findall("./"+C+"modifiers/"+C+"modifier/"+C+"conditions/"+C+"condition")
-  assert len(con)==1, f"{id}: weapon requires one selection trigger"
+  assert 1<=len(con)<=2, f"{id}: weapon requires one selection trigger and optional higher-count hide condition"
   trigger=con[0].get("childId")
+  assert all(c.get("childId")==trigger for c in con), f"{id}: inconsistent weapon quantity triggers"
   assert trigger in options, f"{id}: missing selection {trigger}"
   triggers.add(trigger)
  assert triggers==options, f"{id}: option without a display profile {options-triggers}"
