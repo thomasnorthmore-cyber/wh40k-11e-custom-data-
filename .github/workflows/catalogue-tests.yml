@@ -17,3 +17,5 @@ jobs:
           python-version: '3.12'
       - name: Validate catalogue structure
         run: python scripts/validate_catalogue.py
+      - name: Validate role-category samples
+        run: python scripts/validate_category_smoke.py
