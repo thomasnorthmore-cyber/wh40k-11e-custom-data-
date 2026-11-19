@@ -24,7 +24,7 @@ from apply_mechanics import apply_mechanics
 from loadout_rules import apply as apply_loadout_slots
 
 ROOT = Path(__file__).resolve().parents[1]
-CATALOGUE = ROOT / "Aeldari 11e TEST.cat"
+CATALOGUE = ROOT / "tests/fixtures/aeldari-v6.cat"
 MANIFEST = ROOT / "data" / "structured" / "aeldari-pilot.json"
 DATASHEETS = ROOT / "data" / "structured" / "aeldari-datasheets.json"
 MECHANICS = ROOT / "data" / "structured" / "aeldari-mechanics.json"
