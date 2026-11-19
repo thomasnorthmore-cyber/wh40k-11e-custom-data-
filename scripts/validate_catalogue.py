@@ -31,8 +31,9 @@ def check():
         require(any(x.get("primary") == "true" and x.get("name") == "Infantry" for x in cats), f"{unit_id}: not Infantry")
         profiles = u.findall("./" + NS + "profiles/" + NS + "profile")
         sections = list(dict.fromkeys(p.get("typeName") for p in profiles))
-        require(sections == types, f"{unit_id}: incorrect datasheet section order: {sections}")
-        require(not u.findall(".//" + NS + "selectionEntry/" + NS + "profiles/" + NS + "profile"), f"{unit_id}: weapon profile nested under a model or weapon choice")
+        require(sections == ["Units", "Abilities", "Rules", "Keywords"], f"{unit_id}: incorrect unit-level section order: {sections}")
+        require(not [p for p in profiles if p.get("typeName") in ("Ranged Weapons", "Melee Weapons")], f"{unit_id}: detached weapon profiles remain")
+        require(len([p for p in u.iter(NS+"profile") if p.get("typeName") in ("Ranged Weapons", "Melee Weapons")]) >= 7, f"{unit_id}: missing equipment-owned weapon profiles")
         models = [e for e in u.findall(".//" + NS + "selectionEntry") if e.get("id") == model_id]
         require(len(models) == 1, f"{unit_id}: missing regular model")
         names = [e.get("name") for e in models[0].findall("./" + NS + "selectionEntries/" + NS + "selectionEntry")]
@@ -42,10 +43,9 @@ def check():
         require(any(m.get("value") == points for m in modifiers), f"{unit_id}: higher squad-size points missing")
         choices = [x for x in u.findall(".//" + NS + "selectionEntry") if x.get("id", "").startswith(choice_prefix) and x.get("id", "").count("-") <= (4 if unit_id == "dr-unit-root" else 5)]
         require(len(choices) >= 4, f"{unit_id}: expected four Exarch weapon choices")
-        for p in profiles:
-            if p.get("hidden") == "true" and p.get("typeName") in ("Ranged Weapons", "Melee Weapons"):
-                cond = p.find("./" + NS + "modifiers/" + NS + "modifier/" + NS + "conditions/" + NS + "condition")
-                require(cond is not None and cond.get("childId"), f"{unit_id}: conditional Exarch weapon without selection trigger")
+        for p in u.iter(NS+"profile"):
+            if p.get("typeName") in ("Ranged Weapons", "Melee Weapons"):
+                require(p.get("hidden") == "false" and p.find("./"+NS+"modifiers") is None, f"{unit_id}: equipped weapon profile must be visible without detached triggers")
     print("PASS: three independent units, Infantry, section order, model equipment, Exarch options and pricing modifiers")
 
 if __name__ == "__main__":
