@@ -81,33 +81,34 @@ for id, groups in specs.items():
   triggers.add(trigger)
  assert triggers==options, f"{id}: option without a display profile {options-triggers}"
 assert len(specs)==8
-# Each War Walker is independently selectable and has exactly two heavy weapons.
+# War Walkers use the New Recruit stacked-model quantity selector:
+# one 1-2 model entry, with a separate 2-of-2 weapon group on each model.
 walker=units["smoke-unit-612"]
-walker_models=walker.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
-assert [m.get("id") for m in walker_models]==["ww-model-1","ww-model-2"], "Expected two independent War Walker model slots"
-assert not walker.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"), "War Walkers must not use a shared weapon pool"
-for index, model in enumerate(walker_models, start=1):
- limits={x.get("type"):int(x.get("value")) for x in model.findall("./"+C+"constraints/"+C+"constraint")}
- assert limits=={"min":1 if index==1 else 0,"max":1}, f"Walker {index}: wrong model limits {limits}"
- groups=model.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup")
- assert len(groups)==1 and groups[0].get("id")==f"ww-{index}-weapons", f"Walker {index}: missing own heavy weapon choices"
- group=groups[0]
- limits={x.get("type"):int(x.get("value")) for x in group.findall("./"+C+"constraints/"+C+"constraint")}
- assert limits=={"min":2,"max":2}, f"Walker {index}: must choose exactly two weapons"
- choices=group.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
- assert len(choices)==5, f"Walker {index}: missing heavy weapon types"
- assert group.get("defaultSelectionEntryId")==f"ww-{index}-shuriken", "Default shuriken cannon must exist"
- for choice in choices:
-  limits={x.get("type"):int(x.get("value")) for x in choice.findall("./"+C+"constraints/"+C+"constraint")}
-  assert limits=={"min":0,"max":2}, f"Walker {index}: wrong quantities for {choice.get('name')}"
-  p=choice.findall("./"+C+"profiles/"+C+"profile")
-  expected=2 if "missile" in choice.get("id") else 1
-  assert len(p)==expected, f"Walker {index}: missing equipment-owned weapon profile(s)"
-  assert all(pr.get("hidden")=="false" and pr.find("./"+C+"modifiers") is None for pr in p), f"Walker {index}: selected weapon must have a directly linked profile"
- feet=next((e for e in model.findall("./"+C+"selectionEntries/"+C+"selectionEntry") if e.get("name")=="War Walker feet"),None)
- assert feet is not None and len(feet.findall("./"+C+"profiles/"+C+"profile"))==1, f"Walker {index}: no melee equipment"
-profile_types=list(dict.fromkeys(p.get("typeName") for p in walker.findall("./"+C+"profiles/"+C+"profile")))
-assert profile_types==["Units","Abilities","Keywords"], f"Detached War Walker weapon tables still exist: {profile_types}"
-pmods=walker.findall("./"+C+"modifiers/"+C+"modifier")
-assert any(m.get("field")=="pts-11e0" and m.get("value")=="160" and any(c.get("childId")=="ww-model-2" and c.get("value")=="1" for c in m.findall(".//"+C+"condition")) for m in pmods), "160 points must trigger when second War Walker is selected"
-print("PASS: 8 other wargear units and two independently equipped War Walkers with 80/160 pricing")
+models=walker.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
+assert len(models)==1 and models[0].get("id")=="smoke-612-model-0", "War Walker must be one model counter, not individual checkboxes"
+model=models[0]
+limits={x.get("type"):int(x.get("value")) for x in model.findall("./"+C+"constraints/"+C+"constraint")}
+assert limits=={"min":1,"max":2}, f"War Walker must have numeric model quantity 1-2, found {limits}"
+assert not walker.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"), "Shared squad weapon pool remains"
+groups=model.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup")
+assert len(groups)==1 and groups[0].get("id")=="mul-612-mounts", "Missing per-model heavy weapon group"
+group=groups[0]
+limits={x.get("type"):int(x.get("value")) for x in group.findall("./"+C+"constraints/"+C+"constraint")}
+assert limits=={"min":2,"max":2}, "Each walker must have two heavy weapons"
+choices=group.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
+assert len(choices)==5
+assert group.get("defaultSelectionEntryId")=="mul-612-mounts-shuriken", "Default choice must be Shuriken cannon"
+for choice in choices:
+ limits={x.get("type"):int(x.get("value")) for x in choice.findall("./"+C+"constraints/"+C+"constraint")}
+ assert limits=={"min":0,"max":2}, f"Weapon {choice.get('name')} must support 0-2 copies"
+ profiles=choice.findall("./"+C+"profiles/"+C+"profile")
+ expected=2 if "missile" in choice.get("id") else 1
+ assert len(profiles)==expected, f"{choice.get('name')}: missing equipment-owned weapon profiles"
+ assert all(p.get("hidden")=="false" and p.find("./"+C+"modifiers") is None for p in profiles), "Weapon profile must be directly owned by its selection"
+feet=next((x for x in model.findall("./"+C+"selectionEntries/"+C+"selectionEntry") if x.get("name")=="War Walker feet"),None)
+assert feet is not None and len(feet.findall("./"+C+"profiles/"+C+"profile"))==1, "Per-model melee weapon missing"
+types=list(dict.fromkeys(p.get("typeName") for p in walker.findall("./"+C+"profiles/"+C+"profile")))
+assert types==["Units","Abilities","Keywords"], f"Detached War Walker profiles remain: {types}"
+points=walker.findall("./"+C+"modifiers/"+C+"modifier")
+assert any(m.get("field")=="pts-11e0" and m.get("value")=="160" and any(c.get("childId")=="smoke-612-model-0" and c.get("value")=="2" for c in m.findall(".//"+C+"condition")) for m in points), "Two-Walker points condition must trigger at two models"
+print("PASS: other wargear units plus stacked 1-2 War Walkers with per-model 2-weapon loadouts")
