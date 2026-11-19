@@ -20,10 +20,13 @@ import json
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
+from apply_mechanics import apply_mechanics
+
 ROOT = Path(__file__).resolve().parents[1]
 CATALOGUE = ROOT / "Aeldari 11e TEST.cat"
 MANIFEST = ROOT / "data" / "structured" / "aeldari-pilot.json"
 DATASHEETS = ROOT / "data" / "structured" / "aeldari-datasheets.json"
+MECHANICS = ROOT / "data" / "structured" / "aeldari-mechanics.json"
 NS_URI = "http://www.battlescribe.net/schema/catalogueSchema"
 N = "{" + NS_URI + "}"
 ET.register_namespace("", NS_URI)
@@ -209,8 +212,16 @@ def apply_datasheets(template: ET.Element, data: dict) -> ET.Element:
     return template
 
 
-def apply_all(template: ET.Element, manifest: dict, datasheets: dict) -> ET.Element:
-    return apply_datasheets(apply_pilot(template, manifest), datasheets)
+def apply_all(template: ET.Element, manifest: dict, datasheets: dict,
+              mechanics: dict | None = None) -> ET.Element:
+    if mechanics is None:
+        mechanics = json.loads(MECHANICS.read_text(encoding="utf-8"))
+    # Apply mechanics first; the dedicated points and equipment datasets
+    # intentionally take precedence over overlapping generic metadata.
+    apply_mechanics(template, mechanics, datasheets)
+    apply_pilot(template, manifest)
+    apply_datasheets(template, datasheets)
+    return template
 
 
 def canonical(root: ET.Element) -> str:
@@ -264,7 +275,24 @@ def self_test() -> None:
     choice["name"] += " (STRUCTURED EDIT TEST)"
     assert canonical(apply_all(copy.deepcopy(source), manifest, selection_variant)) != canonical(source), (
         "Structured wargear choice labels were ignored")
-    print("PASS: structured points, weapon stats, ability text and gear labels drive generation")
+    mechanics = json.loads(MECHANICS.read_text(encoding="utf-8"))
+    changed_rules = copy.deepcopy(mechanics)
+    rule = next(r for u in changed_rules["units"] for r in u["native_rules"])
+    rule["description"] += " [STRUCTURED EDIT TEST]"
+    assert canonical(apply_all(copy.deepcopy(source), manifest, datasheets, changed_rules)) != canonical(source), (
+        "Native rules text does not drive generation")
+    changed_keywords = copy.deepcopy(mechanics)
+    keyword = next(p for u in changed_keywords["units"] for p in u["unit_profiles"]
+                   if p["attrs"].get("typeName") == "Keywords")
+    keyword["characteristics"][0]["value"] += ", Structured Test"
+    assert canonical(apply_all(copy.deepcopy(source), manifest, datasheets, changed_keywords)) != canonical(source), (
+        "Structured keywords do not drive generation")
+    changed_condition = copy.deepcopy(mechanics)
+    condition = next(c for u in changed_condition["units"] for c in u["conditions"])
+    condition["attrs"]["value"] = str(int(condition["attrs"]["value"]) + 1)
+    assert canonical(apply_all(copy.deepcopy(source), manifest, datasheets, changed_condition)) != canonical(source), (
+        "Structured modifier conditions do not drive generation")
+    print("PASS: structured points, weapons, abilities, gear labels, native rules, keywords and conditions drive generation")
 
 
 def main() -> None:
