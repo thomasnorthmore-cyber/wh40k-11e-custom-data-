@@ -10,7 +10,6 @@ specs={
  "582":[("staff",1,1,2)],"583":[("staff",1,1,2)],
  "591":[("bike",3,3,3)],
  "605":[("main",1,1,3),("secondary",1,1,2)],
- "612":[("mounts",2,2,5)],
  "589":[("platform",1,1,5)],
  "603":[("wings",1,1,2)],
  "621":[("secondary",1,1,5)],
@@ -19,7 +18,6 @@ specs={
 variable = {
  "591":{"model":(3,6),"cost":(80,170),"ratio":{"bike":1}},
  "605":{"model":(1,2),"cost":(75,140),"ratio":{"main":1,"secondary":1}},
- "612":{"model":(1,2),"cost":(80,160),"ratio":{"mounts":2}},
 }
 for id, groups in specs.items():
  u=units[f"smoke-unit-{id}"]
@@ -82,5 +80,37 @@ for id, groups in specs.items():
   assert trigger in options, f"{id}: missing selection {trigger}"
   triggers.add(trigger)
  assert triggers==options, f"{id}: option without a display profile {options-triggers}"
-assert len(specs)==9
-print("PASS: 9 test units have weapon alternatives; variable-size Windriders, Vypers and War Walkers scale weapon counts and points")
+assert len(specs)==8
+# War Walkers: two separately equipped models, each with independent 2/2 guns.
+walker=units["smoke-unit-612"]
+walker_models={m.get("id"):m for m in walker.findall("./"+C+"selectionEntries/"+C+"selectionEntry")}
+assert set(walker_models)=={"smoke-612-model-0","smoke-612-model-1"}, "War Walkers must be separate model selections"
+for index,expected in ((0,{"min":1,"max":1}),(1,{"min":0,"max":1})):
+ model=walker_models[f"smoke-612-model-{index}"]
+ model_limits={c.get("type"):int(c.get("value")) for c in model.findall("./"+C+"constraints/"+C+"constraint")}
+ assert model_limits==expected, f"Walker {index+1}: model limits wrong"
+ gid="mul-612-mounts"+("-2" if index else "")
+ groups=model.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup")
+ assert len(groups)==1 and groups[0].get("id")==gid, f"Walker {index+1}: missing independent weapon group"
+ group=groups[0]
+ limits={c.get("type"):int(c.get("value")) for c in group.findall("./"+C+"constraints/"+C+"constraint")}
+ assert limits=={"min":2,"max":2}, f"Walker {index+1}: must equip exactly two guns"
+ choices=group.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
+ assert len(choices)==5, f"Walker {index+1}: missing weapon options"
+ ids={c.get("id") for c in choices}
+ assert group.get("defaultSelectionEntryId") in ids, f"Walker {index+1}: invalid default"
+ for choice in choices:
+  max_value=next(c.get("value") for c in choice.findall("./"+C+"constraints/"+C+"constraint") if c.get("type")=="max")
+  assert int(max_value)==2, f"Walker {index+1}: max per weapon should be two"
+assert not walker.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"), "Shared squad-level weapon pool still present"
+pmods=walker.findall("./"+C+"modifiers/"+C+"modifier")
+assert any(m.get("field")=="pts-11e0" and m.get("value")=="160" and
+ any(c.get("childId")=="smoke-612-model-1" and c.get("value")=="1" for c in m.findall(".//"+C+"condition"))
+ for m in pmods), "160-point price does not trigger on second model"
+wprofiles=[p for p in walker.findall("./"+C+"profiles/"+C+"profile") if p.get("id","").startswith("mul-612-p-")]
+assert len(wprofiles)==12, f"Expected 6 weapon modes per walker; found {len(wprofiles)}"
+triggers={c.get("childId") for p in wprofiles for c in p.findall(".//"+C+"condition")}
+for index in (0,1):
+ group=walker_models[f"smoke-612-model-{index}"].find("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup")
+ assert {c.get("id") for c in group.findall("./"+C+"selectionEntries/"+C+"selectionEntry")} <= triggers
+print("PASS: 8 other wargear test units plus separately equipped two-model War Walkers, 80/160 pricing and per-model heavy weapons")
