@@ -144,6 +144,10 @@ def apply_datasheets(template: ET.Element, data: dict) -> ET.Element:
     """Apply canonical weapon stats, abilities, selection labels and equipment constraints."""
     require(data["schema_version"] == 1 and data["edition"] == "11th", "Unsupported datasheet format")
     units = direct_units(template)
+    names = [u["id"] for u in data["units"]]
+    require(len(names) == len(set(names)), "Duplicate structured unit IDs")
+    require(set(names) == set(units),
+            f"Structured datasheets must cover all units, missing={sorted(set(units)-set(names))}")
     for record in data["units"]:
         uid = record["id"]
         require(uid in units and units[uid].get("name") == record["name"], f"Missing unit {uid}")
@@ -222,8 +226,10 @@ def check() -> None:
             "Structured data and checked-in catalogue differ. Regenerate and review differences.")
     require(source.get("revision") == str(manifest["source_revision"]),
             "Manifest source revision does not match checked-in catalogue")
-    print(f"PASS: {len(manifest['units'])} structured units match v{source.get('revision')} "
-          "without any change to their selection IDs or equipment profiles")
+    print(f"PASS: {len(datasheets['units'])} structured units, "
+          f"{sum(len(u['profiles']) for u in datasheets['units'])} weapon/ability profiles, "
+          f"{sum(len(u['selections']) for u in datasheets['units'])} model/gear entries "
+          f"match v{source.get('revision')} with no XML changes")
 
 
 def self_test() -> None:
@@ -246,7 +252,19 @@ def self_test() -> None:
     changed = apply_all(copy.deepcopy(source), manifest, alternate)
     require(canonical(changed) != canonical(source),
             "Changing structured weapon characteristics did not alter generated catalogue")
-    print("PASS: changing structured points and weapon stats changes generated catalogue")
+    ability_variant = copy.deepcopy(datasheets)
+    ability = next(p for u in ability_variant["units"] for p in u["profiles"]
+                   if p["type_name"] == "Abilities")
+    ability["characteristics"][0]["value"] += " [STRUCTURED EDIT TEST]"
+    assert canonical(apply_all(copy.deepcopy(source), manifest, ability_variant)) != canonical(source), (
+        "Structured ability edits were ignored")
+    selection_variant = copy.deepcopy(datasheets)
+    choice = next(e for u in selection_variant["units"] for e in u["selections"]
+                  if e["kind"] == "upgrade" and "bounds" not in e)
+    choice["name"] += " (STRUCTURED EDIT TEST)"
+    assert canonical(apply_all(copy.deepcopy(source), manifest, selection_variant)) != canonical(source), (
+        "Structured wargear choice labels were ignored")
+    print("PASS: structured points, weapon stats, ability text and gear labels drive generation")
 
 
 def main() -> None:
