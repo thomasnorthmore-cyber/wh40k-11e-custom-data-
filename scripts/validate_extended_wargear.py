@@ -16,6 +16,11 @@ specs={
  "621":[("secondary",1,1,5)],
  "599":[("turret",1,1,5),("under",1,1,2)],
 }
+variable = {
+ "591":{"model":(3,6),"cost":(80,170),"ratio":{"bike":1}},
+ "605":{"model":(1,2),"cost":(75,140),"ratio":{"main":1,"secondary":1}},
+ "612":{"model":(1,2),"cost":(80,160),"ratio":{"mounts":2}},
+}
 for id, groups in specs.items():
  u=units[f"smoke-unit-{id}"]
  all_groups={x.get("id"):x for x in u.findall(".//"+C+"selectionEntryGroup")}
@@ -34,11 +39,31 @@ for id, groups in specs.items():
   assert len(children)==noptions, f"{gid}: wrong number of options"
   childids={x.get("id") for x in children}
   assert group.get("defaultSelectionEntryId") in childids, f"{gid}: no valid default"
+  if id in variable:
+   model_id=f"smoke-{id}-model-0"
+   model=[x for x in u.findall(".//"+C+"selectionEntry") if x.get("id")==model_id]
+   assert len(model)==1, f"{id}: missing variable-size model"
+   model_constraints={x.get("type"):int(x.get("value")) for x in model[0].findall("./"+C+"constraints/"+C+"constraint")}
+   assert model_constraints==dict(zip(("min","max"),variable[id]["model"])), f"{id}: invalid unit size"
+   assert group in u.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"), f"{gid}: counters must be squad level"
+   mods=group.findall("./"+C+"modifiers/"+C+"modifier")
+   expected=2*(variable[id]["model"][1]-variable[id]["model"][0])
+   assert len(mods)==expected, f"{gid}: expected {expected} dynamic count modifiers"
+   ratio=variable[id]["ratio"][key]
+   for size in range(variable[id]["model"][0]+1,variable[id]["model"][1]+1):
+    matches=[m for m in mods if m.get("value")==str(size*ratio) and
+      any(c.get("value")==str(size) and c.get("childId")==model_id for c in m.findall(".//"+C+"condition"))]
+    assert len(matches)==2, f"{gid}: missing min/max weapon counts at {size} models"
+   cost=u.find("./"+C+"costs/"+C+"cost")
+   assert float(cost.get("value"))==variable[id]["cost"][0]
+   pmods=u.findall("./"+C+"modifiers/"+C+"modifier")
+   assert any(m.get("value")==str(variable[id]["cost"][1]) for m in pmods), f"{id}: higher points missing"
   assert childids.isdisjoint(options), f"{gid}: duplicate child ID"
   options |= childids
   for child in children:
    limits={x.get("type"):int(x.get("value")) for x in child.findall("./"+C+"constraints/"+C+"constraint")}
-   assert limits=={"min":0,"max":high}, f"{gid}: invalid model quantity control"
+   expected_max=variable[id]["model"][1]*variable[id]["ratio"][key] if id in variable else high
+   assert limits=={"min":0,"max":expected_max}, f"{gid}: invalid equipment quantity limit {limits}"
  conditional=[p for p in profiles if p.get("id","").startswith(f"mul-{id}-p-")]
  assert conditional, f"{id}: missing conditional weapon profiles"
  triggers=set()
@@ -51,4 +76,4 @@ for id, groups in specs.items():
   triggers.add(trigger)
  assert triggers==options, f"{id}: option without a display profile {options-triggers}"
 assert len(specs)==9
-print("PASS: 9 additional test units have source-based weapon alternatives, quantity limits, default selections, conditional profiles and display order")
+print("PASS: 9 test units have weapon alternatives; variable-size Windriders, Vypers and War Walkers scale weapon counts and points")
