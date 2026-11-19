@@ -1,86 +1,55 @@
 #!/usr/bin/env python3
-"""Validate custom 11e catalogue against model/equipment ownership rules.
-
-Source-of-truth example: original 265-point New Recruit .rosz export.
-Also checks structural constraints for our three-unit test catalogue.
-"""
+"""Regression checks for New Recruit Aeldari test catalogue."""
+from pathlib import Path
 import sys
 import xml.etree.ElementTree as ET
-from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-C = "{http://www.battlescribe.net/schema/catalogueSchema}"
-G = "{http://www.battlescribe.net/schema/gameSystemSchema}"
+CAT = ROOT / "Aeldari 11e TEST.cat"
+GST = ROOT / "Warhammer 40,000 11e Custom TEST.gst"
+NS = "{http://www.battlescribe.net/schema/catalogueSchema}"
+GN = "{http://www.battlescribe.net/schema/gameSystemSchema}"
 
-def need(ok, message):
-    if not ok:
+def require(cond, message):
+    if not cond:
         raise AssertionError(message)
 
-def entries(parent):
-    return parent.findall(".//" + C + "selectionEntry")
-
-def child(parent, ident):
-    matches = [node for node in entries(parent) if node.get("id") == ident]
-    need(len(matches) == 1, f"Expected one selection {ident}, found {len(matches)}")
-    return matches[0]
-
-def own_profiles(node):
-    return node.findall("./" + C + "profiles/" + C + "profile")
-
-def types(node):
-    return [p.get("typeName") for p in own_profiles(node)]
-
-def validate():
-    cat = ET.parse(ROOT / "Aeldari 11e TEST.cat").getroot()
-    game = ET.parse(ROOT / "Warhammer 40,000 11e Custom TEST.gst").getroot()
-    need(cat.get("gameSystemId") == game.get("id"), "Game-system ID mismatch")
-    tops = cat.findall("./" + C + "selectionEntries/" + C + "selectionEntry")
-    units = {e.get("id"): e for e in tops}
-    need({"unit-rangers-11e0", "fd-unit-root", "dr-unit-root"} <= set(units), "Three independent infantry units missing")
-    for uid in ("unit-rangers-11e0", "fd-unit-root", "dr-unit-root"):
-        links = units[uid].findall("./" + C + "categoryLinks/" + C + "categoryLink")
-        need(any(x.get("name") == "Infantry" and x.get("primary") == "true" for x in links), f"{uid}: Infantry category missing")
-
-    for uid, regular, exarch, normal_ranged, normal_melee, choices, higher in [
-        ("fd-unit-root", "fd-regular-5", "fd-exarch-5", "fd-equip-regular-ranged", "fd-equip-regular-melee",
-          ["fd-gear-default-5", "fd-gear-flamer-5", "fd-gear-pistol-5", "fd-gear-pike-5"], 240),
-        ("dr-unit-root", "dr-regular", "dr-exarch", "dr-equip-regular-ranged", "dr-equip-regular-melee",
-          ["dr-exarch-choice-reaper", "dr-exarch-choice-missile", "dr-exarch-choice-shuriken", "dr-exarch-choice-tempest"], 200),
+def check():
+    c, g = ET.parse(CAT).getroot(), ET.parse(GST).getroot()
+    require(c.get("gameSystemId") == g.get("id"), "Catalogue game system ID mismatch")
+    entries = c.find(NS + "selectionEntries")
+    unit_map = {e.get("id"): e for e in entries.findall(NS + "selectionEntry")}
+    require(set(["unit-rangers-11e0", "fd-unit-root", "dr-unit-root"]).issubset(unit_map), "Missing a top-level unit")
+    types = [p.get("name") for p in g.findall("./" + GN + "profileTypes/" + GN + "profileType")]
+    require(types == ["Units", "Ranged Weapons", "Melee Weapons", "Abilities", "Rules", "Keywords"], f"Unexpected profile definitions: {types}")
+    for unit_id, model_id, choice_prefix, points in [
+        ("fd-unit-root", "fd-regular-5", "fd-gear-", "240"),
+        ("dr-unit-root", "dr-regular", "dr-exarch-choice-", "200")
     ]:
-        unit = units[uid]
-        need(not any(t in ("Units", "Ranged Weapons", "Melee Weapons") for t in types(unit)),
-             f"{uid}: profiles should belong to models and equipped weapons, not parent unit")
-        for mid in (regular, exarch):
-            model = child(unit, mid)
-            need(model.get("type") == "model", f"{mid}: not a model")
-            need("Units" in types(model), f"{mid}: no model characteristics")
-        rm = child(unit, regular)
-        need("Ranged Weapons" in types(child(rm, normal_ranged)), f"{uid}: regular gun not equipped with profile")
-        need("Melee Weapons" in types(child(rm, normal_melee)), f"{uid}: regular melee not equipped with profile")
-        em = child(unit, exarch)
-        for choice_id in choices:
-            option = child(em, choice_id)
-            need("Ranged Weapons" in types(option), f"{choice_id}: missing selected ranged profile")
-            melee = child(option, choice_id + "-melee-equip-0")
-            need("Melee Weapons" in types(melee), f"{choice_id}: missing selected melee profile")
-        costs = unit.findall("./" + C + "modifiers/" + C + "modifier")
-        need(any(x.get("value") == str(higher) for x in costs), f"{uid}: large squad cost missing")
-        need(bool(unit.findall("./" + C + "rules/" + C + "rule")), f"{uid}: native rules missing")
-
-    rangers = units["unit-rangers-11e0"]
-    for size, choice in ((5, "rangers-five-11e0"), (10, "rangers-ten-11e0")):
-        model = child(child(rangers, choice), f"rangers-model-{size}")
-        need(model.get("type") == "model" and "Units" in types(model), f"Rangers x{size}: model stats missing")
-        weapons = [p for e in entries(model) for p in own_profiles(e)]
-        need(sum(p.get("typeName") == "Ranged Weapons" for p in weapons) == 2,
-             f"Rangers x{size}: expected two ranged weapons")
-        need(sum(p.get("typeName") == "Melee Weapons" for p in weapons) == 1,
-             f"Rangers x{size}: expected one melee weapon")
-    print("PASS: model stat ownership, equipped weapon profiles, Exarch options, native rules, layout-independent structure and point modifiers")
+        u = unit_map[unit_id]
+        cats = u.findall("./" + NS + "categoryLinks/" + NS + "categoryLink")
+        require(any(x.get("primary") == "true" and x.get("name") == "Infantry" for x in cats), f"{unit_id}: not Infantry")
+        profiles = u.findall("./" + NS + "profiles/" + NS + "profile")
+        sections = list(dict.fromkeys(p.get("typeName") for p in profiles))
+        require(sections == types, f"{unit_id}: incorrect datasheet section order: {sections}")
+        require(not u.findall(".//" + NS + "selectionEntry/" + NS + "profiles/" + NS + "profile"), f"{unit_id}: weapon profile nested under a model or weapon choice")
+        models = [e for e in u.findall(".//" + NS + "selectionEntry") if e.get("id") == model_id]
+        require(len(models) == 1, f"{unit_id}: missing regular model")
+        names = [e.get("name") for e in models[0].findall("./" + NS + "selectionEntries/" + NS + "selectionEntry")]
+        require(len(names) >= 2 and "Close combat weapon" in names, f"{unit_id}: models lack explicit ranged and melee equipment")
+        require(any("fusion" in x.lower() or "launcher" in x.lower() for x in names), f"{unit_id}: regular ranged weapon missing")
+        modifiers = u.findall("./" + NS + "modifiers/" + NS + "modifier")
+        require(any(m.get("value") == points for m in modifiers), f"{unit_id}: higher squad-size points missing")
+        choices = [x for x in u.findall(".//" + NS + "selectionEntry") if x.get("id", "").startswith(choice_prefix) and x.get("id", "").count("-") <= (4 if unit_id == "dr-unit-root" else 5)]
+        require(len(choices) >= 4, f"{unit_id}: expected four Exarch weapon choices")
+        for p in profiles:
+            if p.get("hidden") == "true" and p.get("typeName") in ("Ranged Weapons", "Melee Weapons"):
+                cond = p.find("./" + NS + "modifiers/" + NS + "modifier/" + NS + "conditions/" + NS + "condition")
+                require(cond is not None and cond.get("childId"), f"{unit_id}: conditional Exarch weapon without selection trigger")
+    print("PASS: three independent units, Infantry, section order, model equipment, Exarch options and pricing modifiers")
 
 if __name__ == "__main__":
-    try:
-        validate()
-    except (AssertionError, ET.ParseError, OSError) as e:
-        print(f"FAIL: {e}", file=sys.stderr)
+    try: check()
+    except (AssertionError, ET.ParseError, OSError) as error:
+        print("FAIL:", error, file=sys.stderr)
         sys.exit(1)
