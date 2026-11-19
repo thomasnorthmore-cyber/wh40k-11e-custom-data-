@@ -53,6 +53,53 @@ statistics, abilities, native rules, keyword tables, category links,
 constraints, visibility conditions and equipment names in memory and checks
 the generated XML responds. Both run automatically in GitHub Actions.
 
+## Standalone JSON → BattleScribe XML exporter
+
+`scripts/export_standalone.py` now builds **both** the Aeldari `.cat` and
+custom 11th-edition `.gst` without reading either original XML document
+during generation:
+
+```sh
+python scripts/export_standalone.py --check
+python scripts/export_standalone.py --self-test
+python scripts/export_standalone.py --out-dir /tmp/standalone
+```
+
+- `catalogue-tree.json` and `game-system-tree.json` are initial
+  JSON representations of the full v5 XML trees. They retain unconverted
+  structure such as containers, category references, modifier nesting and
+  catalog/game-system metadata.
+- The exporter reconstructs XML from these JSON trees and then applies the
+  canonical unit-specific JSON overlays (points, profiles, mechanics,
+  equipment slots).
+- `--check` compares **canonical XML parity** with the v5 `.cat` and `.gst`
+  fixtures, including all 17 units. `--self-test` confirms that export
+  succeeds when the old catalogue path is deliberately unavailable, and that
+  JSON edits change the generated output.
+
+**Important scope:** this is a standalone exporter, but its initial
+`catalogue-tree.json` is an XML AST expressed as JSON; it is **not yet**
+the complete semantic/faction-independent compiler implemented by 40kdc-data.
+The tree must progressively be replaced with higher-level generated
+structure. Root/miscellaneous layout remains coupled to the legacy schema,
+even though an XML template is no longer read.
+
+## Yellowscribe compatibility tools
+
+`scripts/yellowscribe_compat.py` accepts a user-exported `.rosz` or `.ros`:
+
+```sh
+python scripts/yellowscribe_compat.py --audit my-army.rosz
+python scripts/yellowscribe_compat.py --convert my-army.rosz --out compatible.rosz
+```
+
+It fixes the custom system ID to `sys-352e-adc2-7639-d610` and changes
+`Units` roster-profile types to `Unit` for Yellowscribe's 11e parser.
+The script warns when weapons are exported at unit level, where Yellowscribe's
+model-profile importer may ignore them. **It does not repair that model
+ownership issue or prove live Yellowscribe rendering**; dedicated real-v5
+roster export tests still need to be performed.
+
 ## Hard-earned compatibility rules
 
 - **Fire Dragons / Dark Reapers:** keep unit-level conditional ranged/melee
@@ -73,11 +120,11 @@ the generated XML responds. Both run automatically in GitHub Actions.
 1. Extend slot budgets into explicit *source-verified* item replacement
    prerequisites (which weapon is removed and added) and evaluate unit-wide
    restrictions that span more than one slot.
-2. Make the complete XML AST—including nesting of selection/condition groups,
-   shared identifiers, limits and all points tiers—reconstructible independently
-   of the checked-in v5 catalogue.
-3. Produce a fully independent New Recruit JSON and BattleScribe XML exporter;
-   add roster XML and Yellowscribe integration fixtures with real-world exports.
+2. Replace the now-independent but XML-shaped JSON tree with a fully semantic
+   compiler that derives selection groups, modifier expression nesting, and
+   shared system references from schema-backed domain records.
+3. Add native New Recruit JSON, rather than relying solely on BattleScribe XML,
+   and test real exported v5 .rosz files plus Yellowscribe model-weapon ingestion.
 4. Verify current 11th Edition points, model options and ability mechanics
    from authorised sources before release.
 
