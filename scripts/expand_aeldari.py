@@ -28,8 +28,8 @@ N="{http://www.battlescribe.net/schema/catalogueSchema}"
 G="{http://www.battlescribe.net/schema/gameSystemSchema}"
 ET.register_namespace("","http://www.battlescribe.net/schema/catalogueSchema")
 
-def node(parent,name,**attrs):
-    return ET.SubElement(parent,N+name,{k:str(v).lower() if isinstance(v,bool) else str(v) for k,v in attrs.items()})
+def node(parent,tag,**attrs):
+    return ET.SubElement(parent,N+tag,{k:str(v).lower() if isinstance(v,bool) else str(v) for k,v in attrs.items()})
 
 def text_only(s):
     s=(s or "").replace("<br>","\n").replace("<br/>","\n").replace("<br />","\n")
