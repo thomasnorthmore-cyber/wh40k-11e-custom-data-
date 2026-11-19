@@ -65,5 +65,10 @@ for gid,lo,hi in (("wl-group-arms",2,2),("wl-group-heavy",0,2),("wl-group-wargea
  assert {c.get("type"):int(c.get("value")) for c in g.findall("./"+C+"constraints/"+C+"constraint")}=={"min":lo,"max":hi}
 wind=units["smoke-unit-591"]
 bike=next(g for g in wind.iter(C+"selectionEntryGroup") if g.get("id")=="mul-591-bike")
-assert {c.get("type"):int(c.get("value")) for c in bike.findall("./"+C+"constraints/"+C+"constraint")}=={"min":3,"max":3}
+assert {c.get("type"):int(c.get("value")) for c in bike.findall("./"+C+"constraints/"+C+"constraint")}=={"min":1,"max":1}
+wind_model=next(m for m in wind.iter(C+"selectionEntry") if m.get("id")=="smoke-591-model-0")
+assert bike in wind_model.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"), "Bike weapons must be selected for each model"
+assert bike not in wind.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"), "Squad-level bike weapons remain"
+for choice in bike.findall("./"+C+"selectionEntries/"+C+"selectionEntry"):
+ assert {c.get("type"):int(c.get("value")) for c in choice.findall("./"+C+"constraints/"+C+"constraint")}=={"min":0,"max":1}, choice.get("id")
 print("PASS: 3 pilot units have native equipment-owned profiles, preserved size/equipment limits, and unique weapon IDs")
