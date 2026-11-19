@@ -12,12 +12,12 @@ c = ET.parse(root / "Aeldari 11e TEST.cat").getroot()
 g = ET.parse(root / "Warhammer 40,000 11e Custom TEST.gst").getroot()
 C = "{http://www.battlescribe.net/schema/catalogueSchema}"
 G = "{http://www.battlescribe.net/schema/gameSystemSchema}"
-wanted = ["Epic Hero", "Character", "Battleline", "Infantry", "Mounted", "Monster", "Vehicle", "Dedicated Transport"]
+wanted = ["Epic Hero", "Character", "Battleline", "Infantry", "Mounted", "Monster", "Vehicle", "Fortification", "Dedicated Transport"]
 assign = {
     "568":"Epic Hero", "582":"Character", "583":"Character",
     "591":"Mounted", "581":"Epic Hero", "613":"Monster",
     "605":"Vehicle", "609":"Vehicle", "612":"Vehicle",
-    "589":"Battleline", "603":"Vehicle", "2459":"Vehicle",
+    "589":"Battleline", "603":"Vehicle", "2459":"Fortification",
     "621":"Vehicle", "599":"Dedicated Transport",
 }
 points = {
@@ -39,6 +39,11 @@ for unit in units:
     assert actual == assign[id], f"{id}: wanted {assign[id]}, got {actual}"
     costs = unit.findall("./"+C+"costs/"+C+"cost")
     assert len(costs)==1 and float(costs[0].get("value"))==points[id], f"{id}: base points mismatch"
+    native_rules = unit.findall("./"+C+"rules/"+C+"rule")
+    assert native_rules, f"{id}: no native rule entries"
+    if id == "2459":
+        names = {x.get("name") for x in native_rules}
+        assert {"Arcane Cover", "Webway Strike", "Fortification", "Deployment"} <= names, "Webway Gate rules incomplete"
     models = unit.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
     assert models and all(m.get("type")=="model" for m in models), f"{id}: missing model entries"
     for model in models:
@@ -48,4 +53,4 @@ for unit in units:
             assert len(equipment.findall("./"+C+"profiles/"+C+"profile"))==1, f"{id}: missing equipped profile"
             constraints = equipment.findall("./"+C+"constraints/"+C+"constraint")
             assert {x.get("type") for x in constraints}=={"min","max"}, f"{id}: mandatory equipment missing"
-print("PASS: 8 requested army tabs; 14 sample units assigned correctly with points, models and mandatory baseline equipment")
+print("PASS: 9 army tabs, 14 representative units, required native rules, base points and mandatory equipment")
