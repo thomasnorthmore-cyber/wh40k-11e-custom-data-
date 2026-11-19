@@ -156,7 +156,10 @@ def apply_datasheets(template: ET.Element, data: dict) -> ET.Element:
         for spec in record["selections"]:
             node = entries[spec["id"]]
             kind = "group" if node.tag == N+"selectionEntryGroup" else node.get("type")
-            require(kind == spec["kind"] and parents[node].get("id") == spec["parent_id"],
+            ancestor = parents[node]
+            while ancestor.get("id") is None and ancestor is not unit:
+                ancestor = parents[ancestor]
+            require(kind == spec["kind"] and ancestor.get("id") == spec["parent_id"],
                     f"{uid}/{spec['id']}: equipment ownership changed")
             node.set("name", spec["name"])
             existing = bounds(node)
