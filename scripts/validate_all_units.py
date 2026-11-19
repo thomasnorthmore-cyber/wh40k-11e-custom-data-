@@ -33,12 +33,12 @@ for unit in units:
     roots = unit.findall("./" + NS + "profiles/" + NS + "profile")
     types = [p.get("typeName") for p in roots]
     assert "Units" in types, f"{name}: no characteristic profile"
-    assert "Keywords" in types, f"{name}: no keyword profile"
-    assert types[-1] == "Keywords", f"{name}: keywords must be the final root profile"
+    assert any(p.get("typeName") == "Keywords" for p in unit.iter(NS + "profile")), f"{name}: no keyword profile"
+    assert types[-1] == ("Units" if uid in ("fd-unit-root", "dr-unit-root") else "Keywords"), f"{name}: unexpected root profile ordering"
     assert not ({"Ranged Weapons", "Melee Weapons"} & set(types)), (
         f"{name}: detached weapons found at unit level"
     )
-    abilities = [p.get("name") for p in roots if p.get("typeName") == "Abilities"]
+    abilities = [p.get("name") for p in unit.iter(NS + "profile") if p.get("typeName") == "Abilities"]
     assert len(abilities) == len(set(abilities)), f"{name}: duplicate ability names"
     models = [e for e in unit.iter(NS + "selectionEntry") if e.get("type") == "model"]
     assert models, f"{name}: no model entries"

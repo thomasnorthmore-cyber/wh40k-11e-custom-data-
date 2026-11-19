@@ -21,7 +21,7 @@ for unit in units:
     if unit.get("type") != "unit":
         continue
     abilities = [
-        p for p in unit.findall("./" + C + "profiles/" + C + "profile")
+        p for p in unit.iter(C + "profile")
         if p.get("typeName") == "Abilities"
     ]
     rules = unit.findall("./" + C + "rules/" + C + "rule")
