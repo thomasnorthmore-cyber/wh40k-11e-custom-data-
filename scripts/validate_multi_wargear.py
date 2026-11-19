@@ -58,6 +58,11 @@ for group in [arms,heavy,wargear]:
         c={x.get("type"):int(x.get("value")) for x in item.findall("./"+C+"constraints/"+C+"constraint")}
         assert c["min"]==0 and c["max"] in (1,2)
 p=profile_order(wraith)
+display_names = {profile.get("id"): profile.get("name") for profile in p}
+for item_id in ("wl-profile-0", "wl-profile-2"):
+    assert display_names[item_id] == "Shuriken catapult", f"{item_id}: incomplete Shuriken catapult name"
+for item_id in ("wl-profile-1", "wl-profile-3"):
+    assert display_names[item_id] == "Flamer", f"{item_id}: incorrect Flamer name"
 conditional=[x for x in p if x.get("id","").startswith("wl-profile-")]
 assert len(conditional)==18
 valid_ids=set().union(*expected_groups.values())
