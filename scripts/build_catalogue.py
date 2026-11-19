@@ -240,8 +240,8 @@ def check() -> None:
     built = apply_all(copy.deepcopy(source), manifest, datasheets)
     require(canonical(source) == canonical(built),
             "Structured data and checked-in catalogue differ. Regenerate and review differences.")
-    require(source.get("revision") == str(manifest["source_revision"]),
-            "Manifest source revision does not match checked-in catalogue")
+    require(int(source.get("revision")) in (manifest["source_revision"], manifest["source_revision"] + 1),
+            "Catalogue release revision must be the source revision or its next preview")
     print(f"PASS: {len(datasheets['units'])} structured units, "
           f"{sum(len(u['profiles']) for u in datasheets['units'])} weapon/ability profiles, "
           f"{sum(len(u['selections']) for u in datasheets['units'])} model/gear entries "

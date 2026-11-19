@@ -2,7 +2,19 @@
 
 This project aims to provide New Recruit-compatible custom game-system and faction catalogues covering **all 25 factions** in the source export.
 
-> **Status: working Aeldari v5 test catalogue (17 units), with an incremental data-first generator pilot.** New Recruit rendering still requires manual verification, and Yellowscribe compatibility remains unresolved. Raw Wahapedia CSV exports are not directly importable as game catalogues.
+> **Status: Aeldari v6 New Recruit preview (17 units), with a JSON-based standalone catalogue exporter.** New Recruit rendering still requires manual verification, and Yellowscribe compatibility remains unresolved. Raw Wahapedia CSV exports are not directly importable as game catalogues.
+
+## New Recruit preview release — v6
+
+The catalogue revision is now **v6** for New Recruit refresh testing.
+The content of the unit definitions, profiles, costs and equipment selections
+is intentionally **identical to v5**. The revision bump exposes the mature
+JSON exporter pipeline to the same GitHub-based update path; the CI release
+check asserts that only the revision changed.
+
+Refresh the Aeldari test catalogue in New Recruit and confirm its version
+shows v6. There are **no new visible weapon or model-layout changes in this
+release**. Yellowscribe compatibility also remains a separate workstream.
 
 ## Structured-data generator
 

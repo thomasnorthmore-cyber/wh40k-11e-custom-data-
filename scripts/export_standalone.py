@@ -100,8 +100,14 @@ def serialize(node: ET.Element) -> bytes:
 def check() -> None:
     result = build_catalogue()
     system = build_system()
-    require(canonical(result) == canonical(ET.parse(ROOT / CATALOGUE).getroot()),
-            "Standalone catalogue differs from existing v5 fixture")
+    published = ET.parse(ROOT / CATALOGUE).getroot()
+    expected_revision = str(int(result.get("revision")) + 1)
+    require(published.get("revision") in (result.get("revision"), expected_revision),
+            "Unexpected published catalogue revision")
+    # The version number is release metadata, not a data/rules difference.
+    published.set("revision", result.get("revision"))
+    require(canonical(result) == canonical(published),
+            "Standalone catalogue differs from published XML beyond revision")
     require(canonical(system) == canonical(ET.parse(ROOT / GAME_SYSTEM).getroot()),
             "Standalone game system differs from existing fixture")
     require(result.get("gameSystemId") == system.get("id"), "Game system ID differs")
