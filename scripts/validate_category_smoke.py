@@ -42,7 +42,7 @@ for unit in units:
     types = list(dict.fromkeys(x.get("typeName") for x in profiles))
     assert types[0]=="Units", f"{id}: unit characteristics not first"
     assert not [p for p in profiles if p.get("typeName") in ("Ranged Weapons", "Melee Weapons")], f"{id}: detached weapon profiles remain"
-    assert types==["Units","Abilities","Keywords"], f"{id}: Units/Abilities/Keywords order wrong: {types}
+    assert types==["Units","Abilities","Keywords"], f"{id}: Units/Abilities/Keywords order wrong: {types}"
     keywords = [p for p in profiles if p.get("typeName")=="Keywords"]
     assert len(keywords)==1, f"{id}: missing Keywords profile"
     fields = keywords[0].findall("./"+C+"characteristics/"+C+"characteristic")
