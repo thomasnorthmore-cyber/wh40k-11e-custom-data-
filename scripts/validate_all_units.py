@@ -9,7 +9,7 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 
 ROOT = Path(__file__).resolve().parents[1]
-CAT = ROOT / "Aeldari 11e TEST.cat"
+CAT = ROOT / "tests/fixtures/aeldari-v6.cat"
 GST = ROOT / "Warhammer 40,000 11e Custom TEST.gst"
 NS = "{http://www.battlescribe.net/schema/catalogueSchema}"
 GN = "{http://www.battlescribe.net/schema/gameSystemSchema}"
