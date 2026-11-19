@@ -10,7 +10,7 @@ import xml.etree.ElementTree as ET
 C="{http://www.battlescribe.net/schema/catalogueSchema}"
 G="{http://www.battlescribe.net/schema/gameSystemSchema}"
 base=Path(__file__).resolve().parents[1]
-cat=ET.parse(base/"Aeldari 11e TEST.cat").getroot()
+cat=ET.parse(base/"tests/fixtures/aeldari-v6.cat").getroot()
 gst=ET.parse(base/"Warhammer 40,000 11e Custom TEST.gst").getroot()
 assert cat.get("gameSystemId")==gst.get("id")
 units=cat.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
