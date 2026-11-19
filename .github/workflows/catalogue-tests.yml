@@ -5,6 +5,7 @@ on:
       - '*.gst'
       - '*.cat'
       - 'scripts/*.py'
+      - 'data/structured/**'
       - '.github/workflows/catalogue-tests.yml'
   pull_request:
 jobs:
@@ -15,6 +16,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Check structured data matches catalogue
+        run: python scripts/build_catalogue.py --check
+      - name: Test generator applies structured changes
+        run: python scripts/build_catalogue.py --self-test
       - name: Validate equipment ownership across all units
         run: python scripts/validate_equipment_ownership.py
       - name: Validate all unit selection structure
