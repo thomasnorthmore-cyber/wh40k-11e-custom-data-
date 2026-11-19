@@ -1,0 +1,24 @@
+name: Native equipment pilot checks
+on:
+  push:
+    branches:
+      - 'pilot/native-equipment-profiles-2026-11-19'
+  pull_request:
+    paths:
+      - '*.cat'
+      - '*.gst'
+      - 'scripts/validate_native_equipment_pilot.py'
+jobs:
+  validate-pilot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Check native equipment profiles and constraints
+        run: python scripts/validate_native_equipment_pilot.py
+      - name: Check weapon characteristics
+        run: python scripts/validate_weapon_format.py
+      - name: Check non-redundant abilities and rules
+        run: python scripts/validate_rule_redundancy.py
