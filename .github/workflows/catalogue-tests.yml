@@ -17,6 +17,8 @@ jobs:
           python-version: '3.12'
       - name: Validate equipment ownership across all units
         run: python scripts/validate_equipment_ownership.py
+      - name: Validate all unit selection structure
+        run: python scripts/validate_all_units.py
       - name: Validate catalogue structure
         run: python scripts/validate_catalogue.py
       - name: Validate role-category samples
