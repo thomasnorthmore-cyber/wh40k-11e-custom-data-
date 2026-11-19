@@ -1,0 +1,3034 @@
+{
+  "schema_version": 1,
+  "edition": "11th",
+  "faction": "aeldari",
+  "source_catalogue_revision": 5,
+  "source_note": "Transcribed from local v5 catalogue; game rules and points not independently verified.",
+  "units": [
+    {
+      "id": "fd-unit-root",
+      "name": "Fire Dragons",
+      "profiles": [
+        {
+          "id": "fd-fusion-5-unit",
+          "name": "Dragon fusion gun",
+          "type_name": "Ranged Weapons",
+          "owner_id": "fd-unit-root",
+          "owner_path": [
+            "fd-unit-root"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "12\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "1"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "9"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-4"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "D6"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Assault, Melta 3"
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "fd-weapon-exarch-1",
+          "name": "Exarch’s Dragon fusion gun",
+          "type_name": "Ranged Weapons",
+          "owner_id": "fd-unit-root",
+          "owner_path": [
+            "fd-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "12\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "1"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "9"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-4"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "D6"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Assault, Melta 6"
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "fd-weapon-flamer-1",
+          "name": "Dragon’s breath flamer",
+          "type_name": "Ranged Weapons",
+          "owner_id": "fd-unit-root",
+          "owner_path": [
+            "fd-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "12\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "D6+2"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "-"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "6"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-2"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Assault, Ignores Cover, Torrent"
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "fd-weapon-pistol-1",
+          "name": "Dragon fusion pistol",
+          "type_name": "Ranged Weapons",
+          "owner_id": "fd-unit-root",
+          "owner_path": [
+            "fd-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "6\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "1"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "9"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-4"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "D6"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Assault, Melta 3, Pistol"
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "fd-weapon-pike-1",
+          "name": "Firepike",
+          "type_name": "Ranged Weapons",
+          "owner_id": "fd-unit-root",
+          "owner_path": [
+            "fd-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "18\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "1"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "12"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-4"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "D6"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Assault, Melta 3"
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "fd-combat-5-unit",
+          "name": "Close combat weapon",
+          "type_name": "Melee Weapons",
+          "owner_id": "fd-unit-root",
+          "owner_path": [
+            "fd-unit-root"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "2"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "3"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-mkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "fd-weapon-combat-1",
+          "name": "Close combat weapon",
+          "type_name": "Melee Weapons",
+          "owner_id": "fd-unit-root",
+          "owner_path": [
+            "fd-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "2"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "3"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-mkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "fd-weapon-combat-2",
+          "name": "Close combat weapon",
+          "type_name": "Melee Weapons",
+          "owner_id": "fd-unit-root",
+          "owner_path": [
+            "fd-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "2"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "3"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-mkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "fd-weapon-axe-1",
+          "name": "Dragon axe",
+          "type_name": "Melee Weapons",
+          "owner_id": "fd-unit-root",
+          "owner_path": [
+            "fd-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "3"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "6"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "-4"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "D6"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-mkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "fd-weapon-combat-3",
+          "name": "Close combat weapon",
+          "type_name": "Melee Weapons",
+          "owner_id": "fd-unit-root",
+          "owner_path": [
+            "fd-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "2"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "3"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-mkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "fd-assured",
+          "name": "Assured Destruction",
+          "type_name": "Abilities",
+          "owner_id": "fd-unit-root",
+          "owner_path": [
+            "fd-unit-root"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Description",
+              "type_id": "description-11e0",
+              "value": "When this unit makes ranged attacks against a Monster or Vehicle, it can re-roll Hit, Wound and Damage rolls."
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "fd-shrine",
+          "name": "Aspect Shrine Token",
+          "type_name": "Abilities",
+          "owner_id": "fd-unit-root",
+          "owner_path": [
+            "fd-unit-root"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Description",
+              "type_id": "description-11e0",
+              "value": "Once per battle per token, change one Hit roll or Wound roll for a non-Character model in the unit to an unmodified 6. One token per five models."
+            }
+          ],
+          "has_modifiers": false
+        }
+      ],
+      "selections": [
+        {
+          "id": "fd-group-leader",
+          "name": "Leader",
+          "kind": "group",
+          "parent_id": "fd-unit-root",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "fd-exarch-5",
+          "name": "Fire Dragon Exarch",
+          "kind": "model",
+          "parent_id": "fd-group-leader",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "fd-exarch-gear-5",
+          "name": "Weapon (choose one)",
+          "kind": "group",
+          "parent_id": "fd-exarch-5",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          },
+          "default_id": "fd-gear-default-5"
+        },
+        {
+          "id": "fd-gear-default-5",
+          "name": "Exarch’s Dragon fusion gun",
+          "kind": "upgrade",
+          "parent_id": "fd-exarch-gear-5",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "fd-gear-default-5-melee-equip-0",
+          "name": "Close combat weapon",
+          "kind": "upgrade",
+          "parent_id": "fd-gear-default-5",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "fd-gear-flamer-5",
+          "name": "Dragon’s breath flamer",
+          "kind": "upgrade",
+          "parent_id": "fd-exarch-gear-5",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "fd-gear-flamer-5-melee-equip-0",
+          "name": "Close combat weapon",
+          "kind": "upgrade",
+          "parent_id": "fd-gear-flamer-5",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "fd-gear-pistol-5",
+          "name": "Dragon fusion pistol & Dragon axe",
+          "kind": "upgrade",
+          "parent_id": "fd-exarch-gear-5",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "fd-gear-pistol-5-melee-equip-0",
+          "name": "Dragon axe",
+          "kind": "upgrade",
+          "parent_id": "fd-gear-pistol-5",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "fd-gear-pike-5",
+          "name": "Firepike",
+          "kind": "upgrade",
+          "parent_id": "fd-exarch-gear-5",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "fd-gear-pike-5-melee-equip-0",
+          "name": "Close combat weapon",
+          "kind": "upgrade",
+          "parent_id": "fd-gear-pike-5",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "fd-group-units",
+          "name": "Units",
+          "kind": "group",
+          "parent_id": "fd-unit-root",
+          "bounds": {
+            "min": 4,
+            "max": 9
+          }
+        },
+        {
+          "id": "fd-regular-5",
+          "name": "Fire Dragon",
+          "kind": "model",
+          "parent_id": "fd-group-units",
+          "bounds": {
+            "min": 4,
+            "max": 9
+          }
+        },
+        {
+          "id": "fd-equip-regular-ranged",
+          "name": "Dragon fusion gun",
+          "kind": "upgrade",
+          "parent_id": "fd-regular-5",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "fd-equip-regular-melee",
+          "name": "Close combat weapon",
+          "kind": "upgrade",
+          "parent_id": "fd-regular-5",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "fd-group-extra",
+          "name": "Additional Wargear",
+          "kind": "group",
+          "parent_id": "fd-unit-root",
+          "bounds": {
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "id": "fd-token-5",
+          "name": "Aspect Shrine Token (1 per 5 models)",
+          "kind": "upgrade",
+          "parent_id": "fd-group-extra",
+          "bounds": {
+            "min": 1,
+            "max": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "dr-unit-root",
+      "name": "Dark Reapers",
+      "profiles": [
+        {
+          "id": "dr-common-starshot",
+          "name": "Reaper launcher – starshot",
+          "type_name": "Ranged Weapons",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "48\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "1"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "10"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-2"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "3"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Ignores Cover"
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "dr-common-starswarm",
+          "name": "Reaper launcher – starswarm",
+          "type_name": "Ranged Weapons",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "48\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "2"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "5"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-2"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Ignores Cover"
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "dr-exarch-reaper-starshot",
+          "name": "Reaper launcher – starshot",
+          "type_name": "Ranged Weapons",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "48\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "1"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "10"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-2"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "3"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Ignores Cover"
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "dr-exarch-reaper-starswarm",
+          "name": "Reaper launcher – starswarm",
+          "type_name": "Ranged Weapons",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "48\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "2"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "5"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-2"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Ignores Cover"
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "dr-exarch-missile-starshot",
+          "name": "Missile launcher – starshot",
+          "type_name": "Ranged Weapons",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "48\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "1"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "2+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "10"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-2"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "D6"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Ignores Cover"
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "dr-exarch-missile-sunburst",
+          "name": "Missile launcher – sunburst",
+          "type_name": "Ranged Weapons",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "48\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "D6"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "2+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "4"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-1"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Blast, Ignores Cover"
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "dr-exarch-shuriken",
+          "name": "Shuriken cannon",
+          "type_name": "Ranged Weapons",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "24\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "3"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "6"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-1"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "2"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Ignores Cover, Lethal Hits"
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "dr-exarch-tempest",
+          "name": "Tempest launcher",
+          "type_name": "Ranged Weapons",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "36\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "2D6"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "4"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-1"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Blast, Indirect Fire"
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "dr-common-combat",
+          "name": "Close combat weapon",
+          "type_name": "Melee Weapons",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "2"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "3"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-mkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "dr-exarch-combat-reaper",
+          "name": "Close combat weapon",
+          "type_name": "Melee Weapons",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "2"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "3"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-mkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "dr-exarch-combat-missile",
+          "name": "Close combat weapon",
+          "type_name": "Melee Weapons",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "2"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "3"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-mkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "dr-exarch-combat-shuriken",
+          "name": "Close combat weapon",
+          "type_name": "Melee Weapons",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "2"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "3"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-mkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "dr-exarch-combat-tempest",
+          "name": "Close combat weapon",
+          "type_name": "Melee Weapons",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": true,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "2"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "3"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-mkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": true
+        },
+        {
+          "id": "dr-inescapable",
+          "name": "Inescapable Accuracy",
+          "type_name": "Abilities",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Description",
+              "type_id": "description-11e0",
+              "value": "Each time a model in this unit makes a ranged attack, you can ignore any or all modifiers to that attack’s Ballistic Skill characteristic and any or all modifiers to the Hit roll."
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "dr-shrine",
+          "name": "Aspect Shrine Token",
+          "type_name": "Abilities",
+          "owner_id": "dr-unit-root",
+          "owner_path": [
+            "dr-unit-root"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Description",
+              "type_id": "description-11e0",
+              "value": "Once per battle for each Aspect Shrine token this unit has, change one Hit roll or one Wound roll made for a model in this unit (excluding Character models) to an unmodified 6."
+            }
+          ],
+          "has_modifiers": false
+        }
+      ],
+      "selections": [
+        {
+          "id": "dr-group-leader",
+          "name": "Leader",
+          "kind": "group",
+          "parent_id": "dr-unit-root",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "dr-exarch",
+          "name": "Dark Reaper Exarch",
+          "kind": "model",
+          "parent_id": "dr-group-leader",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "dr-exarch-gear",
+          "name": "Weapon (choose one)",
+          "kind": "group",
+          "parent_id": "dr-exarch",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          },
+          "default_id": "dr-exarch-choice-reaper"
+        },
+        {
+          "id": "dr-exarch-choice-reaper",
+          "name": "Reaper launcher",
+          "kind": "upgrade",
+          "parent_id": "dr-exarch-gear",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "dr-exarch-choice-reaper-melee-equip-0",
+          "name": "Close combat weapon",
+          "kind": "upgrade",
+          "parent_id": "dr-exarch-choice-reaper",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "dr-exarch-choice-missile",
+          "name": "Missile launcher",
+          "kind": "upgrade",
+          "parent_id": "dr-exarch-gear",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "dr-exarch-choice-missile-melee-equip-0",
+          "name": "Close combat weapon",
+          "kind": "upgrade",
+          "parent_id": "dr-exarch-choice-missile",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "dr-exarch-choice-shuriken",
+          "name": "Shuriken cannon",
+          "kind": "upgrade",
+          "parent_id": "dr-exarch-gear",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "dr-exarch-choice-shuriken-melee-equip-0",
+          "name": "Close combat weapon",
+          "kind": "upgrade",
+          "parent_id": "dr-exarch-choice-shuriken",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "dr-exarch-choice-tempest",
+          "name": "Tempest launcher",
+          "kind": "upgrade",
+          "parent_id": "dr-exarch-gear",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "dr-exarch-choice-tempest-melee-equip-0",
+          "name": "Close combat weapon",
+          "kind": "upgrade",
+          "parent_id": "dr-exarch-choice-tempest",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "dr-group-units",
+          "name": "Units",
+          "kind": "group",
+          "parent_id": "dr-unit-root",
+          "bounds": {
+            "min": 4,
+            "max": 9
+          }
+        },
+        {
+          "id": "dr-regular",
+          "name": "Dark Reaper",
+          "kind": "model",
+          "parent_id": "dr-group-units",
+          "bounds": {
+            "min": 4,
+            "max": 9
+          }
+        },
+        {
+          "id": "dr-equip-regular-ranged",
+          "name": "Reaper launcher (starshot / starswarm)",
+          "kind": "upgrade",
+          "parent_id": "dr-regular",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "dr-equip-regular-melee",
+          "name": "Close combat weapon",
+          "kind": "upgrade",
+          "parent_id": "dr-regular",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "dr-group-wargear",
+          "name": "Additional Wargear",
+          "kind": "group",
+          "parent_id": "dr-unit-root",
+          "bounds": {
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "id": "dr-aspect-token",
+          "name": "Aspect Shrine Token (1 per 5 models)",
+          "kind": "upgrade",
+          "parent_id": "dr-group-wargear",
+          "bounds": {
+            "min": 1,
+            "max": 2
+          }
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-591",
+      "name": "Windriders",
+      "profiles": [
+        {
+          "id": "smoke-591-ability-rule-swift-demise",
+          "name": "Swift Demise",
+          "type_name": "Abilities",
+          "owner_id": "smoke-unit-591",
+          "owner_path": [
+            "smoke-unit-591"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Description",
+              "type_id": "description-11e0",
+              "value": "Each time a model in this unit makes a ranged attack, re-roll a Hit roll of 1. If the target of that attack is the closest eligible target, you can re-roll the Hit roll instead."
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "mul-591-p-catapult-1-0",
+          "name": "Twin shuriken catapult",
+          "type_name": "Ranged Weapons",
+          "owner_id": "mul-591-bike-catapult",
+          "owner_path": [
+            "smoke-unit-591",
+            "smoke-591-model-0",
+            "mul-591-bike",
+            "mul-591-bike-catapult"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "18\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "2"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "4"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-1"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "mul-591-p-scatter-1-0",
+          "name": "Scatter laser",
+          "type_name": "Ranged Weapons",
+          "owner_id": "mul-591-bike-scatter",
+          "owner_path": [
+            "smoke-unit-591",
+            "smoke-591-model-0",
+            "mul-591-bike",
+            "mul-591-bike-scatter"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "36\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "6"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "5"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "mul-591-p-shuriken-1-0",
+          "name": "Shuriken cannon",
+          "type_name": "Ranged Weapons",
+          "owner_id": "mul-591-bike-shuriken",
+          "owner_path": [
+            "smoke-unit-591",
+            "smoke-591-model-0",
+            "mul-591-bike",
+            "mul-591-bike-shuriken"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "24\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "3"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "6"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-1"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "2"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "smoke-591-weapon-0-1",
+          "name": "Close combat weapon",
+          "type_name": "Melee Weapons",
+          "owner_id": "smoke-591-equipment-0-1",
+          "owner_path": [
+            "smoke-unit-591",
+            "smoke-591-model-0",
+            "smoke-591-equipment-0-1"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "3"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "3"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "1"
+            }
+          ],
+          "has_modifiers": false
+        }
+      ],
+      "selections": [
+        {
+          "id": "smoke-591-model-0",
+          "name": "Windrider",
+          "kind": "model",
+          "parent_id": "smoke-unit-591",
+          "bounds": {
+            "min": 3,
+            "max": 6
+          }
+        },
+        {
+          "id": "mul-591-bike",
+          "name": "Windrider Weapons",
+          "kind": "group",
+          "parent_id": "smoke-591-model-0",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          },
+          "default_id": "mul-591-bike-catapult"
+        },
+        {
+          "id": "mul-591-bike-catapult",
+          "name": "Twin shuriken catapult",
+          "kind": "upgrade",
+          "parent_id": "mul-591-bike",
+          "bounds": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "mul-591-bike-scatter",
+          "name": "Scatter laser",
+          "kind": "upgrade",
+          "parent_id": "mul-591-bike",
+          "bounds": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "mul-591-bike-shuriken",
+          "name": "Shuriken cannon",
+          "kind": "upgrade",
+          "parent_id": "mul-591-bike",
+          "bounds": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "smoke-591-equipment-0-1",
+          "name": "Close combat weapon",
+          "kind": "upgrade",
+          "parent_id": "smoke-591-model-0",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-613",
+      "name": "Wraithlord",
+      "profiles": [
+        {
+          "id": "smoke-613-ability-rule-fated-hero",
+          "name": "Fated Hero",
+          "type_name": "Abilities",
+          "owner_id": "smoke-unit-613",
+          "owner_path": [
+            "smoke-unit-613"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Description",
+              "type_id": "description-11e0",
+              "value": "At the start of the battle, select one of the following keywords: INFANTRY; MONSTER; MOUNTED; VEHICLE. Each time this model makes an attack that targets a unit with the selected keyword, re-roll a Hit roll of 1 and re-roll a Wound roll of 1."
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "smoke-613-ability-rule-psychic-guidance",
+          "name": "Psychic Guidance",
+          "type_name": "Abilities",
+          "owner_id": "smoke-unit-613",
+          "owner_path": [
+            "smoke-unit-613"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Description",
+              "type_id": "description-11e0",
+              "value": "While this model is within 12\" of one or more friendly Aeldari Psyker models, improve the Ballistic Skill and Weapon Skill characteristics of weapons equipped by this model by 1 and it has a Leadership characteristic of 6+."
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "wl-profile-16",
+          "name": "Ghostglaive – strike",
+          "type_name": "Melee Weapons",
+          "owner_id": "wl-wargear-ghost",
+          "owner_path": [
+            "smoke-unit-613",
+            "smoke-613-model-0",
+            "wl-group-wargear",
+            "wl-wargear-ghost"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "4"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "4+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "10"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "-3"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "D6+1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-mkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "wl-profile-17",
+          "name": "Ghostglaive – sweep",
+          "type_name": "Melee Weapons",
+          "owner_id": "wl-wargear-ghost",
+          "owner_path": [
+            "smoke-unit-613",
+            "smoke-613-model-0",
+            "wl-group-wargear",
+            "wl-wargear-ghost"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "8"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "4+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "7"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "-2"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "2"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-mkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "wl-profile-1",
+          "name": "Flamer",
+          "type_name": "Ranged Weapons",
+          "owner_id": "wl-arms-flamer",
+          "owner_path": [
+            "smoke-unit-613",
+            "smoke-613-model-0",
+            "wl-group-arms",
+            "wl-arms-flamer"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "12\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "D6"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "-"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "4"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Assault, Ignores Cover, Torrent"
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "wl-profile-0",
+          "name": "Shuriken catapult",
+          "type_name": "Ranged Weapons",
+          "owner_id": "wl-arms-catapult",
+          "owner_path": [
+            "smoke-unit-613",
+            "smoke-613-model-0",
+            "wl-group-arms",
+            "wl-arms-catapult"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "18\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "2"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "4+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "4"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-1"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Assault"
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "wl-profile-4",
+          "name": "Missile launcher – starshot",
+          "type_name": "Ranged Weapons",
+          "owner_id": "wl-heavy-missile",
+          "owner_path": [
+            "smoke-unit-613",
+            "smoke-613-model-0",
+            "wl-group-heavy",
+            "wl-heavy-missile"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "48\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "1"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "4+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "10"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-2"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "D6"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "wl-profile-5",
+          "name": "Missile launcher – sunburst",
+          "type_name": "Ranged Weapons",
+          "owner_id": "wl-heavy-missile",
+          "owner_path": [
+            "smoke-unit-613",
+            "smoke-613-model-0",
+            "wl-group-heavy",
+            "wl-heavy-missile"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "48\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "D6"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "4+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "4"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-1"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Blast"
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "wl-profile-6",
+          "name": "Bright lance",
+          "type_name": "Ranged Weapons",
+          "owner_id": "wl-heavy-bright",
+          "owner_path": [
+            "smoke-unit-613",
+            "smoke-613-model-0",
+            "wl-group-heavy",
+            "wl-heavy-bright"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "36\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "1"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "4+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "12"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-3"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "D6+2"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "wl-profile-7",
+          "name": "Scatter laser",
+          "type_name": "Ranged Weapons",
+          "owner_id": "wl-heavy-scatter",
+          "owner_path": [
+            "smoke-unit-613",
+            "smoke-613-model-0",
+            "wl-group-heavy",
+            "wl-heavy-scatter"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "36\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "6"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "4+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "5"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Sustained Hits 1"
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "wl-profile-8",
+          "name": "Shuriken cannon",
+          "type_name": "Ranged Weapons",
+          "owner_id": "wl-heavy-shuriken",
+          "owner_path": [
+            "smoke-unit-613",
+            "smoke-613-model-0",
+            "wl-group-heavy",
+            "wl-heavy-shuriken"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "24\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "3"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "4+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "6"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-1"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "2"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": "Lethal Hits"
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "wl-profile-9",
+          "name": "Starcannon",
+          "type_name": "Ranged Weapons",
+          "owner_id": "wl-heavy-star",
+          "owner_path": [
+            "smoke-unit-613",
+            "smoke-613-model-0",
+            "wl-group-heavy",
+            "wl-heavy-star"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "36\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "2"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "4+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "8"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-3"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "2"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "smoke-613-weapon-0-2",
+          "name": "Wraithbone fists",
+          "type_name": "Melee Weapons",
+          "owner_id": "smoke-613-equipment-0-2",
+          "owner_path": [
+            "smoke-unit-613",
+            "smoke-613-model-0",
+            "smoke-613-equipment-0-2"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "4"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "4+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "7"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "-2"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "2"
+            }
+          ],
+          "has_modifiers": false
+        }
+      ],
+      "selections": [
+        {
+          "id": "smoke-613-model-0",
+          "name": "Wraithlord",
+          "kind": "model",
+          "parent_id": "smoke-unit-613",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        },
+        {
+          "id": "wl-group-wargear",
+          "name": "Wargear",
+          "kind": "group",
+          "parent_id": "smoke-613-model-0",
+          "bounds": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "wl-wargear-ghost",
+          "name": "Ghostglaive",
+          "kind": "upgrade",
+          "parent_id": "wl-group-wargear",
+          "bounds": {
+            "min": 0,
+            "max": 1
+          }
+        },
+        {
+          "id": "wl-group-arms",
+          "name": "Arm Weapons",
+          "kind": "group",
+          "parent_id": "smoke-613-model-0",
+          "bounds": {
+            "min": 2,
+            "max": 2
+          },
+          "default_id": "wl-arms-catapult"
+        },
+        {
+          "id": "wl-arms-flamer",
+          "name": "Flamer",
+          "kind": "upgrade",
+          "parent_id": "wl-group-arms",
+          "bounds": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "id": "wl-arms-catapult",
+          "name": "Shuriken Catapult",
+          "kind": "upgrade",
+          "parent_id": "wl-group-arms",
+          "bounds": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "id": "wl-group-heavy",
+          "name": "Heavy Weapons",
+          "kind": "group",
+          "parent_id": "smoke-613-model-0",
+          "bounds": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "id": "wl-heavy-missile",
+          "name": "Aeldari Missile Launcher",
+          "kind": "upgrade",
+          "parent_id": "wl-group-heavy",
+          "bounds": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "id": "wl-heavy-bright",
+          "name": "Bright Lance",
+          "kind": "upgrade",
+          "parent_id": "wl-group-heavy",
+          "bounds": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "id": "wl-heavy-scatter",
+          "name": "Scatter Laser",
+          "kind": "upgrade",
+          "parent_id": "wl-group-heavy",
+          "bounds": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "id": "wl-heavy-shuriken",
+          "name": "Shuriken Cannon",
+          "kind": "upgrade",
+          "parent_id": "wl-group-heavy",
+          "bounds": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "id": "wl-heavy-star",
+          "name": "Starcannon",
+          "kind": "upgrade",
+          "parent_id": "wl-group-heavy",
+          "bounds": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "id": "smoke-613-equipment-0-2",
+          "name": "Wraithbone fists",
+          "kind": "upgrade",
+          "parent_id": "smoke-613-model-0",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-612",
+      "name": "War Walkers",
+      "profiles": [
+        {
+          "id": "smoke-612-ability-rule-crystalline-targeting",
+          "name": "Crystalline Targeting",
+          "type_name": "Abilities",
+          "owner_id": "smoke-unit-612",
+          "owner_path": [
+            "smoke-unit-612"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Description",
+              "type_id": "description-11e0",
+              "value": "In your Shooting phase, after this unit has shot, select one enemy unit hit by one or more of those attacks. Until the end of the phase, each time a friendly AELDARI unit makes an attack that targets that enemy unit, improve the Armour Penetration characteristic of that attack by 1. Each unit can only be selected for this ability once per turn."
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "smoke-612-ability-scouts-9-",
+          "name": "Scouts 9\"",
+          "type_name": "Abilities",
+          "owner_id": "smoke-unit-612",
+          "owner_path": [
+            "smoke-unit-612"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Description",
+              "type_id": "description-11e0",
+              "value": "In the Resolve Pre-battle Abilities step, this unit may make a Scout move of 9\" when eligible. See the full Scouts core rule for transport and Strategic Reserve interactions."
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "mul-612-p-shuriken-1-0",
+          "name": "Shuriken cannon",
+          "type_name": "Ranged Weapons",
+          "owner_id": "mul-612-mounts-shuriken",
+          "owner_path": [
+            "smoke-unit-612",
+            "smoke-612-model-0",
+            "mul-612-mounts",
+            "mul-612-mounts-shuriken"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "24\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "3"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "6"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-1"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "2"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "mul-612-p-missile-1-0",
+          "name": "Missile launcher – starshot",
+          "type_name": "Ranged Weapons",
+          "owner_id": "mul-612-mounts-missile",
+          "owner_path": [
+            "smoke-unit-612",
+            "smoke-612-model-0",
+            "mul-612-mounts",
+            "mul-612-mounts-missile"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "48\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "1"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "10"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-2"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "D6"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "mul-612-p-missile-1-1",
+          "name": "Missile launcher – sunburst",
+          "type_name": "Ranged Weapons",
+          "owner_id": "mul-612-mounts-missile",
+          "owner_path": [
+            "smoke-unit-612",
+            "smoke-612-model-0",
+            "mul-612-mounts",
+            "mul-612-mounts-missile"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "48\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "D6"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "4"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-1"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "mul-612-p-bright-1-0",
+          "name": "Bright lance",
+          "type_name": "Ranged Weapons",
+          "owner_id": "mul-612-mounts-bright",
+          "owner_path": [
+            "smoke-unit-612",
+            "smoke-612-model-0",
+            "mul-612-mounts",
+            "mul-612-mounts-bright"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "36\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "1"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "12"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-3"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "D6+2"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "mul-612-p-scatter-1-0",
+          "name": "Scatter laser",
+          "type_name": "Ranged Weapons",
+          "owner_id": "mul-612-mounts-scatter",
+          "owner_path": [
+            "smoke-unit-612",
+            "smoke-612-model-0",
+            "mul-612-mounts",
+            "mul-612-mounts-scatter"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "36\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "6"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "5"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "1"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "mul-612-p-star-1-0",
+          "name": "Starcannon",
+          "type_name": "Ranged Weapons",
+          "owner_id": "mul-612-mounts-star",
+          "owner_path": [
+            "smoke-unit-612",
+            "smoke-612-model-0",
+            "mul-612-mounts",
+            "mul-612-mounts-star"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-rng",
+              "value": "36\""
+            },
+            {
+              "name": "A",
+              "type_id": "fd-rna",
+              "value": "2"
+            },
+            {
+              "name": "BS",
+              "type_id": "fd-rbs",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-rs",
+              "value": "8"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-rap",
+              "value": "-3"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-rd",
+              "value": "2"
+            },
+            {
+              "name": "Keywords",
+              "type_id": "fd-rkw",
+              "value": ""
+            }
+          ],
+          "has_modifiers": false
+        },
+        {
+          "id": "smoke-612-weapon-0-2",
+          "name": "War Walker feet",
+          "type_name": "Melee Weapons",
+          "owner_id": "smoke-612-equipment-0-2",
+          "owner_path": [
+            "smoke-unit-612",
+            "smoke-612-model-0",
+            "smoke-612-equipment-0-2"
+          ],
+          "hidden": false,
+          "characteristics": [
+            {
+              "name": "Range",
+              "type_id": "fd-mrng",
+              "value": "Melee"
+            },
+            {
+              "name": "A",
+              "type_id": "fd-ma",
+              "value": "3"
+            },
+            {
+              "name": "WS",
+              "type_id": "fd-mws",
+              "value": "3+"
+            },
+            {
+              "name": "S",
+              "type_id": "fd-ms",
+              "value": "5"
+            },
+            {
+              "name": "AP",
+              "type_id": "fd-map",
+              "value": "0"
+            },
+            {
+              "name": "D",
+              "type_id": "fd-md",
+              "value": "1"
+            }
+          ],
+          "has_modifiers": false
+        }
+      ],
+      "selections": [
+        {
+          "id": "smoke-612-model-0",
+          "name": "War Walker",
+          "kind": "model",
+          "parent_id": "smoke-unit-612",
+          "bounds": {
+            "min": 1,
+            "max": 2
+          }
+        },
+        {
+          "id": "mul-612-mounts",
+          "name": "Heavy Weapon Mounts",
+          "kind": "group",
+          "parent_id": "smoke-612-model-0",
+          "bounds": {
+            "min": 2,
+            "max": 2
+          },
+          "default_id": "mul-612-mounts-shuriken"
+        },
+        {
+          "id": "mul-612-mounts-shuriken",
+          "name": "Shuriken cannon",
+          "kind": "upgrade",
+          "parent_id": "mul-612-mounts",
+          "bounds": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "id": "mul-612-mounts-missile",
+          "name": "Missile launcher",
+          "kind": "upgrade",
+          "parent_id": "mul-612-mounts",
+          "bounds": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "id": "mul-612-mounts-bright",
+          "name": "Bright lance",
+          "kind": "upgrade",
+          "parent_id": "mul-612-mounts",
+          "bounds": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "id": "mul-612-mounts-scatter",
+          "name": "Scatter laser",
+          "kind": "upgrade",
+          "parent_id": "mul-612-mounts",
+          "bounds": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "id": "mul-612-mounts-star",
+          "name": "Starcannon",
+          "kind": "upgrade",
+          "parent_id": "mul-612-mounts",
+          "bounds": {
+            "min": 0,
+            "max": 2
+          }
+        },
+        {
+          "id": "smoke-612-equipment-0-2",
+          "name": "War Walker feet",
+          "kind": "upgrade",
+          "parent_id": "smoke-612-model-0",
+          "bounds": {
+            "min": 1,
+            "max": 1
+          }
+        }
+      ]
+    }
+  ]
+}
