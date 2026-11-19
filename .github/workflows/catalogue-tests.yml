@@ -20,6 +20,12 @@ jobs:
         run: python scripts/build_catalogue.py --check
       - name: Test generator applies structured changes
         run: python scripts/build_catalogue.py --self-test
+      - name: Check standalone JSON exporter parity
+        run: python scripts/export_standalone.py --check
+      - name: Test standalone JSON exporter independence
+        run: python scripts/export_standalone.py --self-test
+      - name: Test Yellowscribe roster compatibility adapter
+        run: python scripts/yellowscribe_compat.py --self-test
       - name: Validate model-specific loadout legality
         run: python scripts/loadout_rules.py
       - name: Validate equipment ownership across all units

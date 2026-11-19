@@ -1,0 +1,747 @@
+{
+  "schema_version": 1,
+  "format": "battlescribe-xml-tree",
+  "source_revision": 5,
+  "xml_declaration": "<?xml version=\"1.0\" encoding=\"utf-8\"?>",
+  "node": {
+    "tag": "gameSystem",
+    "attrs": {
+      "xmlns": "http://www.battlescribe.net/schema/gameSystemSchema",
+      "id": "a78e-11e0-40k0-0001",
+      "name": "Warhammer 40,000 11e — Custom TEST",
+      "revision": "1",
+      "battleScribeVersion": "2.03",
+      "authorName": "Custom 11e data test"
+    },
+    "children": [
+      {
+        "tag": "costTypes",
+        "attrs": {},
+        "children": [
+          {
+            "tag": "costType",
+            "attrs": {
+              "id": "pts-11e0",
+              "name": "pts",
+              "defaultCostLimit": "-1",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n  "
+          }
+        ],
+        "text": "\n    ",
+        "tail": "\n  "
+      },
+      {
+        "tag": "profileTypes",
+        "attrs": {},
+        "children": [
+          {
+            "tag": "profileType",
+            "attrs": {
+              "id": "stat-11e0",
+              "name": "Units"
+            },
+            "children": [
+              {
+                "tag": "characteristicTypes",
+                "attrs": {},
+                "children": [
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "m-11e0",
+                      "name": "M"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "t-11e0",
+                      "name": "T"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "sv-11e0",
+                      "name": "Sv"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "inv-11e0",
+                      "name": "Inv"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "w-11e0",
+                      "name": "W"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "ld-11e0",
+                      "name": "Ld"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "oc-11e0",
+                      "name": "OC"
+                    },
+                    "children": [],
+                    "tail": "\n      "
+                  }
+                ],
+                "text": "\n        ",
+                "tail": "\n    "
+              }
+            ],
+            "text": "\n      ",
+            "tail": "\n    "
+          },
+          {
+            "tag": "profileType",
+            "attrs": {
+              "id": "fd-ranged-type",
+              "name": "Ranged Weapons"
+            },
+            "children": [
+              {
+                "tag": "characteristicTypes",
+                "attrs": {},
+                "children": [
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-rng",
+                      "name": "Range"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-rna",
+                      "name": "A"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-rbs",
+                      "name": "BS"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-rs",
+                      "name": "S"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-rap",
+                      "name": "AP"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-rd",
+                      "name": "D"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-rkw",
+                      "name": "Keywords"
+                    },
+                    "children": [],
+                    "tail": "\n      "
+                  }
+                ],
+                "text": "\n        ",
+                "tail": "\n    "
+              }
+            ],
+            "text": "\n      ",
+            "tail": "\n    "
+          },
+          {
+            "tag": "profileType",
+            "attrs": {
+              "id": "fd-melee-type",
+              "name": "Melee Weapons"
+            },
+            "children": [
+              {
+                "tag": "characteristicTypes",
+                "attrs": {},
+                "children": [
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-mrng",
+                      "name": "Range"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-ma",
+                      "name": "A"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-mws",
+                      "name": "WS"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-ms",
+                      "name": "S"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-map",
+                      "name": "AP"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-md",
+                      "name": "D"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-mkw",
+                      "name": "Keywords"
+                    },
+                    "children": [],
+                    "tail": "\n      "
+                  }
+                ],
+                "text": "\n        ",
+                "tail": "\n    "
+              }
+            ],
+            "text": "\n      ",
+            "tail": "\n    "
+          },
+          {
+            "tag": "profileType",
+            "attrs": {
+              "id": "ability-11e0",
+              "name": "Abilities"
+            },
+            "children": [
+              {
+                "tag": "characteristicTypes",
+                "attrs": {},
+                "children": [
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "description-11e0",
+                      "name": "Description"
+                    },
+                    "children": []
+                  }
+                ],
+                "tail": "\n    "
+              }
+            ],
+            "text": "\n      ",
+            "tail": "\n    "
+          },
+          {
+            "tag": "profileType",
+            "attrs": {
+              "id": "fd-rule-type",
+              "name": "Rules"
+            },
+            "children": [
+              {
+                "tag": "characteristicTypes",
+                "attrs": {},
+                "children": [
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "fd-rule-description",
+                      "name": "Description"
+                    },
+                    "children": []
+                  }
+                ],
+                "tail": "\n    "
+              }
+            ],
+            "text": "\n      ",
+            "tail": "\n    "
+          },
+          {
+            "tag": "profileType",
+            "attrs": {
+              "id": "keywords-11e0",
+              "name": "Keywords"
+            },
+            "children": [
+              {
+                "tag": "characteristicTypes",
+                "attrs": {},
+                "children": [
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "unit-keywords-11e0",
+                      "name": "Keywords"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "characteristicType",
+                    "attrs": {
+                      "id": "faction-keywords-11e0",
+                      "name": "Faction Keywords"
+                    },
+                    "children": [],
+                    "tail": "\n      "
+                  }
+                ],
+                "text": "\n        ",
+                "tail": "\n    "
+              }
+            ],
+            "text": "\n      ",
+            "tail": "\n  "
+          }
+        ],
+        "text": "\n    ",
+        "tail": "\n  "
+      },
+      {
+        "tag": "categoryEntries",
+        "attrs": {},
+        "children": [
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "cat-units-11e0",
+              "name": "Units",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n    "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "cat-infantry-11e0",
+              "name": "Infantry",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n    "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "cat-aeldari-11e0",
+              "name": "Aeldari",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n    "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "cat-rangers-11e0",
+              "name": "Rangers",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n    "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "cat-asuryani-11e0",
+              "name": "Asuryani",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n    "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "cat-ynnari-11e0",
+              "name": "Ynnari",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n    "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "fd-category-0",
+              "name": "Grenades",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n    "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "fd-category-1",
+              "name": "Fire Dragons",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n    "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "fd-category-2",
+              "name": "Aspect Warriors",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-0",
+              "name": "Epic Hero",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-1",
+              "name": "Character",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-2",
+              "name": "Mounted Character",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-3",
+              "name": "Mounted",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-4",
+              "name": "Monster Epic Hero",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-5",
+              "name": "Monster",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-6",
+              "name": "Vehicle",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-7",
+              "name": "Transport",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-8",
+              "name": "Walker",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-9",
+              "name": "Battleline",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-10",
+              "name": "Aircraft",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-11",
+              "name": "Fortification",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-12",
+              "name": "Titanic",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n      "
+          },
+          {
+            "tag": "categoryEntry",
+            "attrs": {
+              "id": "smoke-cat-13",
+              "name": "Dedicated Transport",
+              "hidden": "false"
+            },
+            "children": [],
+            "tail": "\n  "
+          }
+        ],
+        "text": "\n    ",
+        "tail": "\n  "
+      },
+      {
+        "tag": "forceEntries",
+        "attrs": {},
+        "children": [
+          {
+            "tag": "forceEntry",
+            "attrs": {
+              "id": "force-11e0",
+              "name": "Test Army",
+              "hidden": "false"
+            },
+            "children": [
+              {
+                "tag": "categoryLinks",
+                "attrs": {},
+                "children": [
+                  {
+                    "tag": "categoryLink",
+                    "attrs": {
+                      "id": "force-canonical-0",
+                      "name": "Epic Hero",
+                      "hidden": "false",
+                      "targetId": "smoke-cat-0"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "categoryLink",
+                    "attrs": {
+                      "id": "force-canonical-1",
+                      "name": "Character",
+                      "hidden": "false",
+                      "targetId": "smoke-cat-1"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "categoryLink",
+                    "attrs": {
+                      "id": "force-canonical-2",
+                      "name": "Battleline",
+                      "hidden": "false",
+                      "targetId": "smoke-cat-9"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "categoryLink",
+                    "attrs": {
+                      "id": "force-canonical-3",
+                      "name": "Infantry",
+                      "hidden": "false",
+                      "targetId": "cat-infantry-11e0"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "categoryLink",
+                    "attrs": {
+                      "id": "force-canonical-4",
+                      "name": "Mounted",
+                      "hidden": "false",
+                      "targetId": "smoke-cat-3"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "categoryLink",
+                    "attrs": {
+                      "id": "force-canonical-5",
+                      "name": "Monster",
+                      "hidden": "false",
+                      "targetId": "smoke-cat-5"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "categoryLink",
+                    "attrs": {
+                      "id": "force-canonical-6",
+                      "name": "Vehicle",
+                      "hidden": "false",
+                      "targetId": "smoke-cat-6"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "categoryLink",
+                    "attrs": {
+                      "id": "force-canonical-fortification",
+                      "name": "Fortification",
+                      "hidden": "false",
+                      "targetId": "smoke-cat-11"
+                    },
+                    "children": [],
+                    "tail": "\n        "
+                  },
+                  {
+                    "tag": "categoryLink",
+                    "attrs": {
+                      "id": "force-canonical-7",
+                      "name": "Dedicated Transport",
+                      "hidden": "false",
+                      "targetId": "smoke-cat-13"
+                    },
+                    "children": [],
+                    "tail": "\n      "
+                  }
+                ],
+                "text": "\n        ",
+                "tail": "\n    "
+              }
+            ],
+            "text": "\n      ",
+            "tail": "\n  "
+          }
+        ],
+        "text": "\n    ",
+        "tail": "\n"
+      }
+    ],
+    "text": "\n  "
+  }
+}
