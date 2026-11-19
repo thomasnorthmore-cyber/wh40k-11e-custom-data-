@@ -28,7 +28,7 @@ WEAPONS = {"Ranged Weapons", "Melee Weapons"}
 
 def read_roster(path: Path):
     raw = path.read_bytes()
-    zipped = raw[:4] == b"PK\\x03\\x04"
+    zipped = raw[:4] == b"PK\x03\x04"
     if zipped:
         with ZipFile(BytesIO(raw)) as archive:
             filenames = [n for n in archive.namelist() if not n.endswith("/")]
