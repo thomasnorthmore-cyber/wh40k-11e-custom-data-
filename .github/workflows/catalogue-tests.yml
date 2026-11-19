@@ -21,3 +21,5 @@ jobs:
         run: python scripts/validate_category_smoke.py
       - name: Validate multi-wargear selections
         run: python scripts/validate_multi_wargear.py
+      - name: Validate weapon profile notation
+        run: python scripts/validate_weapon_format.py
