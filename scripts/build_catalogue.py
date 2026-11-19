@@ -188,7 +188,8 @@ def apply_datasheets(template: ET.Element, data: dict) -> ET.Element:
             owner = parents[parents[p]]
             ancestors = []
             while owner is not unit:
-                ancestors.append(owner.get("id"))
+                if owner.get("id") is not None:
+                    ancestors.append(owner.get("id"))
                 owner = parents[owner]
             require([uid] + ancestors[::-1] == spec["owner_path"], f"{uid}/{spec['id']}: model ancestry changed")
             require((p.find(N+"modifiers") is not None) == spec["has_modifiers"],
