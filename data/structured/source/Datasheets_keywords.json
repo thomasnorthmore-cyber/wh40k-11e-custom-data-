@@ -5199,5 +5199,488 @@
     "model": "",
     "is_faction_keyword": "false",
     "": ""
+  },
+  {
+    "datasheet_id": "000004193",
+    "keyword": "Asuryani",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004193",
+    "keyword": "",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004193",
+    "keyword": "Anhrathe",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004193",
+    "keyword": "Prince Yriel",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004193",
+    "keyword": "Infantry",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004193",
+    "keyword": "Aeldari",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004193",
+    "keyword": "Character",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004193",
+    "keyword": "Epic Hero",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004194",
+    "keyword": "",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004194",
+    "keyword": "Asuryani",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004194",
+    "keyword": "Kharseth",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004194",
+    "keyword": "Character",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004194",
+    "keyword": "Anhrathe",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004194",
+    "keyword": "Psyker",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004194",
+    "keyword": "Epic Hero",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004194",
+    "keyword": "Aeldari",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004194",
+    "keyword": "Infantry",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004195",
+    "keyword": "Ynnari",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004195",
+    "keyword": "",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004195",
+    "keyword": "Asuryani",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004195",
+    "keyword": "Starfangs",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004195",
+    "keyword": "Grenades",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004195",
+    "keyword": "Smoke",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004195",
+    "keyword": "Fly",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004195",
+    "keyword": "Anhrathe",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004195",
+    "keyword": "Aeldari",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004195",
+    "keyword": "Vehicle",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004196",
+    "keyword": "Ynnari",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004196",
+    "keyword": "",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004196",
+    "keyword": "Asuryani",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004196",
+    "keyword": "Anhrathe",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004196",
+    "keyword": "Aeldari",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004196",
+    "keyword": "Infantry",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004196",
+    "keyword": "Grenades",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004196",
+    "keyword": "Corsair Skyreavers",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004196",
+    "keyword": "Fly",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004196",
+    "keyword": "Jump Pack",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004235",
+    "keyword": "",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004235",
+    "keyword": "Ynnari",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004235",
+    "keyword": "Asuryani",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004235",
+    "keyword": "Exodite",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004235",
+    "keyword": "Mobile",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004235",
+    "keyword": "Aeldari",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004235",
+    "keyword": "Mounted",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004236",
+    "keyword": "",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004236",
+    "keyword": "Asuryani",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004236",
+    "keyword": "Ynnari",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004236",
+    "keyword": "Mounted",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004236",
+    "keyword": "Character",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004236",
+    "keyword": "Aeldari",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004236",
+    "keyword": "Exodite",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004236",
+    "keyword": "Mobile",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004237",
+    "keyword": "",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004237",
+    "keyword": "Ynnari",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004237",
+    "keyword": "Asuryani",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004237",
+    "keyword": "Exodite",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004237",
+    "keyword": "Mobile",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004237",
+    "keyword": "Psyker",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004237",
+    "keyword": "Mounted",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004237",
+    "keyword": "Aeldari",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004237",
+    "keyword": "Character",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004238",
+    "keyword": "Ynnari",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004238",
+    "keyword": "Asuryani",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004238",
+    "keyword": "",
+    "model": "",
+    "is_faction_keyword": "true",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004238",
+    "keyword": "Exodite",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004238",
+    "keyword": "Character",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004238",
+    "keyword": "Aeldari",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004238",
+    "keyword": "Mounted",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
+  },
+  {
+    "datasheet_id": "000004238",
+    "keyword": "Mobile",
+    "model": "",
+    "is_faction_keyword": "false",
+    "": ""
   }
 ]
