@@ -57,19 +57,22 @@ for group in [arms,heavy,wargear]:
     for item in selections:
         c={x.get("type"):int(x.get("value")) for x in item.findall("./"+C+"constraints/"+C+"constraint")}
         assert c["min"]==0 and c["max"] in (1,2)
-p=profile_order(wraith)
-display_names = {profile.get("id"): profile.get("name") for profile in p}
-for item_id in ("wl-profile-0", "wl-profile-2"):
-    assert display_names[item_id] == "Shuriken catapult", f"{item_id}: incomplete Shuriken catapult name"
-for item_id in ("wl-profile-1", "wl-profile-3"):
-    assert display_names[item_id] == "Flamer", f"{item_id}: incorrect Flamer name"
-conditional=[x for x in p if x.get("id","").startswith("wl-profile-")]
-assert len(conditional)==18
-valid_ids=set().union(*expected_groups.values())
-for profile in conditional:
-    conditions=profile.findall("./"+C+"modifiers/"+C+"modifier/"+C+"conditions/"+C+"condition")
-    assert len(conditions)==1, profile.get("id")
-    condition=conditions[0]
-    assert condition.get("childId") in valid_ids, profile.get("id")
-    assert int(condition.get("value")) in (1,2), profile.get("id")
+p=wraith.findall("./"+C+"profiles/"+C+"profile")
+assert list(dict.fromkeys(x.get("typeName") for x in p))==["Units","Abilities","Keywords"], "Detached Wraithlord weapon profiles remain"
+expected_profiles={
+ "wl-arms-catapult":("Shuriken catapult",),
+ "wl-arms-flamer":("Flamer",),
+ "wl-heavy-missile":("Missile launcher – starshot","Missile launcher – sunburst"),
+ "wl-heavy-bright":("Bright lance",),
+ "wl-heavy-scatter":("Scatter laser",),
+ "wl-heavy-shuriken":("Shuriken cannon",),
+ "wl-heavy-star":("Starcannon",),
+ "wl-wargear-ghost":("Ghostglaive – strike","Ghostglaive – sweep"),
+}
+for option, names in expected_profiles.items():
+    entry=get(wmodel,"selectionEntry",option)
+    profiles=entry.findall("./"+C+"profiles/"+C+"profile")
+    assert tuple(x.get("name") for x in profiles)==names, (option,names)
+    assert all(p.get("hidden")=="false" and p.find("./"+C+"modifiers") is None for p in profiles), f"{option}: selected weapon must have an unconditionally visible owned profile"
+assert len([p for p in wraith.iter(C+"profile") if p.get("typeName") in ("Ranged Weapons","Melee Weapons")])==11, "Wraithlord expects 11 weapon mode profiles owned by equipment"
 print("PASS: Falcon two exclusive weapon slots; Wraithlord 2/2 arm count, 0/2 heavy count, Ghostglaive toggle, points, profile order and conditions")
