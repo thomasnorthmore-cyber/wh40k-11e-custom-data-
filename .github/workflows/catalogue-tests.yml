@@ -20,6 +20,8 @@ jobs:
         run: python scripts/build_catalogue.py --check
       - name: Test generator applies structured changes
         run: python scripts/build_catalogue.py --self-test
+      - name: Validate model-specific loadout legality
+        run: python scripts/loadout_rules.py
       - name: Validate equipment ownership across all units
         run: python scripts/validate_equipment_ownership.py
       - name: Validate all unit selection structure
