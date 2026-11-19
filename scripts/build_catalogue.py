@@ -190,7 +190,7 @@ def apply_datasheets(template: ET.Element, data: dict) -> ET.Element:
             while owner is not unit:
                 ancestors.append(owner.get("id"))
                 owner = parents[owner]
-            require(ancestors[::-1] == spec["owner_path"], f"{uid}/{spec['id']}: model ancestry changed")
+            require([uid] + ancestors[::-1] == spec["owner_path"], f"{uid}/{spec['id']}: model ancestry changed")
             require((p.find(N+"modifiers") is not None) == spec["has_modifiers"],
                     f"{uid}/{spec['id']}: visibility modifier lost")
             p.set("name", spec["name"])
