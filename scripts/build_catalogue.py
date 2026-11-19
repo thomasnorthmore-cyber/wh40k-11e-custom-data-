@@ -292,7 +292,25 @@ def self_test() -> None:
     condition["attrs"]["value"] = str(int(condition["attrs"]["value"]) + 1)
     assert canonical(apply_all(copy.deepcopy(source), manifest, datasheets, changed_condition)) != canonical(source), (
         "Structured modifier conditions do not drive generation")
-    print("PASS: structured points, weapons, abilities, gear labels, native rules, keywords and conditions drive generation")
+    modified_cost = copy.deepcopy(mechanics)
+    independent_unit = next(u for u in modified_cost["units"] if u["id"] == "unit-rangers-11e0")
+    independent_unit["costs"][0]["attrs"]["value"] = str(
+        int(independent_unit["costs"][0]["attrs"]["value"]) + 1)
+    assert canonical(apply_all(copy.deepcopy(source), manifest, datasheets, modified_cost)) != canonical(source), (
+        "Structured non-pilot point cost did not change generated catalogue")
+    modified_category = copy.deepcopy(mechanics)
+    category = next(c for u in modified_category["units"] for c in u["category_links"])
+    category["name"] += " Test"
+    assert canonical(apply_all(copy.deepcopy(source), manifest, datasheets, modified_category)) != canonical(source), (
+        "Structured unit categories did not change generated catalogue")
+    modified_constraints = copy.deepcopy(mechanics)
+    ranger = next(u for u in modified_constraints["units"] if u["id"] == "unit-rangers-11e0")
+    min_constraint = next(c for c in ranger["constraints"] if c["attrs"].get("type") == "min")
+    min_constraint["attrs"]["value"] = str(int(min_constraint["attrs"]["value"]) + 1)
+    assert canonical(apply_all(copy.deepcopy(source), manifest, datasheets, modified_constraints)) != canonical(source), (
+        "Structured non-pilot limits did not change generated catalogue")
+    print("PASS: JSON controls points, weapons, abilities, gear labels, native rules, keywords, "
+          "categories, limits and visibility conditions")
 
 
 def main() -> None:
