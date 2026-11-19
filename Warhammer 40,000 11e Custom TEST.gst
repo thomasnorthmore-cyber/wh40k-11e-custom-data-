@@ -60,11 +60,39 @@
     <categoryEntry id="fd-category-0" name="Grenades" hidden="false"/>
     <categoryEntry id="fd-category-1" name="Fire Dragons" hidden="false"/>
     <categoryEntry id="fd-category-2" name="Aspect Warriors" hidden="false"/>
+      <categoryEntry id="smoke-cat-0" name="Infantry Epic Hero" hidden="false"/>
+      <categoryEntry id="smoke-cat-1" name="Infantry Character" hidden="false"/>
+      <categoryEntry id="smoke-cat-2" name="Mounted Character" hidden="false"/>
+      <categoryEntry id="smoke-cat-3" name="Mounted" hidden="false"/>
+      <categoryEntry id="smoke-cat-4" name="Monster Epic Hero" hidden="false"/>
+      <categoryEntry id="smoke-cat-5" name="Monster" hidden="false"/>
+      <categoryEntry id="smoke-cat-6" name="Vehicle" hidden="false"/>
+      <categoryEntry id="smoke-cat-7" name="Transport" hidden="false"/>
+      <categoryEntry id="smoke-cat-8" name="Walker" hidden="false"/>
+      <categoryEntry id="smoke-cat-9" name="Battleline" hidden="false"/>
+      <categoryEntry id="smoke-cat-10" name="Aircraft" hidden="false"/>
+      <categoryEntry id="smoke-cat-11" name="Fortifications" hidden="false"/>
+      <categoryEntry id="smoke-cat-12" name="Titanic" hidden="false"/>
+      <categoryEntry id="smoke-cat-13" name="Dedicated Transports" hidden="false"/>
   </categoryEntries>
   <forceEntries>
     <forceEntry id="force-11e0" name="Test Army" hidden="false">
       <categoryLinks>
         <categoryLink id="force-infantry-link-11e0" name="Infantry" hidden="false" targetId="cat-infantry-11e0"/>
+        <categoryLink id="smoke-force-link-0" name="Infantry Epic Hero" hidden="false" targetId="smoke-cat-0"/>
+        <categoryLink id="smoke-force-link-1" name="Infantry Character" hidden="false" targetId="smoke-cat-1"/>
+        <categoryLink id="smoke-force-link-2" name="Mounted Character" hidden="false" targetId="smoke-cat-2"/>
+        <categoryLink id="smoke-force-link-3" name="Mounted" hidden="false" targetId="smoke-cat-3"/>
+        <categoryLink id="smoke-force-link-4" name="Monster Epic Hero" hidden="false" targetId="smoke-cat-4"/>
+        <categoryLink id="smoke-force-link-5" name="Monster" hidden="false" targetId="smoke-cat-5"/>
+        <categoryLink id="smoke-force-link-6" name="Vehicle" hidden="false" targetId="smoke-cat-6"/>
+        <categoryLink id="smoke-force-link-7" name="Transport" hidden="false" targetId="smoke-cat-7"/>
+        <categoryLink id="smoke-force-link-8" name="Walker" hidden="false" targetId="smoke-cat-8"/>
+        <categoryLink id="smoke-force-link-9" name="Battleline" hidden="false" targetId="smoke-cat-9"/>
+        <categoryLink id="smoke-force-link-10" name="Aircraft" hidden="false" targetId="smoke-cat-10"/>
+        <categoryLink id="smoke-force-link-11" name="Fortifications" hidden="false" targetId="smoke-cat-11"/>
+        <categoryLink id="smoke-force-link-12" name="Titanic" hidden="false" targetId="smoke-cat-12"/>
+        <categoryLink id="smoke-force-link-13" name="Dedicated Transports" hidden="false" targetId="smoke-cat-13"/>
       </categoryLinks>
     </forceEntry>
   </forceEntries>
