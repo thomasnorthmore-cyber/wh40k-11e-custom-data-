@@ -54,6 +54,13 @@ for id, groups in specs.items():
     matches=[m for m in mods if m.get("value")==str(size*ratio) and
       any(c.get("value")==str(size) and c.get("childId")==model_id for c in m.findall(".//"+C+"condition"))]
     assert len(matches)==2, f"{gid}: missing min/max weapon counts at {size} models"
+   # Fixed melee profiles must show the same number of weapons as models.
+   base_melee={"591":"smoke-591-weapon-0-1","605":"smoke-605-weapon-0-2","612":"smoke-612-weapon-0-2"}[id]
+   relevant=[p for p in profiles if p.get("id")==base_melee or p.get("id","").startswith(base_melee+"-qty-")]
+   assert len(relevant)==variable[id]["model"][1]-variable[id]["model"][0]+1, f"{id}: missing melee count variants"
+   for count in range(variable[id]["model"][0]+1,variable[id]["model"][1]+1):
+    profile=next((p for p in relevant if p.get("id")==base_melee+f"-qty-{count}"),None)
+    assert profile is not None and f"(x{count})" in profile.get("name",""), f"{id}: missing x{count} melee label"
    cost=u.find("./"+C+"costs/"+C+"cost")
    assert float(cost.get("value"))==variable[id]["cost"][0]
    pmods=u.findall("./"+C+"modifiers/"+C+"modifier")
