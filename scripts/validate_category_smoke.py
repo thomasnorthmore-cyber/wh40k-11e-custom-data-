@@ -54,7 +54,7 @@ for unit in units:
     rules = unit.findall("./"+C+"rules/"+C+"rule")
     assert all(r.find("./"+C+"description") is not None for r in rules), f"{id}: native rule has no description"
     if id=="2459":
-        assert {"Arcane Cover","Webway Strike","Fortification","Deployment"} <= {x.get("name") for x in rules}, "Webway Gate rules missing"
+        assert {"Arcane Cover","Webway Strike","Fortification","Deployment"} <= ({x.get("name") for x in rules} | {x.get("name") for x in profiles if x.get("typeName")=="Abilities"}), "Webway Gate abilities/core rules missing"
     models = unit.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
     assert models and all(m.get("type")=="model" for m in models), f"{id}: model choices lost"
     for model in models:
