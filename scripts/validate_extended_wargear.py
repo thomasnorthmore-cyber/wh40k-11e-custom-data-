@@ -8,7 +8,7 @@ cat=ET.parse(Path(__file__).resolve().parents[1]/"Aeldari 11e TEST.cat").getroot
 units={x.get("id"):x for x in cat.findall("./"+C+"selectionEntries/"+C+"selectionEntry")}
 specs={
  "582":[("staff",1,1,2)],"583":[("staff",1,1,2)],
- "591":[("bike",3,3,3)],
+ "591":[("bike",1,1,3)],
  "605":[("main",1,1,3),("secondary",1,1,2)],
  "589":[("platform",1,1,5)],
  "603":[("wings",1,1,2)],
@@ -43,15 +43,19 @@ for id, groups in specs.items():
    assert len(model)==1, f"{id}: missing variable-size model"
    model_constraints={x.get("type"):int(x.get("value")) for x in model[0].findall("./"+C+"constraints/"+C+"constraint")}
    assert model_constraints==dict(zip(("min","max"),variable[id]["model"])), f"{id}: invalid unit size"
-   assert group in u.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"), f"{gid}: counters must be squad level"
-   mods=group.findall("./"+C+"modifiers/"+C+"modifier")
-   expected=2*(variable[id]["model"][1]-variable[id]["model"][0])
-   assert len(mods)==expected, f"{gid}: expected {expected} dynamic count modifiers"
-   ratio=variable[id]["ratio"][key]
-   for size in range(variable[id]["model"][0]+1,variable[id]["model"][1]+1):
-    matches=[m for m in mods if m.get("value")==str(size*ratio) and
-      any(c.get("value")==str(size) and c.get("childId")==model_id for c in m.findall(".//"+C+"condition"))]
-    assert len(matches)==2, f"{gid}: missing min/max weapon counts at {size} models"
+   if id=="591":
+    assert group in model[0].findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"), "Windrider weapons must be nested per model"
+    assert not group.findall("./"+C+"modifiers/"+C+"modifier"), "Windrider weapon group must not use squad-level count modifiers"
+   else:
+    assert group in u.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"), f"{gid}: counters must be squad level"
+    mods=group.findall("./"+C+"modifiers/"+C+"modifier")
+    expected=2*(variable[id]["model"][1]-variable[id]["model"][0])
+    assert len(mods)==expected, f"{gid}: expected {expected} dynamic count modifiers"
+    ratio=variable[id]["ratio"][key]
+    for size in range(variable[id]["model"][0]+1,variable[id]["model"][1]+1):
+     matches=[m for m in mods if m.get("value")==str(size*ratio) and
+       any(c.get("value")==str(size) and c.get("childId")==model_id for c in m.findall(".//"+C+"condition"))]
+     assert len(matches)==2, f"{gid}: missing min/max weapon counts at {size} models"
    # Fixed melee profiles must show the same number of weapons as models.
    base_melee={"591":"smoke-591-weapon-0-1","605":"smoke-605-weapon-0-2","612":"smoke-612-weapon-0-2"}[id]
    if id=="591":
@@ -72,7 +76,7 @@ for id, groups in specs.items():
   options |= childids
   for child in children:
    limits={x.get("type"):int(x.get("value")) for x in child.findall("./"+C+"constraints/"+C+"constraint")}
-   expected_max=variable[id]["model"][1]*variable[id]["ratio"][key] if id in variable else high
+   expected_max=1 if id=="591" else variable[id]["model"][1]*variable[id]["ratio"][key] if id in variable else high
    assert limits=={"min":0,"max":expected_max}, f"{gid}: invalid equipment quantity limit {limits}"
  if id=="591":
   assert not [p for p in profiles if p.get("typeName") in ("Ranged Weapons","Melee Weapons")], "Windrider unit-level weapons must be absent"
