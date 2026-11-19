@@ -1,0 +1,820 @@
+{
+  "schema_version": 1,
+  "edition": "11th",
+  "source": "Structured selections in v5 catalogue. Defaults reflect selection IDs, not verified official equipment statements.",
+  "units": [
+    {
+      "id": "fd-unit-root",
+      "name": "Fire Dragons",
+      "slots": [
+        {
+          "slot_id": "fd-exarch-gear-5",
+          "name": "Weapon (choose one)",
+          "model_id": "fd-exarch-5",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "fd-gear-default-5",
+          "choices": [
+            {
+              "id": "fd-gear-default-5",
+              "name": "Exarch’s Dragon fusion gun",
+              "max": 1,
+              "weapon_profile_ids": []
+            },
+            {
+              "id": "fd-gear-flamer-5",
+              "name": "Dragon’s breath flamer",
+              "max": 1,
+              "weapon_profile_ids": []
+            },
+            {
+              "id": "fd-gear-pistol-5",
+              "name": "Dragon fusion pistol & Dragon axe",
+              "max": 1,
+              "weapon_profile_ids": []
+            },
+            {
+              "id": "fd-gear-pike-5",
+              "name": "Firepike",
+              "max": 1,
+              "weapon_profile_ids": []
+            }
+          ],
+          "kind": "exclusive_replacement"
+        }
+      ]
+    },
+    {
+      "id": "dr-unit-root",
+      "name": "Dark Reapers",
+      "slots": [
+        {
+          "slot_id": "dr-exarch-gear",
+          "name": "Weapon (choose one)",
+          "model_id": "dr-exarch",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "dr-exarch-choice-reaper",
+          "choices": [
+            {
+              "id": "dr-exarch-choice-reaper",
+              "name": "Reaper launcher",
+              "max": 1,
+              "weapon_profile_ids": []
+            },
+            {
+              "id": "dr-exarch-choice-missile",
+              "name": "Missile launcher",
+              "max": 1,
+              "weapon_profile_ids": []
+            },
+            {
+              "id": "dr-exarch-choice-shuriken",
+              "name": "Shuriken cannon",
+              "max": 1,
+              "weapon_profile_ids": []
+            },
+            {
+              "id": "dr-exarch-choice-tempest",
+              "name": "Tempest launcher",
+              "max": 1,
+              "weapon_profile_ids": []
+            }
+          ],
+          "kind": "exclusive_replacement"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-591",
+      "name": "Windriders",
+      "slots": [
+        {
+          "slot_id": "mul-591-bike",
+          "name": "Windrider Weapons",
+          "model_id": "smoke-591-model-0",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "mul-591-bike-catapult",
+          "choices": [
+            {
+              "id": "mul-591-bike-catapult",
+              "name": "Twin shuriken catapult",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-591-p-catapult-1-0"
+              ]
+            },
+            {
+              "id": "mul-591-bike-scatter",
+              "name": "Scatter laser",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-591-p-scatter-1-0"
+              ]
+            },
+            {
+              "id": "mul-591-bike-shuriken",
+              "name": "Shuriken cannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-591-p-shuriken-1-0"
+              ]
+            }
+          ],
+          "kind": "exclusive_replacement"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-613",
+      "name": "Wraithlord",
+      "slots": [
+        {
+          "slot_id": "wl-group-wargear",
+          "name": "Wargear",
+          "model_id": "smoke-613-model-0",
+          "scope": "per_model",
+          "min": 0,
+          "max": 1,
+          "default_choice_id": null,
+          "choices": [
+            {
+              "id": "wl-wargear-ghost",
+              "name": "Ghostglaive",
+              "max": 1,
+              "weapon_profile_ids": [
+                "wl-profile-16",
+                "wl-profile-17"
+              ]
+            }
+          ],
+          "kind": "optional_addition"
+        },
+        {
+          "slot_id": "wl-group-arms",
+          "name": "Arm Weapons",
+          "model_id": "smoke-613-model-0",
+          "scope": "per_model",
+          "min": 2,
+          "max": 2,
+          "default_choice_id": "wl-arms-catapult",
+          "choices": [
+            {
+              "id": "wl-arms-flamer",
+              "name": "Flamer",
+              "max": 2,
+              "weapon_profile_ids": [
+                "wl-profile-1"
+              ]
+            },
+            {
+              "id": "wl-arms-catapult",
+              "name": "Shuriken Catapult",
+              "max": 2,
+              "weapon_profile_ids": [
+                "wl-profile-0"
+              ]
+            }
+          ],
+          "kind": "counted_replacement"
+        },
+        {
+          "slot_id": "wl-group-heavy",
+          "name": "Heavy Weapons",
+          "model_id": "smoke-613-model-0",
+          "scope": "per_model",
+          "min": 0,
+          "max": 2,
+          "default_choice_id": null,
+          "choices": [
+            {
+              "id": "wl-heavy-missile",
+              "name": "Aeldari Missile Launcher",
+              "max": 2,
+              "weapon_profile_ids": [
+                "wl-profile-4",
+                "wl-profile-5"
+              ]
+            },
+            {
+              "id": "wl-heavy-bright",
+              "name": "Bright Lance",
+              "max": 2,
+              "weapon_profile_ids": [
+                "wl-profile-6"
+              ]
+            },
+            {
+              "id": "wl-heavy-scatter",
+              "name": "Scatter Laser",
+              "max": 2,
+              "weapon_profile_ids": [
+                "wl-profile-7"
+              ]
+            },
+            {
+              "id": "wl-heavy-shuriken",
+              "name": "Shuriken Cannon",
+              "max": 2,
+              "weapon_profile_ids": [
+                "wl-profile-8"
+              ]
+            },
+            {
+              "id": "wl-heavy-star",
+              "name": "Starcannon",
+              "max": 2,
+              "weapon_profile_ids": [
+                "wl-profile-9"
+              ]
+            }
+          ],
+          "kind": "optional_addition"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-612",
+      "name": "War Walkers",
+      "slots": [
+        {
+          "slot_id": "mul-612-mounts",
+          "name": "Heavy Weapon Mounts",
+          "model_id": "smoke-612-model-0",
+          "scope": "per_model",
+          "min": 2,
+          "max": 2,
+          "default_choice_id": "mul-612-mounts-shuriken",
+          "choices": [
+            {
+              "id": "mul-612-mounts-shuriken",
+              "name": "Shuriken cannon",
+              "max": 2,
+              "weapon_profile_ids": [
+                "mul-612-p-shuriken-1-0"
+              ]
+            },
+            {
+              "id": "mul-612-mounts-missile",
+              "name": "Missile launcher",
+              "max": 2,
+              "weapon_profile_ids": [
+                "mul-612-p-missile-1-0",
+                "mul-612-p-missile-1-1"
+              ]
+            },
+            {
+              "id": "mul-612-mounts-bright",
+              "name": "Bright lance",
+              "max": 2,
+              "weapon_profile_ids": [
+                "mul-612-p-bright-1-0"
+              ]
+            },
+            {
+              "id": "mul-612-mounts-scatter",
+              "name": "Scatter laser",
+              "max": 2,
+              "weapon_profile_ids": [
+                "mul-612-p-scatter-1-0"
+              ]
+            },
+            {
+              "id": "mul-612-mounts-star",
+              "name": "Starcannon",
+              "max": 2,
+              "weapon_profile_ids": [
+                "mul-612-p-star-1-0"
+              ]
+            }
+          ],
+          "kind": "counted_replacement"
+        }
+      ]
+    },
+    {
+      "id": "unit-rangers-11e0",
+      "name": "Rangers",
+      "slots": [
+        {
+          "slot_id": "rangers-size-choice-11e0",
+          "name": "Unit Size (choose one)",
+          "model_id": null,
+          "scope": "per_unit",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "rangers-five-11e0",
+          "choices": [
+            {
+              "id": "rangers-five-11e0",
+              "name": "5 Rangers",
+              "max": 1,
+              "weapon_profile_ids": [
+                "weapon-longrifle-11e0-rangers-5",
+                "weapon-pistol-11e0-rangers-5",
+                "weapon-melee-11e0-rangers-5"
+              ]
+            },
+            {
+              "id": "rangers-ten-11e0",
+              "name": "10 Rangers",
+              "max": 1,
+              "weapon_profile_ids": [
+                "weapon-longrifle-11e0-rangers-10",
+                "weapon-pistol-11e0-rangers-10",
+                "weapon-melee-11e0-rangers-10"
+              ]
+            }
+          ],
+          "kind": "exclusive_replacement"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-568",
+      "name": "Eldrad Ulthran",
+      "slots": []
+    },
+    {
+      "id": "smoke-unit-582",
+      "name": "Farseer",
+      "slots": [
+        {
+          "slot_id": "mul-582-staff",
+          "name": "Melee Wargear",
+          "model_id": "smoke-582-model-0",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "mul-582-staff-witchblade",
+          "choices": [
+            {
+              "id": "mul-582-staff-witchblade",
+              "name": "Witchblade",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-582-p-witchblade-1-0"
+              ]
+            },
+            {
+              "id": "mul-582-staff-spear",
+              "name": "Singing spear",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-582-p-spear-1-0",
+                "mul-582-p-spear-1-1"
+              ]
+            }
+          ],
+          "kind": "exclusive_replacement"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-583",
+      "name": "Farseer Skyrunner",
+      "slots": [
+        {
+          "slot_id": "mul-583-staff",
+          "name": "Melee Wargear",
+          "model_id": "smoke-583-model-0",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "mul-583-staff-witchblade",
+          "choices": [
+            {
+              "id": "mul-583-staff-witchblade",
+              "name": "Witchblade",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-583-p-witchblade-1-0"
+              ]
+            },
+            {
+              "id": "mul-583-staff-spear",
+              "name": "Singing spear",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-583-p-spear-1-0",
+                "mul-583-p-spear-1-1"
+              ]
+            }
+          ],
+          "kind": "exclusive_replacement"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-581",
+      "name": "Avatar of Khaine",
+      "slots": []
+    },
+    {
+      "id": "smoke-unit-605",
+      "name": "Vypers",
+      "slots": [
+        {
+          "slot_id": "mul-605-main",
+          "name": "Main Weapon",
+          "model_id": "smoke-605-model-0",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "mul-605-main-bright",
+          "choices": [
+            {
+              "id": "mul-605-main-bright",
+              "name": "Bright lance",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-605-p-bright-1-0"
+              ]
+            },
+            {
+              "id": "mul-605-main-scatter",
+              "name": "Scatter laser",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-605-p-scatter-1-0"
+              ]
+            },
+            {
+              "id": "mul-605-main-star",
+              "name": "Starcannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-605-p-star-1-0"
+              ]
+            }
+          ],
+          "kind": "exclusive_replacement"
+        },
+        {
+          "slot_id": "mul-605-secondary",
+          "name": "Secondary Weapon",
+          "model_id": "smoke-605-model-0",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "mul-605-secondary-shuriken",
+          "choices": [
+            {
+              "id": "mul-605-secondary-shuriken",
+              "name": "Shuriken cannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-605-p-shuriken-2-0"
+              ]
+            },
+            {
+              "id": "mul-605-secondary-missile",
+              "name": "Missile launcher",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-605-p-missile-2-0",
+                "mul-605-p-missile-2-1"
+              ]
+            }
+          ],
+          "kind": "exclusive_replacement"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-609",
+      "name": "Falcon",
+      "slots": [
+        {
+          "slot_id": "falcon-group-turret",
+          "name": "Turret weapon (choose one)",
+          "model_id": "smoke-609-model-0",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "falcon-turret-scatter",
+          "choices": [
+            {
+              "id": "falcon-turret-scatter",
+              "name": "Scatter laser",
+              "max": 1,
+              "weapon_profile_ids": [
+                "falcon-profile-0"
+              ]
+            },
+            {
+              "id": "falcon-turret-missile",
+              "name": "Missile launcher",
+              "max": 1,
+              "weapon_profile_ids": [
+                "falcon-profile-1",
+                "falcon-profile-2"
+              ]
+            },
+            {
+              "id": "falcon-turret-bright",
+              "name": "Bright lance",
+              "max": 1,
+              "weapon_profile_ids": [
+                "falcon-profile-3"
+              ]
+            },
+            {
+              "id": "falcon-turret-shuriken",
+              "name": "Shuriken cannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "falcon-profile-4"
+              ]
+            },
+            {
+              "id": "falcon-turret-star",
+              "name": "Starcannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "falcon-profile-5"
+              ]
+            }
+          ],
+          "kind": "exclusive_replacement"
+        },
+        {
+          "slot_id": "falcon-group-underside",
+          "name": "Secondary weapon (choose one)",
+          "model_id": "smoke-609-model-0",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "falcon-underside-twin",
+          "choices": [
+            {
+              "id": "falcon-underside-twin",
+              "name": "Twin shuriken catapult",
+              "max": 1,
+              "weapon_profile_ids": [
+                "falcon-profile-6"
+              ]
+            },
+            {
+              "id": "falcon-underside-shuriken",
+              "name": "Shuriken cannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "falcon-profile-7"
+              ]
+            }
+          ],
+          "kind": "exclusive_replacement"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-589",
+      "name": "Guardian Defenders",
+      "slots": [
+        {
+          "slot_id": "mul-589-platform",
+          "name": "Heavy Weapon Platform",
+          "model_id": "smoke-589-model-1",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "mul-589-platform-shuriken",
+          "choices": [
+            {
+              "id": "mul-589-platform-shuriken",
+              "name": "Shuriken cannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-589-p-shuriken-1-0"
+              ]
+            },
+            {
+              "id": "mul-589-platform-missile",
+              "name": "Missile launcher",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-589-p-missile-1-0",
+                "mul-589-p-missile-1-1"
+              ]
+            },
+            {
+              "id": "mul-589-platform-bright",
+              "name": "Bright lance",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-589-p-bright-1-0"
+              ]
+            },
+            {
+              "id": "mul-589-platform-scatter",
+              "name": "Scatter laser",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-589-p-scatter-1-0"
+              ]
+            },
+            {
+              "id": "mul-589-platform-star",
+              "name": "Starcannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-589-p-star-1-0"
+              ]
+            }
+          ],
+          "kind": "exclusive_replacement"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-603",
+      "name": "Crimson Hunter",
+      "slots": [
+        {
+          "slot_id": "mul-603-wings",
+          "name": "Paired Wing Weapons",
+          "model_id": "smoke-603-model-0",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "mul-603-wings-star",
+          "choices": [
+            {
+              "id": "mul-603-wings-star",
+              "name": "2× Starcannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-603-p-star-1-0"
+              ]
+            },
+            {
+              "id": "mul-603-wings-bright",
+              "name": "2× Bright lance",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-603-p-bright-1-0"
+              ]
+            }
+          ],
+          "kind": "exclusive_replacement"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-2459",
+      "name": "Webway Gate",
+      "slots": []
+    },
+    {
+      "id": "smoke-unit-621",
+      "name": "Scorpion",
+      "slots": [
+        {
+          "slot_id": "mul-621-secondary",
+          "name": "Secondary Weapon",
+          "model_id": "smoke-621-model-0",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "mul-621-secondary-shuriken",
+          "choices": [
+            {
+              "id": "mul-621-secondary-shuriken",
+              "name": "Shuriken cannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-621-p-shuriken-1-0"
+              ]
+            },
+            {
+              "id": "mul-621-secondary-aeldari-missile",
+              "name": "Aeldari missile launcher",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-621-p-aeldari-missile-1-0",
+                "mul-621-p-aeldari-missile-1-1"
+              ]
+            },
+            {
+              "id": "mul-621-secondary-bright",
+              "name": "Bright lance",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-621-p-bright-1-0"
+              ]
+            },
+            {
+              "id": "mul-621-secondary-scatter",
+              "name": "Scatter laser",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-621-p-scatter-1-0"
+              ]
+            },
+            {
+              "id": "mul-621-secondary-star",
+              "name": "Starcannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-621-p-star-1-0"
+              ]
+            }
+          ],
+          "kind": "exclusive_replacement"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-599",
+      "name": "Wave Serpent",
+      "slots": [
+        {
+          "slot_id": "mul-599-turret",
+          "name": "Twin Turret Weapon",
+          "model_id": "smoke-599-model-0",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "mul-599-turret-twin-shuriken",
+          "choices": [
+            {
+              "id": "mul-599-turret-twin-shuriken",
+              "name": "Twin shuriken cannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-599-p-twin-shuriken-1-0"
+              ]
+            },
+            {
+              "id": "mul-599-turret-twin-missile",
+              "name": "Twin missile launcher",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-599-p-twin-missile-1-0",
+                "mul-599-p-twin-missile-1-1"
+              ]
+            },
+            {
+              "id": "mul-599-turret-twin-bright",
+              "name": "Twin bright lance",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-599-p-twin-bright-1-0"
+              ]
+            },
+            {
+              "id": "mul-599-turret-twin-scatter",
+              "name": "Twin scatter laser",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-599-p-twin-scatter-1-0"
+              ]
+            },
+            {
+              "id": "mul-599-turret-twin-star",
+              "name": "Twin starcannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-599-p-twin-star-1-0"
+              ]
+            }
+          ],
+          "kind": "exclusive_replacement"
+        },
+        {
+          "slot_id": "mul-599-under",
+          "name": "Secondary Weapon",
+          "model_id": "smoke-599-model-0",
+          "scope": "per_model",
+          "min": 1,
+          "max": 1,
+          "default_choice_id": "mul-599-under-catapult",
+          "choices": [
+            {
+              "id": "mul-599-under-catapult",
+              "name": "Twin shuriken catapult",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-599-p-catapult-2-0"
+              ]
+            },
+            {
+              "id": "mul-599-under-shuriken",
+              "name": "Shuriken cannon",
+              "max": 1,
+              "weapon_profile_ids": [
+                "mul-599-p-shuriken-2-0"
+              ]
+            }
+          ],
+          "kind": "exclusive_replacement"
+        }
+      ]
+    }
+  ]
+}
