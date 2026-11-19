@@ -16,6 +16,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+      - name: Generate all 99 source Aeldari datasheets
+        run: python scripts/expand_aeldari.py --out /tmp/aeldari-full-preview.cat
+      - name: Validate complete 99-unit Aeldari preview
+        run: python scripts/validate_full_aeldari.py /tmp/aeldari-full-preview.cat
       - name: Check structured data matches catalogue
         run: python scripts/build_catalogue.py --check
       - name: Test generator applies structured changes
