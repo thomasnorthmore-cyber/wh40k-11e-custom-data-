@@ -3,7 +3,7 @@
 from pathlib import Path
 import xml.etree.ElementTree as ET
 C="{http://www.battlescribe.net/schema/catalogueSchema}"
-root=ET.parse(Path(__file__).resolve().parents[1]/"Aeldari 11e TEST.cat").getroot()
+root=ET.parse(Path(__file__).resolve().parents[1]/"tests/fixtures/aeldari-v6.cat").getroot()
 units={u.get("id"):u for u in root.findall("./"+C+"selectionEntries/"+C+"selectionEntry")}
 def entry(parent,id,tag="selectionEntry"):
     items=[e for e in parent.iter(C+tag) if e.get("id")==id]
