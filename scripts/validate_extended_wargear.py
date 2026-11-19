@@ -81,36 +81,37 @@ for id, groups in specs.items():
   triggers.add(trigger)
  assert triggers==options, f"{id}: option without a display profile {options-triggers}"
 assert len(specs)==8
-# War Walkers: two separately equipped models, each with independent 2/2 guns.
+# War Walkers follow the native New Recruit model-counter approach.
+# Model count is 1–2; each model carries its own 2/2 weapon group.
 walker=units["smoke-unit-612"]
-walker_models={m.get("id"):m for m in walker.findall("./"+C+"selectionEntries/"+C+"selectionEntry")}
-assert set(walker_models)=={"smoke-612-model-0","smoke-612-model-1"}, "War Walkers must be separate model selections"
-for index,expected in ((0,{"min":1,"max":1}),(1,{"min":0,"max":1})):
- model=walker_models[f"smoke-612-model-{index}"]
- model_limits={c.get("type"):int(c.get("value")) for c in model.findall("./"+C+"constraints/"+C+"constraint")}
- assert model_limits==expected, f"Walker {index+1}: model limits wrong"
- gid="mul-612-mounts"+("-2" if index else "")
- groups=model.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup")
- assert len(groups)==1 and groups[0].get("id")==gid, f"Walker {index+1}: missing independent weapon group"
- group=groups[0]
- limits={c.get("type"):int(c.get("value")) for c in group.findall("./"+C+"constraints/"+C+"constraint")}
- assert limits=={"min":2,"max":2}, f"Walker {index+1}: must equip exactly two guns"
- choices=group.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
- assert len(choices)==5, f"Walker {index+1}: missing weapon options"
- ids={c.get("id") for c in choices}
- assert group.get("defaultSelectionEntryId") in ids, f"Walker {index+1}: invalid default"
- for choice in choices:
-  max_value=next(c.get("value") for c in choice.findall("./"+C+"constraints/"+C+"constraint") if c.get("type")=="max")
-  assert int(max_value)==2, f"Walker {index+1}: max per weapon should be two"
-assert not walker.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"), "Shared squad-level weapon pool still present"
+walker_models=walker.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
+assert len(walker_models)==1 and walker_models[0].get("id")=="smoke-612-model-0", "War Walkers must use one 1–2 model counter"
+model=walker_models[0]
+model_limits={x.get("type"):int(x.get("value")) for x in model.findall("./"+C+"constraints/"+C+"constraint")}
+assert model_limits=={"min":1,"max":2}, f"Incorrect War Walker model limits: {model_limits}"
+assert model.get("name")=="War Walker", "War Walker model must have the shared counter label"
+assert not walker.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"), "Shared squad-level weapon pool remains"
+groups=model.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup")
+assert len(groups)==1 and groups[0].get("id")=="mul-612-mounts", "Missing nested per-model heavy weapons"
+group=groups[0]
+limits={x.get("type"):int(x.get("value")) for x in group.findall("./"+C+"constraints/"+C+"constraint")}
+assert limits=={"min":2,"max":2}, "Each War Walker must have exactly two heavy weapons"
+choices=group.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
+assert len(choices)==5, "Missing War Walker heavy weapon options"
+ids={x.get("id") for x in choices}
+assert group.get("defaultSelectionEntryId") in ids, "Invalid default weapon"
+for choice in choices:
+ values={x.get("type"):int(x.get("value")) for x in choice.findall("./"+C+"constraints/"+C+"constraint")}
+ assert values=={"min":0,"max":2}, f"Weapon {choice.get('name')} must allow 0–2"
 pmods=walker.findall("./"+C+"modifiers/"+C+"modifier")
 assert any(m.get("field")=="pts-11e0" and m.get("value")=="160" and
- any(c.get("childId")=="smoke-612-model-1" and c.get("value")=="1" for c in m.findall(".//"+C+"condition"))
- for m in pmods), "160-point price does not trigger on second model"
-wprofiles=[p for p in walker.findall("./"+C+"profiles/"+C+"profile") if p.get("id","").startswith("mul-612-p-")]
-assert len(wprofiles)==12, f"Expected 6 weapon modes per walker; found {len(wprofiles)}"
-triggers={c.get("childId") for p in wprofiles for c in p.findall(".//"+C+"condition")}
-for index in (0,1):
- group=walker_models[f"smoke-612-model-{index}"].find("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup")
- assert {c.get("id") for c in group.findall("./"+C+"selectionEntries/"+C+"selectionEntry")} <= triggers
-print("PASS: 8 other wargear test units plus separately equipped two-model War Walkers, 80/160 pricing and per-model heavy weapons")
+ any(c.get("childId")=="smoke-612-model-0" and c.get("value")=="2" for c in m.findall(".//"+C+"condition"))
+ for m in pmods), "160 points must trigger at 2 models"
+profiles=walker.findall("./"+C+"profiles/"+C+"profile")
+types=list(dict.fromkeys(p.get("typeName") for p in profiles))
+assert types==["Units","Ranged Weapons","Melee Weapons","Abilities","Keywords"], f"Wrong War Walker profile order: {types}"
+weapon_profiles=[p for p in profiles if p.get("id","").startswith("mul-612-p-")]
+assert len(weapon_profiles)==6, f"Expected six ranged profiles including two missile modes, found {len(weapon_profiles)}"
+triggers={x.get("childId") for p in weapon_profiles for x in p.findall(".//"+C+"condition")}
+assert ids==triggers, f"Wrong per-model weapon triggers: {ids^triggers}"
+print("PASS: 8 other wargear units plus War Walker 1–2 model counter with nested 2/2 gear and 80/160 pricing")
