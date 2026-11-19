@@ -1,0 +1,174 @@
+{
+  "schema_version": 1,
+  "edition": "11th",
+  "faction": "aeldari",
+  "source": "local-v5-catalogue",
+  "source_revision": 5,
+  "note": "Pilot metadata transcribed from the existing v5 catalogue. Not independent confirmation of current official rules.",
+  "units": [
+    {
+      "id": "fd-unit-root",
+      "name": "Fire Dragons",
+      "points": {
+        "base": 110,
+        "tiers": [
+          {
+            "models": 10,
+            "value": 240,
+            "model_id": "fd-regular-5",
+            "threshold": 5
+          }
+        ]
+      },
+      "models": [
+        {
+          "id": "fd-exarch-5",
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": "fd-regular-5",
+          "min": 4,
+          "max": 9
+        }
+      ],
+      "weapon_display": "unit-conditional",
+      "equipment_groups": [
+        {
+          "id": "fd-exarch-gear-5",
+          "default": "fd-gear-default-5"
+        }
+      ]
+    },
+    {
+      "id": "dr-unit-root",
+      "name": "Dark Reapers",
+      "points": {
+        "base": 95,
+        "tiers": [
+          {
+            "models": 10,
+            "value": 200,
+            "model_id": "dr-regular",
+            "threshold": 5
+          }
+        ]
+      },
+      "models": [
+        {
+          "id": "dr-exarch",
+          "min": 1,
+          "max": 1
+        },
+        {
+          "id": "dr-regular",
+          "min": 4,
+          "max": 9
+        }
+      ],
+      "weapon_display": "unit-conditional",
+      "equipment_groups": [
+        {
+          "id": "dr-exarch-gear",
+          "default": "dr-exarch-choice-reaper"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-591",
+      "name": "Windriders",
+      "points": {
+        "base": 80,
+        "tiers": [
+          {
+            "models": 6,
+            "value": 170,
+            "model_id": "smoke-591-model-0",
+            "threshold": 4
+          }
+        ]
+      },
+      "models": [
+        {
+          "id": "smoke-591-model-0",
+          "min": 3,
+          "max": 6
+        }
+      ],
+      "weapon_display": "model-owned",
+      "equipment_groups": [
+        {
+          "id": "mul-591-bike",
+          "min": 1,
+          "max": 1,
+          "default": "mul-591-bike-catapult"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-612",
+      "name": "War Walkers",
+      "points": {
+        "base": 80,
+        "tiers": [
+          {
+            "models": 2,
+            "value": 160,
+            "model_id": "smoke-612-model-0",
+            "threshold": 2
+          }
+        ]
+      },
+      "models": [
+        {
+          "id": "smoke-612-model-0",
+          "min": 1,
+          "max": 2
+        }
+      ],
+      "weapon_display": "model-owned",
+      "equipment_groups": [
+        {
+          "id": "mul-612-mounts",
+          "min": 2,
+          "max": 2,
+          "default": "mul-612-mounts-shuriken"
+        }
+      ]
+    },
+    {
+      "id": "smoke-unit-613",
+      "name": "Wraithlord",
+      "points": {
+        "base": 125,
+        "tiers": []
+      },
+      "models": [
+        {
+          "id": "smoke-613-model-0",
+          "min": 1,
+          "max": 1
+        }
+      ],
+      "weapon_display": "model-owned",
+      "equipment_groups": [
+        {
+          "id": "wl-group-arms",
+          "min": 2,
+          "max": 2,
+          "default": "wl-arms-catapult"
+        },
+        {
+          "id": "wl-group-heavy",
+          "min": 0,
+          "max": 2
+        },
+        {
+          "id": "wl-group-wargear",
+          "min": 0,
+          "max": 1
+        }
+      ]
+    }
+  ]
+}
