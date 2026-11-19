@@ -31,7 +31,11 @@ def check():
         require(any(x.get("primary") == "true" and x.get("name") == "Infantry" for x in cats), f"{unit_id}: not Infantry")
         profiles = u.findall("./" + NS + "profiles/" + NS + "profile")
         sections = list(dict.fromkeys(p.get("typeName") for p in profiles))
-        require(sections == ["Units", "Abilities", "Rules", "Keywords"], f"{unit_id}: incorrect unit-level section order: {sections}")
+        require(sections == ["Units"], f"{unit_id}: unit-level profiles should contain only characteristics: {sections}")
+        info = next((e for e in u.iter(NS + "selectionEntry") if e.get("id") == ("fd-datasheet-info-v4" if unit_id == "fd-unit-root" else "dr-datasheet-info-v4")), None)
+        require(info is not None, f"{unit_id}: missing trailing datasheet information entry")
+        details = [p.get("typeName") for p in info.findall("./" + NS + "profiles/" + NS + "profile")]
+        require(details[0] == "Abilities" and details[-1] == "Keywords", f"{unit_id}: incorrect trailing info order: {details}")
         require(not [p for p in profiles if p.get("typeName") in ("Ranged Weapons", "Melee Weapons")], f"{unit_id}: detached weapon profiles remain")
         require(len([p for p in u.iter(NS+"profile") if p.get("typeName") in ("Ranged Weapons", "Melee Weapons")]) >= 7, f"{unit_id}: missing equipment-owned weapon profiles")
         models = [e for e in u.findall(".//" + NS + "selectionEntry") if e.get("id") == model_id]
