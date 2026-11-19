@@ -23,3 +23,5 @@ jobs:
         run: python scripts/validate_multi_wargear.py
       - name: Validate weapon profile notation
         run: python scripts/validate_weapon_format.py
+      - name: Reject duplicate rules and abilities
+        run: python scripts/validate_rule_redundancy.py
