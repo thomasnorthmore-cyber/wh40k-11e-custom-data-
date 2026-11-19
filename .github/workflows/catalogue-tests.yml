@@ -4,7 +4,7 @@ on:
     paths:
       - '*.gst'
       - '*.cat'
-      - 'scripts/validate_catalogue.py'
+      - 'scripts/*.py'
       - '.github/workflows/catalogue-tests.yml'
   pull_request:
 jobs:
