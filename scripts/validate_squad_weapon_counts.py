@@ -29,10 +29,23 @@ def check_variants(uid,base,quantity_ids,counts,source):
         else:
             assert len(mods)==1
 
-for pid in ("fd-fusion-5-unit","fd-combat-5-unit"):
-    check_variants("fd-unit-root",pid,lambda n:f"-qty-{n}",list(range(4,10)),"fd-regular-5")
-for pid in ("dr-common-starshot","dr-common-starswarm","dr-common-combat"):
-    check_variants("dr-unit-root",pid,lambda n:f"-qty-{n}",list(range(4,10)),"dr-regular")
+# Fire Dragons and Dark Reapers use a regular-model quantity selector (4–9)
+# with mandatory equipment nested under each model. Do not duplicate each
+# regular weapon profile for every squad size: New Recruit lists the selected
+# model and its equipment in the roster.
+for uid,model_id,gun,melee in (
+    ("fd-unit-root","fd-regular-5","Dragon fusion gun","Close combat weapon"),
+    ("dr-unit-root","dr-regular","Reaper launcher (starshot / starswarm)","Close combat weapon"),
+):
+    models=[m for m in units[uid].iter(C+"selectionEntry") if m.get("id")==model_id]
+    assert len(models)==1, f"{uid}: missing regular-model counter"
+    model=models[0]
+    limits={c.get("type"):int(c.get("value")) for c in model.findall("./"+C+"constraints/"+C+"constraint")}
+    assert limits=={"min":4,"max":9}, f"{uid}: expected 4–9 regular models"
+    equipment={e.get("name") for e in model.findall("./"+C+"selectionEntries/"+C+"selectionEntry")}
+    assert {gun,melee}<=equipment, f"{uid}: regular models must carry both ranged and melee gear"
+    for entry in model.findall("./"+C+"selectionEntries/"+C+"selectionEntry"):
+        assert {c.get("type"):int(c.get("value")) for c in entry.findall("./"+C+"constraints/"+C+"constraint")}=={"min":1,"max":1}, f"{uid}: model gear must be mandatory"
 for pid in ("smoke-589-weapon-0-0","smoke-589-weapon-0-1"):
     check_variants("smoke-unit-589",pid,lambda n:"",[10],"smoke-589-model-0")
 for uid,prefix,maxn in (("smoke-unit-591","mul-591-p-",6),("smoke-unit-605","mul-605-p-",2),("smoke-unit-612","mul-612-p-",4)):
