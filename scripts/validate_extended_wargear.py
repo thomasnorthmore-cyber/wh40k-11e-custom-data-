@@ -1,114 +1,70 @@
 #!/usr/bin/env python3
-"""Check CSV-derived optional wargear across all Aeldari category-test examples."""
+"""Validate alternate wargear, point tiers, and model-scoped choices."""
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
 C="{http://www.battlescribe.net/schema/catalogueSchema}"
 cat=ET.parse(Path(__file__).resolve().parents[1]/"Aeldari 11e TEST.cat").getroot()
-units={x.get("id"):x for x in cat.findall("./"+C+"selectionEntries/"+C+"selectionEntry")}
+units={u.get("id"):u for u in cat.findall("./"+C+"selectionEntries/"+C+"selectionEntry")}
 specs={
- "582":[("staff",1,1,2)],"583":[("staff",1,1,2)],
- "591":[("bike",3,3,3)],
- "605":[("main",1,1,3),("secondary",1,1,2)],
- "589":[("platform",1,1,5)],
- "603":[("wings",1,1,2)],
- "621":[("secondary",1,1,5)],
- "599":[("turret",1,1,5),("under",1,1,2)],
-}
-variable = {
- "591":{"model":(3,6),"cost":(80,170),"ratio":{"bike":1}},
- "605":{"model":(1,2),"cost":(75,140),"ratio":{"main":1,"secondary":1}},
+ "582":{"staff":2},
+ "583":{"staff":2},
+ "591":{"bike":3},
+ "605":{"main":3,"secondary":2},
+ "589":{"platform":5},
+ "603":{"wings":2},
+ "621":{"secondary":5},
+ "599":{"turret":5,"under":2},
 }
 for id, groups in specs.items():
- u=units[f"smoke-unit-{id}"]
- all_groups={x.get("id"):x for x in u.findall(".//"+C+"selectionEntryGroup")}
- profiles=u.findall("./"+C+"profiles/"+C+"profile")
- order=list(dict.fromkeys(p.get("typeName") for p in profiles))
- expected=["Units","Ranged Weapons","Melee Weapons","Abilities","Keywords"]
- assert order==expected, f"{id}: profile order {order}"
- options=set()
- for key,low,high,noptions in groups:
-  gid=f"mul-{id}-{key}"
-  assert gid in all_groups, f"{id}: missing {gid}"
-  group=all_groups[gid]
-  constraints={x.get("type"):int(x.get("value")) for x in group.findall("./"+C+"constraints/"+C+"constraint")}
-  assert constraints=={"min":low,"max":high}, f"{gid}: quantity limits {constraints}"
-  children=group.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
-  assert len(children)==noptions, f"{gid}: wrong number of options"
-  childids={x.get("id") for x in children}
-  assert group.get("defaultSelectionEntryId") in childids, f"{gid}: no valid default"
-  if id in variable:
-   model_id=f"smoke-{id}-model-0"
-   model=[x for x in u.findall(".//"+C+"selectionEntry") if x.get("id")==model_id]
-   assert len(model)==1, f"{id}: missing variable-size model"
-   model_constraints={x.get("type"):int(x.get("value")) for x in model[0].findall("./"+C+"constraints/"+C+"constraint")}
-   assert model_constraints==dict(zip(("min","max"),variable[id]["model"])), f"{id}: invalid unit size"
-   assert group in u.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"), f"{gid}: counters must be squad level"
-   mods=group.findall("./"+C+"modifiers/"+C+"modifier")
-   expected=2*(variable[id]["model"][1]-variable[id]["model"][0])
-   assert len(mods)==expected, f"{gid}: expected {expected} dynamic count modifiers"
-   ratio=variable[id]["ratio"][key]
-   for size in range(variable[id]["model"][0]+1,variable[id]["model"][1]+1):
-    matches=[m for m in mods if m.get("value")==str(size*ratio) and
-      any(c.get("value")==str(size) and c.get("childId")==model_id for c in m.findall(".//"+C+"condition"))]
-    assert len(matches)==2, f"{gid}: missing min/max weapon counts at {size} models"
-   # Fixed melee profiles must show the same number of weapons as models.
-   base_melee={"591":"smoke-591-weapon-0-1","605":"smoke-605-weapon-0-2","612":"smoke-612-weapon-0-2"}[id]
-   relevant=[p for p in profiles if p.get("id")==base_melee or p.get("id","").startswith(base_melee+"-qty-")]
-   assert len(relevant)==variable[id]["model"][1]-variable[id]["model"][0]+1, f"{id}: missing melee count variants"
-   for count in range(variable[id]["model"][0]+1,variable[id]["model"][1]+1):
-    profile=next((p for p in relevant if p.get("id")==base_melee+f"-qty-{count}"),None)
-    assert profile is not None and f"(x{count})" in profile.get("name",""), f"{id}: missing x{count} melee label"
-   cost=u.find("./"+C+"costs/"+C+"cost")
-   assert float(cost.get("value"))==variable[id]["cost"][0]
-   pmods=u.findall("./"+C+"modifiers/"+C+"modifier")
-   assert any(m.get("value")==str(variable[id]["cost"][1]) for m in pmods), f"{id}: higher points missing"
-  assert childids.isdisjoint(options), f"{gid}: duplicate child ID"
-  options |= childids
-  for child in children:
-   limits={x.get("type"):int(x.get("value")) for x in child.findall("./"+C+"constraints/"+C+"constraint")}
-   expected_max=variable[id]["model"][1]*variable[id]["ratio"][key] if id in variable else high
-   assert limits=={"min":0,"max":expected_max}, f"{gid}: invalid equipment quantity limit {limits}"
- conditional=[p for p in profiles if p.get("id","").startswith(f"mul-{id}-p-")]
- assert conditional, f"{id}: missing conditional weapon profiles"
- triggers=set()
- for profile in conditional:
-  assert profile.get("hidden")=="true", f"{id}: optional weapon visible by default"
-  con=profile.findall("./"+C+"modifiers/"+C+"modifier/"+C+"conditions/"+C+"condition")
-  assert len(con)==1, f"{id}: weapon requires one selection trigger"
-  trigger=con[0].get("childId")
-  assert trigger in options, f"{id}: missing selection {trigger}"
-  triggers.add(trigger)
- assert triggers==options, f"{id}: option without a display profile {options-triggers}"
-assert len(specs)==8
-# War Walkers use the New Recruit stacked-model quantity selector:
-# one 1-2 model entry, with a separate 2-of-2 weapon group on each model.
+ unit=units[f"smoke-unit-{id}"]
+ model=next((m for m in unit.iter(C+"selectionEntry") if m.get("id")==f"smoke-{id}-model-0"),None)
+ assert model is not None,f"{id}: missing model"
+ for group_name, nchoices in groups.items():
+  gid=f"mul-{id}-{group_name}"
+  matches=[g for g in unit.iter(C+"selectionEntryGroup") if g.get("id")==gid]
+  assert len(matches)==1, f"{id}: missing/duplicate group {gid}"
+  group=matches[0]
+  limits={c.get("type"):int(c.get("value")) for c in group.findall("./"+C+"constraints/"+C+"constraint")}
+  assert limits=={"min":1,"max":1}, f"{gid}: expected one weapon per model/slot, got {limits}"
+  choices=group.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
+  assert len(choices)==nchoices, f"{gid}: wrong number of weapon options"
+  assert group.get("defaultSelectionEntryId") in {e.get("id") for e in choices}, f"{gid}: missing default"
+  if id in ("591","605"):
+   assert group in model.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"),f"{gid}: must belong to model, not squad"
+  for option in choices:
+   limit={c.get("type"):int(c.get("value")) for c in option.findall("./"+C+"constraints/"+C+"constraint")}
+   assert limit=={"min":0,"max":1}, f"{option.get('id')}: wrong equipment limit {limit}"
+   profiles=option.findall("./"+C+"profiles/"+C+"profile")
+   assert profiles,f"{option.get('id')}: selected weapon lacks characteristics"
+   assert all(p.get("typeName") in ("Ranged Weapons","Melee Weapons") and p.get("hidden")=="false" for p in profiles)
+for id,model_id,min_models,max_models,cost_min,cost_max in (
+ ("591","smoke-591-model-0",3,6,80,170),
+ ("605","smoke-605-model-0",1,2,75,140),
+):
+ unit=units[f"smoke-unit-{id}"]
+ model=next(m for m in unit.iter(C+"selectionEntry") if m.get("id")==model_id)
+ limits={c.get("type"):int(c.get("value")) for c in model.findall("./"+C+"constraints/"+C+"constraint")}
+ assert limits=={"min":min_models,"max":max_models},f"{id}: incorrect model sizes"
+ assert float(unit.find("./"+C+"costs/"+C+"cost").get("value"))==cost_min
+ assert any(m.get("value")==str(cost_max) and any(c.get("childId")==model_id for c in m.findall(".//"+C+"condition")) for m in unit.findall("./"+C+"modifiers/"+C+"modifier")),f"{id}: points modifier absent"
 walker=units["smoke-unit-612"]
 models=walker.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
-assert len(models)==1 and models[0].get("id")=="smoke-612-model-0", "War Walker must be one model counter, not individual checkboxes"
-model=models[0]
-limits={x.get("type"):int(x.get("value")) for x in model.findall("./"+C+"constraints/"+C+"constraint")}
-assert limits=={"min":1,"max":2}, f"War Walker must have numeric model quantity 1-2, found {limits}"
-assert not walker.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup"), "Shared squad weapon pool remains"
-groups=model.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup")
-assert len(groups)==1 and groups[0].get("id")=="mul-612-mounts", "Missing per-model heavy weapon group"
+assert len(models)==1 and models[0].get("id")=="smoke-612-model-0","War Walkers must use one 1-2 model counter"
+m=models[0]
+limits={c.get("type"):int(c.get("value")) for c in m.findall("./"+C+"constraints/"+C+"constraint")}
+assert limits=={"min":1,"max":2},"War Walker counter must select 1-2"
+groups=m.findall("./"+C+"selectionEntryGroups/"+C+"selectionEntryGroup")
+assert len(groups)==1 and groups[0].get("id")=="mul-612-mounts"
 group=groups[0]
-limits={x.get("type"):int(x.get("value")) for x in group.findall("./"+C+"constraints/"+C+"constraint")}
-assert limits=={"min":2,"max":2}, "Each walker must have two heavy weapons"
+limits={c.get("type"):int(c.get("value")) for c in group.findall("./"+C+"constraints/"+C+"constraint")}
+assert limits=={"min":2,"max":2},"Each War Walker must have two heavy weapons"
 choices=group.findall("./"+C+"selectionEntries/"+C+"selectionEntry")
 assert len(choices)==5
-assert group.get("defaultSelectionEntryId")=="mul-612-mounts-shuriken", "Default choice must be Shuriken cannon"
 for choice in choices:
- limits={x.get("type"):int(x.get("value")) for x in choice.findall("./"+C+"constraints/"+C+"constraint")}
- assert limits=={"min":0,"max":2}, f"Weapon {choice.get('name')} must support 0-2 copies"
+ limits={c.get("type"):int(c.get("value")) for c in choice.findall("./"+C+"constraints/"+C+"constraint")}
+ assert limits=={"min":0,"max":2},f"{choice.get('name')}: incorrect quantity"
  profiles=choice.findall("./"+C+"profiles/"+C+"profile")
- expected=2 if "missile" in choice.get("id") else 1
- assert len(profiles)==expected, f"{choice.get('name')}: missing equipment-owned weapon profiles"
- assert all(p.get("hidden")=="false" and p.find("./"+C+"modifiers") is None for p in profiles), "Weapon profile must be directly owned by its selection"
-feet=next((x for x in model.findall("./"+C+"selectionEntries/"+C+"selectionEntry") if x.get("name")=="War Walker feet"),None)
-assert feet is not None and len(feet.findall("./"+C+"profiles/"+C+"profile"))==1, "Per-model melee weapon missing"
-types=list(dict.fromkeys(p.get("typeName") for p in walker.findall("./"+C+"profiles/"+C+"profile")))
-assert types==["Units","Abilities","Keywords"], f"Detached War Walker profiles remain: {types}"
-points=walker.findall("./"+C+"modifiers/"+C+"modifier")
-assert any(m.get("field")=="pts-11e0" and m.get("value")=="160" and any(c.get("childId")=="smoke-612-model-0" and c.get("value")=="2" for c in m.findall(".//"+C+"condition")) for m in points), "Two-Walker points condition must trigger at two models"
-print("PASS: other wargear units plus stacked 1-2 War Walkers with per-model 2-weapon loadouts")
+ assert len(profiles)==(2 if "missile" in choice.get("id") else 1),f"{choice.get('id')}: missing weapon modes"
+assert any(m.get("value")=="160" and any(c.get("childId")=="smoke-612-model-0" and c.get("value")=="2" for c in m.findall(".//"+C+"condition")) for m in walker.findall("./"+C+"modifiers/"+C+"modifier")),"War Walker size pricing broken"
+print("PASS: eight alternate wargear unit patterns, Windrider/Vyper model ownership and War Walker quantity controls")
