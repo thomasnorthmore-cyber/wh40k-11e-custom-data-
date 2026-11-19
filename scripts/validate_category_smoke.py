@@ -12,7 +12,7 @@ from pathlib import Path
 import xml.etree.ElementTree as ET
 
 root = Path(__file__).resolve().parents[1]
-c = ET.parse(root / "Aeldari 11e TEST.cat").getroot()
+c = ET.parse(root / "tests/fixtures/aeldari-v6.cat").getroot()
 g = ET.parse(root / "Warhammer 40,000 11e Custom TEST.gst").getroot()
 C = "{http://www.battlescribe.net/schema/catalogueSchema}"
 G = "{http://www.battlescribe.net/schema/gameSystemSchema}"
