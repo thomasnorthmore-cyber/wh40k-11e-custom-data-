@@ -5,7 +5,7 @@ composition, weapons and wargear rules demonstrated by
 [40kdc-data](https://github.com/wn-mitch/40kdc-data).
 The existing **v5 catalogue remains the tested New Recruit layout**.
 
-## Three structured source layers
+## Four structured source layers
 
 - `aeldari-pilot.json`: model-count limits, points tiers, selected wargear
   group bounds/defaults and weapon-display strategy for the initial five units
@@ -20,7 +20,13 @@ The existing **v5 catalogue remains the tested New Recruit layout**.
   24 native rules, 40 category links, 23 modifier records with their
   conditions, 258 selection constraints and 19 points-cost entries.
 
-The generator reads all three datasets and applies those values to
+- `aeldari-loadout-slots.json`: 19 model- or unit-scoped equipment
+  slots, containing their choice IDs, allowed pick counts, recorded defaults,
+  attached weapon profile IDs and their replacement/optional semantics.
+  These form a **validated selection-budget model**; they do not yet encode
+  every rules-text prerequisite for individual swaps.
+
+The generator reads all four datasets and applies those values to
 `Aeldari 11e TEST.cat` as a compatibility template. Thus changes to
 weapon/ability fields and equipment labels/constraints in JSON are reflected
 in the generated catalogue. The XML still supplies the structural skeleton, conditional expression
@@ -64,9 +70,9 @@ the generated XML responds. Both run automatically in GitHub Actions.
 
 ## Remaining migration tasks
 
-1. Lift exact *replacement semantics* (which item is removed/added) from the
-   current selection tree and primary datasheet into explicit JSON swaps/slots.
-   Existing hierarchy alone doesn't prove legal combinations.
+1. Extend slot budgets into explicit *source-verified* item replacement
+   prerequisites (which weapon is removed and added) and evaluate unit-wide
+   restrictions that span more than one slot.
 2. Make the complete XML AST—including nesting of selection/condition groups,
    shared identifiers, limits and all points tiers—reconstructible independently
    of the checked-in v5 catalogue.
@@ -87,3 +93,16 @@ canonically identical to the current v5 template before any new data changes
 are accepted. Modifiers and constraints use checked traversal indexes plus
 nearest owner IDs until a fully independent expression schema is implemented;
 changing their nesting requires a reviewed migration.
+
+## Loadout legality checks
+
+Run `python scripts/loadout_rules.py` to validate the 19 recorded slots
+and enumerate legal choice vectors. The fixtures reject double-picked Exarch
+weapons, too many Windrider guns, three heavy mounts on one War Walker,
+and invalid Wraithlord arm/heavy selections. A slot's `model_id` is verified
+against its actual catalogue parent model. IDs and weapon-profile bindings
+are stable while display labels may be edited in the datasheet layer.
+
+The enumerator tests *each individual model's slot*. It does not yet prove
+whole-roster legality or New Recruit's evaluated squad-point modifiers. Those
+need exported roster fixtures and a rules source check before public release.
