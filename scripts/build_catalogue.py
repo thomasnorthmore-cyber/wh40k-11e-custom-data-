@@ -306,9 +306,9 @@ def self_test() -> None:
     modified_constraints = copy.deepcopy(mechanics)
     ranger = next(u for u in modified_constraints["units"] if u["id"] == "unit-rangers-11e0")
     min_constraint = next(c for c in ranger["constraints"] if c["attrs"].get("type") == "min")
-    min_constraint["attrs"]["value"] = str(int(min_constraint["attrs"]["value"]) + 1)
+    min_constraint["attrs"]["shared"] = ("false" if min_constraint["attrs"].get("shared") == "true" else "true")
     assert canonical(apply_all(copy.deepcopy(source), manifest, datasheets, modified_constraints)) != canonical(source), (
-        "Structured non-pilot limits did not change generated catalogue")
+        "Structured non-overlapping constraint attributes did not change generated catalogue")
     print("PASS: JSON controls points, weapons, abilities, gear labels, native rules, keywords, "
           "categories, limits and visibility conditions")
 
