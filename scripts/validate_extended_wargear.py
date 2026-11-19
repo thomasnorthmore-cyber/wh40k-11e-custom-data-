@@ -111,7 +111,12 @@ profiles=walker.findall("./"+C+"profiles/"+C+"profile")
 types=list(dict.fromkeys(p.get("typeName") for p in profiles))
 assert types==["Units","Ranged Weapons","Melee Weapons","Abilities","Keywords"], f"Wrong War Walker profile order: {types}"
 weapon_profiles=[p for p in profiles if p.get("id","").startswith("mul-612-p-")]
-assert len(weapon_profiles)==6, f"Expected six ranged profiles including two missile modes, found {len(weapon_profiles)}"
+assert len(weapon_profiles)==24, f"Expected 24 ranged profiles (six profiles for each of 1–4 copies), found {len(weapon_profiles)}"
 triggers={x.get("childId") for p in weapon_profiles for x in p.findall(".//"+C+"condition")}
 assert ids==triggers, f"Wrong per-model weapon triggers: {ids^triggers}"
+for qty in range(1,5):
+ for weapon in ("shuriken","missile","bright","scatter","star"):
+  matching=[p for p in weapon_profiles if p.get("id","").startswith(f"mul-612-p-{weapon}-") and ((qty==1 and "-count-" not in p.get("id","")) or p.get("id","").endswith(f"-count-{qty}"))]
+  expected=2 if weapon=="missile" else 1
+  assert len(matching)==expected, f"War Walker {weapon} x{qty}: profile count {len(matching)}"
 print("PASS: 8 other wargear units plus War Walker 1–2 model counter with nested 2/2 gear and 80/160 pricing")
