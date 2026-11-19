@@ -31,13 +31,10 @@ def check():
         require(any(x.get("primary") == "true" and x.get("name") == "Infantry" for x in cats), f"{unit_id}: not Infantry")
         profiles = u.findall("./" + NS + "profiles/" + NS + "profile")
         sections = list(dict.fromkeys(p.get("typeName") for p in profiles))
-        require(sections == ["Units"], f"{unit_id}: unit-level profiles should contain only characteristics: {sections}")
-        info = next((e for e in u.iter(NS + "selectionEntry") if e.get("id") == ("fd-datasheet-info-v4" if unit_id == "fd-unit-root" else "dr-datasheet-info-v4")), None)
-        require(info is not None, f"{unit_id}: missing trailing datasheet information entry")
-        details = [p.get("typeName") for p in info.findall("./" + NS + "profiles/" + NS + "profile")]
-        require(details[0] == "Abilities" and details[-1] == "Keywords", f"{unit_id}: incorrect trailing info order: {details}")
-        require(not [p for p in profiles if p.get("typeName") in ("Ranged Weapons", "Melee Weapons")], f"{unit_id}: detached weapon profiles remain")
-        require(len([p for p in u.iter(NS+"profile") if p.get("typeName") in ("Ranged Weapons", "Melee Weapons")]) >= 7, f"{unit_id}: missing equipment-owned weapon profiles")
+        require(sections == ["Units", "Ranged Weapons", "Melee Weapons", "Abilities", "Rules", "Keywords"], f"{unit_id}: wrong display order: {sections}")
+        root_weapons = [p for p in profiles if p.get("typeName") in ("Ranged Weapons", "Melee Weapons")]
+        require(len(root_weapons) >= 7, f"{unit_id}: missing display-first weapon profiles")
+        require(any(p.get("hidden") == "true" and p.find("./" + NS + "modifiers") is not None for p in root_weapons), f"{unit_id}: missing loadout-dependent visibility")
         models = [e for e in u.findall(".//" + NS + "selectionEntry") if e.get("id") == model_id]
         require(len(models) == 1, f"{unit_id}: missing regular model")
         names = [e.get("name") for e in models[0].findall("./" + NS + "selectionEntries/" + NS + "selectionEntry")]
@@ -47,9 +44,6 @@ def check():
         require(any(m.get("value") == points for m in modifiers), f"{unit_id}: higher squad-size points missing")
         choices = [x for x in u.findall(".//" + NS + "selectionEntry") if x.get("id", "").startswith(choice_prefix) and x.get("id", "").count("-") <= (4 if unit_id == "dr-unit-root" else 5)]
         require(len(choices) >= 4, f"{unit_id}: expected four Exarch weapon choices")
-        for p in u.iter(NS+"profile"):
-            if p.get("typeName") in ("Ranged Weapons", "Melee Weapons"):
-                require(p.get("hidden") == "false" and p.find("./"+NS+"modifiers") is None, f"{unit_id}: equipped weapon profile must be visible without detached triggers")
     print("PASS: three independent units, Infantry, section order, model equipment, Exarch options and pricing modifiers")
 
 if __name__ == "__main__":
