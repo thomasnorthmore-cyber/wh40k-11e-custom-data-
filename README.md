@@ -4,17 +4,20 @@ This project aims to provide New Recruit-compatible custom game-system and facti
 
 > **Status: working Aeldari v5 test catalogue (17 units), with an incremental data-first generator pilot.** New Recruit rendering still requires manual verification, and Yellowscribe compatibility remains unresolved. Raw Wahapedia CSV exports are not directly importable as game catalogues.
 
-## Structured-data generator pilot
+## Structured-data generator
 
-Inspired by the explicit unit compositions, equipment constraints, and BSData
-exporter in [40kdc-data](https://github.com/wn-mitch/40kdc-data), this
-repository now has a **five-unit structured pilot** in
-[`data/structured/aeldari-pilot.json`](data/structured/aeldari-pilot.json).
+The repository now includes a **17-unit Aeldari structured-datasheet layer**
+[`aeldari-datasheets.json`](data/structured/aeldari-datasheets.json) with
+145 weapon/ability profiles and 152 model/equipment choice records, alongside
+the original five-unit structured model-count/points pilot in
+[`aeldari-pilot.json`](data/structured/aeldari-pilot.json).
 
-The generator currently reads structured model counts, squad points, and
-selected wargear choice limits into the existing catalogue template. It **does
-not** yet generate every weapon, model, ability or faction. The original
-catalogue is still the compatibility baseline while that migration proceeds.
+The generator applies all structured weapon statistics, ability descriptions,
+equipment selection labels, model/gear hierarchy, bounds and recorded defaults
+to the preserved v5 catalogue template. A no-change parity check verifies that
+the generated catalogue still exactly matches the working baseline. This is
+**not yet a fully standalone BSData exporter**: other unit profiles and
+conditional modifier expressions still come from the XML template.
 
 ```sh
 python scripts/build_catalogue.py --check
@@ -28,7 +31,7 @@ See [structured migration documentation](data/structured/README.md).
 
 - [x] Establish a New Recruit-compatible test catalogue with 17 Aeldari units.
 - [ ] Audit and map all 22 source CSV tables and their identifiers.
-- [ ] Generate the entire game system and faction catalogues from structured data (five-unit pilot started).
+- [ ] Generate the entire game system and faction catalogues from structured data (all 17 units have structured weapon/ability and equipment records; full independent exporter still pending).
 - [ ] Translate unit sizes, points, equipment options, leaders, detachments and enhancements into enforceable selections.
 - [ ] Validate every faction, New Recruit display and Yellowscribe roster export end-to-end.
 - [ ] Document update and installation workflow.

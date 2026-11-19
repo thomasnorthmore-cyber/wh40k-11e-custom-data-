@@ -23,6 +23,7 @@ import xml.etree.ElementTree as ET
 ROOT = Path(__file__).resolve().parents[1]
 CATALOGUE = ROOT / "Aeldari 11e TEST.cat"
 MANIFEST = ROOT / "data" / "structured" / "aeldari-pilot.json"
+DATASHEETS = ROOT / "data" / "structured" / "aeldari-datasheets.json"
 NS_URI = "http://www.battlescribe.net/schema/catalogueSchema"
 N = "{" + NS_URI + "}"
 ET.register_namespace("", NS_URI)
@@ -138,6 +139,80 @@ def apply_pilot(template: ET.Element, manifest: dict):
     return template
 
 
+
+def apply_datasheets(template: ET.Element, data: dict) -> ET.Element:
+    """Apply canonical weapon stats, abilities, selection labels and equipment constraints."""
+    require(data["schema_version"] == 1 and data["edition"] == "11th", "Unsupported datasheet format")
+    units = direct_units(template)
+    names = [u["id"] for u in data["units"]]
+    require(len(names) == len(set(names)), "Duplicate structured unit IDs")
+    require(set(names) == set(units),
+            f"Structured datasheets must cover all units, missing={sorted(set(units)-set(names))}")
+    for record in data["units"]:
+        uid = record["id"]
+        require(uid in units and units[uid].get("name") == record["name"], f"Missing unit {uid}")
+        unit = units[uid]
+        parents = {child: parent for parent in unit.iter() for child in parent}
+        entries = {node.get("id"): node for node in unit.iter()
+                   if node is not unit and node.tag in (N+"selectionEntry", N+"selectionEntryGroup")}
+        require(set(entries) == {e["id"] for e in record["selections"]},
+                f"{uid}: selection tree changed")
+        for spec in record["selections"]:
+            node = entries[spec["id"]]
+            kind = "group" if node.tag == N+"selectionEntryGroup" else node.get("type")
+            ancestor = parents[node]
+            while ancestor.get("id") is None and ancestor is not unit:
+                ancestor = parents[ancestor]
+            require(kind == spec["kind"] and ancestor.get("id") == spec["parent_id"],
+                    f"{uid}/{spec['id']}: equipment ownership changed")
+            node.set("name", spec["name"])
+            existing = bounds(node)
+            require(set(existing) == set(spec.get("bounds", {})), f"{uid}/{spec['id']}: constraint keys changed")
+            for bound, value in spec.get("bounds", {}).items():
+                require(isinstance(value, int) and value >= 0, f"{uid}: invalid {bound}")
+                existing[bound].set("value", str(value))
+            if "min" in existing and "max" in existing:
+                require(int(existing["min"].get("value")) <= int(existing["max"].get("value")),
+                        f"{uid}/{spec['id']}: invalid bounds")
+            default = spec.get("default_id")
+            require(bool(node.get("defaultSelectionEntryId")) == bool(default),
+                    f"{uid}/{spec['id']}: unexpected default selection")
+            if default:
+                choices = {e.get("id") for e in node.findall("./"+N+"selectionEntries/"+N+"selectionEntry")}
+                require(default in choices, f"{uid}/{spec['id']}: missing default {default}")
+                node.set("defaultSelectionEntryId", default)
+        profiles = {p.get("id"): p for p in unit.iter(N+"profile")
+                    if p.get("typeName") in ("Ranged Weapons", "Melee Weapons", "Abilities")}
+        require(set(profiles) == {p["id"] for p in record["profiles"]}, f"{uid}: profiles changed")
+        for spec in record["profiles"]:
+            p = profiles[spec["id"]]
+            require(p.get("typeName") == spec["type_name"], f"{uid}/{spec['id']}: profile type changed")
+            require(parents[parents[p]].get("id") == spec["owner_id"],
+                    f"{uid}/{spec['id']}: profile ownership changed")
+            owner = parents[parents[p]]
+            ancestors = []
+            while owner is not unit:
+                if owner.get("id") is not None:
+                    ancestors.append(owner.get("id"))
+                owner = parents[owner]
+            require([uid] + ancestors[::-1] == spec["owner_path"], f"{uid}/{spec['id']}: model ancestry changed")
+            require((p.find(N+"modifiers") is not None) == spec["has_modifiers"],
+                    f"{uid}/{spec['id']}: visibility modifier lost")
+            p.set("name", spec["name"])
+            p.set("hidden", "true" if spec["hidden"] else "false")
+            chars = p.findall("./"+N+"characteristics/"+N+"characteristic")
+            require(len(chars) == len(spec["characteristics"]), f"{uid}/{spec['id']}: stats length changed")
+            for char, datum in zip(chars, spec["characteristics"]):
+                require(char.get("name") == datum["name"] and char.get("typeId") == datum["type_id"],
+                        f"{uid}/{spec['id']}: stat field changed")
+                char.text = datum["value"]
+    return template
+
+
+def apply_all(template: ET.Element, manifest: dict, datasheets: dict) -> ET.Element:
+    return apply_datasheets(apply_pilot(template, manifest), datasheets)
+
+
 def canonical(root: ET.Element) -> str:
     return ET.canonicalize(ET.tostring(root, encoding="unicode"))
 
@@ -145,27 +220,51 @@ def canonical(root: ET.Element) -> str:
 def check() -> None:
     source = ET.parse(CATALOGUE).getroot()
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-    built = apply_pilot(copy.deepcopy(source), manifest)
+    datasheets = json.loads(DATASHEETS.read_text(encoding="utf-8"))
+    built = apply_all(copy.deepcopy(source), manifest, datasheets)
     require(canonical(source) == canonical(built),
             "Structured data and checked-in catalogue differ. Regenerate and review differences.")
     require(source.get("revision") == str(manifest["source_revision"]),
             "Manifest source revision does not match checked-in catalogue")
-    print(f"PASS: {len(manifest['units'])} structured units match v{source.get('revision')} "
-          "without any change to their selection IDs or equipment profiles")
+    print(f"PASS: {len(datasheets['units'])} structured units, "
+          f"{sum(len(u['profiles']) for u in datasheets['units'])} weapon/ability profiles, "
+          f"{sum(len(u['selections']) for u in datasheets['units'])} model/gear entries "
+          f"match v{source.get('revision')} with no XML changes")
 
 
 def self_test() -> None:
     manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
     source = ET.parse(CATALOGUE).getroot()
-    baseline = apply_pilot(copy.deepcopy(source), manifest)
+    datasheets = json.loads(DATASHEETS.read_text(encoding="utf-8"))
+    baseline = apply_all(copy.deepcopy(source), manifest, datasheets)
     require(canonical(source) == canonical(baseline), "Baseline parity failed")
     altered = copy.deepcopy(manifest)
     altered["units"][0]["points"]["base"] += 5
-    rebuilt = apply_pilot(copy.deepcopy(source), altered)
+    rebuilt = apply_all(copy.deepcopy(source), altered, datasheets)
     require(points_cost(direct_units(rebuilt)["fd-unit-root"]).get("value") ==
             str(altered["units"][0]["points"]["base"]), "Generator did not apply modified points")
     require(canonical(rebuilt) != canonical(source), "Generator ignored structured input")
-    print("PASS: changing structured points changes generated catalogue, baseline preserved")
+    alternate = copy.deepcopy(datasheets)
+    first = next(p for u in alternate["units"] for p in u["profiles"]
+                 if p["type_name"] == "Ranged Weapons")
+    stat = next(c for c in first["characteristics"] if c["name"] == "S")
+    stat["value"] = "999"
+    changed = apply_all(copy.deepcopy(source), manifest, alternate)
+    require(canonical(changed) != canonical(source),
+            "Changing structured weapon characteristics did not alter generated catalogue")
+    ability_variant = copy.deepcopy(datasheets)
+    ability = next(p for u in ability_variant["units"] for p in u["profiles"]
+                   if p["type_name"] == "Abilities")
+    ability["characteristics"][0]["value"] += " [STRUCTURED EDIT TEST]"
+    assert canonical(apply_all(copy.deepcopy(source), manifest, ability_variant)) != canonical(source), (
+        "Structured ability edits were ignored")
+    selection_variant = copy.deepcopy(datasheets)
+    choice = next(e for u in selection_variant["units"] for e in u["selections"]
+                  if e["kind"] == "upgrade" and "bounds" not in e)
+    choice["name"] += " (STRUCTURED EDIT TEST)"
+    assert canonical(apply_all(copy.deepcopy(source), manifest, selection_variant)) != canonical(source), (
+        "Structured wargear choice labels were ignored")
+    print("PASS: structured points, weapon stats, ability text and gear labels drive generation")
 
 
 def main() -> None:
@@ -181,7 +280,8 @@ def main() -> None:
         self_test()
     else:
         manifest = json.loads(MANIFEST.read_text(encoding="utf-8"))
-        result = apply_pilot(ET.parse(CATALOGUE).getroot(), manifest)
+        datasheets = json.loads(DATASHEETS.read_text(encoding="utf-8"))
+        result = apply_all(ET.parse(CATALOGUE).getroot(), manifest, datasheets)
         args.out.parent.mkdir(parents=True, exist_ok=True)
         ET.ElementTree(result).write(args.out, encoding="utf-8", xml_declaration=True)
         ET.parse(args.out)
