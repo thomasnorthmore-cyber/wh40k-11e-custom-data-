@@ -1,40 +1,10 @@
-name: Publish full Aeldari roster from uploaded source data
+# Archived legacy publishing pipeline. This workflow is intentionally disabled.
+# Full historical configuration remains on branch archive/legacy-aeldari-v7.
+name: Legacy Aeldari publisher (disabled)
 on:
-  push:
-    branches: [main]
-    paths:
-      - 'data/structured/aeldari-source-datasheets.json'
-      - 'data/structured/source/**'
-      - 'scripts/expand_aeldari.py'
-      - 'scripts/validate_full_aeldari.py'
-      - '.github/workflows/publish-aeldari-full.yml'
   workflow_dispatch:
-permissions:
-  contents: write
 jobs:
-  publish:
+  archived:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-      - uses: actions/setup-python@v5
-        with:
-          python-version: '3.12'
-      - name: Generate Aeldari catalogue with all 99 source datasheets
-        run: python scripts/expand_aeldari.py --out 'Aeldari 11e TEST.cat'
-      - name: Check all 99 datasheets and preserve existing 17
-        run: python scripts/validate_full_aeldari.py 'Aeldari 11e TEST.cat'
-      - name: Publish generated v7 catalogue to main
-        shell: bash
-        run: |
-          set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add 'Aeldari 11e TEST.cat'
-          if git diff --cached --quiet; then
-            echo "Catalogue already matches source data."
-            exit 0
-          fi
-          git commit -m "Publish v7 complete 99-datasheet Aeldari catalogue"
-          git push origin HEAD:main
+      - run: echo "Legacy Aeldari publication retired. See archive/legacy-aeldari-v7."
