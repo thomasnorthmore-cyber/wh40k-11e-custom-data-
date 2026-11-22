@@ -1,107 +1,42 @@
-# Warhammer 40,000 11th Edition — Custom New Recruit data
+# Warhammer 40,000 11th Edition — New Recruit-format builder
 
-This project aims to provide New Recruit-compatible custom game-system and faction catalogues covering **all 25 factions** in the source export.
+> **New project baseline (22 November 2026).** This repository is being restarted around the already-working New Recruit/BattleScribe-style **catalogue format recovered from the user's offline New Recruit installation**. The old Wahapedia CSV → hand-built Aeldari catalogue pipeline is **retired from active development**, not a foundation for the new builder.
 
-> **Status: full Aeldari v7 preview generation (99 source datasheets), preserving the 17 verified v6 units.** New Recruit rendering still requires manual verification, and Yellowscribe compatibility remains unresolved. Raw Wahapedia CSV exports are not directly importable as game catalogues.
+## Status
 
-## All Aeldari datasheets from the user's export
+**Migration started; full roster builder not yet implemented.** The recovered snapshot is a tested input to New Recruit, but the JSON export contains **catalogue/game-system definitions**, not New Recruit's own application engine. We need to implement our own interpreter for that format before promising identical validation, roster editing or exports.
 
-The original user-uploaded 11th Edition Wahapedia source archive includes
-**99 Aeldari datasheets**. The first 17 were already hand-tested in v6.
-The new source datasets include all 99 datasheet records plus their Aeldari
-model stats, weapons, costs, composition, options, abilities, keywords, and
-Leader attachment relationships.
+- Legacy preserved at [archive/legacy-aeldari-v7](../../tree/archive/legacy-aeldari-v7).
+- Experimental catalogue browser: [docs/preview/index.html](docs/preview/index.html).
+- Local import auditor: [scripts/import_newrecruit_offline.py](scripts/import_newrecruit_offline.py).
+- Architecture specification: [docs/newrecruit-offline-baseline.md](docs/newrecruit-offline-baseline.md).
 
-- `data/structured/aeldari-source-datasheets.json`
-- `data/structured/source/` (source-specific linked tables)
+## Source of truth
 
-`scripts/expand_aeldari.py` reconstructs the Aeldari catalogue with
-**82 additional datasheets** while retaining the entire set of original
-17 v6 entries unchanged. To generate a preview:
+The **local** `newrecruit-wh40k-11e-complete.json` export dated 2026-11-22 contains **35 records** sharing game-system ID `827374861`. Each `catalogues[]` item has a nested `content` document containing a `catalogue`, `gameSystem`, or auxiliary data object. This is a snapshot of cached catalogues, **not a guarantee every faction is present**.
 
-```sh
-python scripts/expand_aeldari.py --out /tmp/aeldari-full-preview.cat
-python scripts/validate_full_aeldari.py /tmp/aeldari-full-preview.cat
+The data is deliberately **not uploaded to this public repository**. It contains third-party rules material with redistribution restrictions. The test UI lets each tester load their own local file in their browser. Never commit source rules prose without a separate rights review.
+
+## New implementation contract
+
+1. **Use the recovered format directly.** Preserve source selection IDs, group IDs, catalogue references and conditions. Do not regenerate choices from inferred weapon names or manually maintained per-faction datasets.
+2. **Resolve dependencies** between factions and shared libraries, including `catalogueLinks`, `entryLinks`, `selectionEntryGroupLinks`, `sharedSelectionEntries` and `sharedSelectionEntryGroups`.
+3. **Treat model selections as separate instances** with equipment, count and costs of their own. Identical models may be visually grouped but must not share configuration state accidentally.
+4. **Evaluate constraints/modifiers** by scope and conditions; show explicit errors instead of accepting illegal selections.
+5. **Use one selection engine for every recovered faction**, with data-driven unit composition, enhancements, detachment support and roster serialization.
+6. **Test real cases**, including Aeldari War Walkers, Wraithlords, Fire Dragons, Dark Reapers and equivalent units in other factions.
+7. **Export and re-import rosters**, checking model ownership and weapon profiles in New Recruit/Yellowscribe-compatible formats where supported.
+
+## Run the source audit locally
+
+```bash
+python scripts/import_newrecruit_offline.py newrecruit-wh40k-11e-complete.json --manifest local-audit.json
 ```
 
-The new source-driven units include their model characteristics, all ranged
-and melee weapon profiles, abilities, unit composition, keyword definitions,
-points tables and written wargear options. **Replacement restrictions for
-complex new units are not yet translated into fully enforced selectors.**
-Those entries show their exact source options in Rules and expose provisional
-model-level weapons, pending detailed legal-loadout configuration. The existing
-17 tested units are not changed.
+The audit reads local data, makes no network calls, and reports catalogue structure and missing links. It is not yet the legality engine.
 
-The `publish-aeldari-full.yml` GitHub Action validates and publishes v7 to
-`main` when the source importer is merged. New Recruit can then refresh
-the existing custom Aeldari catalogue from the same GitHub file.
+## Project migration policy
 
-## New Recruit preview release — v6
+Do **not** run the legacy Aeldari catalogue publishing workflow as part of the new build. Existing Aeldari files and scripts in `main` are legacy leftovers pending safe cleanup; the archived branch is the reference if an old result must be recovered. New changes should target the generic New Recruit-format runtime.
 
-The catalogue revision is now **v6** for New Recruit refresh testing.
-The content of the unit definitions, profiles, costs and equipment selections
-is intentionally **identical to v5**. The revision bump exposes the mature
-JSON exporter pipeline to the same GitHub-based update path; the CI release
-check asserts that only the revision changed.
-
-Refresh the Aeldari test catalogue in New Recruit and confirm its version
-shows v6. There are **no new visible weapon or model-layout changes in this
-release**. Yellowscribe compatibility also remains a separate workstream.
-
-## Structured-data generator
-
-The repository now includes a **17-unit Aeldari structured-datasheet layer**
-[`aeldari-datasheets.json`](data/structured/aeldari-datasheets.json) with
-145 weapon/ability profiles and 152 model/equipment choice records, alongside
-the original five-unit structured model-count/points pilot in
-[`aeldari-pilot.json`](data/structured/aeldari-pilot.json).
-
-The generator applies all structured weapon statistics, ability descriptions,
-equipment selection labels, model/gear hierarchy, bounds and recorded defaults
-to the preserved v5 catalogue template. A no-change parity check verifies that
-the generated catalogue still exactly matches the working baseline. This is
-**not yet a fully standalone BSData exporter**: other unit profiles and
-conditional modifier expressions still come from the XML template.
-
-```sh
-python scripts/build_catalogue.py --check
-python scripts/build_catalogue.py --self-test
-python scripts/build_catalogue.py --out /tmp/Aeldari-generated.cat
-```
-
-See [structured migration documentation](data/structured/README.md).
-
-## Standalone catalogue export
-
-Both the Aeldari catalogue and custom 11th Edition game-system XML can now
-be generated directly from JSON, without loading the existing XML template.
-
-```sh
-python scripts/export_standalone.py --check
-python scripts/export_standalone.py --out-dir /tmp/standalone
-python scripts/yellowscribe_compat.py --audit my-roster.rosz
-```
-
-The first version uses a JSON representation of the legacy XML structure,
-overlaid with our four structured Aeldari data layers. It is independent of
-the original `.cat` as a generation input, but it is not yet a fully
-semantic, faction-generic New Recruit JSON exporter.
-
-Yellowscribe formatting can be checked and normalized with
-`scripts/yellowscribe_compat.py`; models with root-level weapons may
-still require a proper model-ownership export fix.
-
-## Roadmap
-
-- [x] Establish a New Recruit-compatible test catalogue with 17 Aeldari units.
-- [ ] Audit and map all 22 source CSV tables and their identifiers.
-- [ ] Generate the entire game system and faction catalogues from structured data (all 17 units have structured weapon/ability and equipment records; full independent exporter still pending).
-- [ ] Translate unit sizes, points, equipment options, leaders, detachments and enhancements into enforceable selections.
-- [ ] Validate every faction, New Recruit display and Yellowscribe roster export end-to-end.
-- [ ] Document update and installation workflow.
-
-## Data and licensing
-
-The original 22 CSV tables were supplied separately and **are not committed here**. This repository is public: verify rights to redistribute source rules text and third-party data before publishing it.
-
-We will preserve source IDs for traceability and flag unresolved links instead of silently discarding records.
+**Do not mistake the catalogue inspector for the finished army builder.** Our goal is to recreate equivalent behaviour using the recovered schema; that work still needs to be implemented and verified.
