@@ -60,7 +60,11 @@ function sourceIndex(f){
  scan(f);
  return {maps,deps};
 }
-function resolve(n){if(!n)return null;const target=n.targetId?index.get(String(n.targetId)):null;return target?{...target,...n,type:target.type||n.type,selectionEntries:n.selectionEntries||target.selectionEntries,selectionEntryGroups:n.selectionEntryGroups||target.selectionEntryGroups,entryLinks:n.entryLinks||target.entryLinks,selectionEntryGroupLinks:n.selectionEntryGroupLinks||target.selectionEntryGroupLinks,profiles:n.profiles||target.profiles,constraints:[...Q(target,"constraints"),...Q(n,"constraints")],costs:n.costs||target.costs,modifiers:[...Q(target,"modifiers"),...Q(n,"modifiers")]}:n;}
+function resolve(n){if(!n)return null;const target=n.targetId?index.get(String(n.targetId)):null;
+ if(!target)return n;
+ const overrides=Q(n,"modifiers").filter(m=>!m.conditions&&!m.conditionGroups&&["set","increment","decrement"].includes(m.type));
+ const constraints=[...Q(target,"constraints"),...Q(n,"constraints")].map(c=>{let out={...c};for(const m of overrides)if(m.field===out.id){if(m.type==="set")out.value=Number(m.value);if(m.type==="increment")out.value=Number(out.value)+Number(m.value);if(m.type==="decrement")out.value=Number(out.value)-Number(m.value);}return out;});
+ return {...target,...n,type:target.type||n.type,selectionEntries:n.selectionEntries||target.selectionEntries,selectionEntryGroups:n.selectionEntryGroups||target.selectionEntryGroups,entryLinks:n.entryLinks||target.entryLinks,selectionEntryGroupLinks:n.selectionEntryGroupLinks||target.selectionEntryGroupLinks,profiles:n.profiles||target.profiles,constraints,costs:n.costs||target.costs,modifiers:[...Q(target,"modifiers"),...Q(n,"modifiers")]};}
 function children(n){return [...Q(n,"selectionEntries"),...Q(n,"selectionEntryGroups"),...Q(n,"entryLinks"),...Q(n,"selectionEntryGroupLinks")].filter(x=>!x.hidden);}
 function isGroup(n){return n.type==="selectionEntryGroup"||(!n.type&&(!!n.selectionEntries||!!n.selectionEntryGroups));}
 function relevant(n){return Q(n,"constraints").filter(x=>x.field==="selections"&&["parent","self"].includes(x.scope)&&["min","max"].includes(x.type)&&!x.conditions&&!x.conditionGroups);}
@@ -88,7 +92,7 @@ function collectIssues(){
    if(b.max!==null&&item.type!=="group"&&item.count>b.max)out.push(unit.name+": "+item.name+" exceeds max "+b.max);
    for(const c of item.children)visit(c,item,[...ancestors,item]);
    // Group minimum/maximum constraints on the group's own selections are tested from direct selected children
-   if(item.type==="group"){const direct=item.children.reduce((s,x)=>s+x.count,0);
+   if(item.type==="group"){const direct=item.children.reduce((s,x)=>s+(x.type==="group"?x.children.reduce((t,z)=>t+z.count,0):x.count),0);
     const gb=bounds(item.node);if(direct<gb.min)out.push(unit.name+": "+item.name+" needs "+gb.min+" selections (has "+direct+")");
     if(gb.max!==null&&direct>gb.max)out.push(unit.name+": "+item.name+" allows max "+gb.max+" selections (has "+direct+")");
    }
