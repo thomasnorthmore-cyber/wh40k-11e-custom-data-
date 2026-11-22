@@ -1,0 +1,8 @@
+# Keep recovered third-party New Recruit cache exports off the public repository
+newrecruit-wh40k-11e-complete.json
+newrecruit-11e-*.json
+local-audit.json
+private-source/
+local-imports/
+__pycache__/
+*.pyc
