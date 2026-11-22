@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>40K 11e — Offline Catalogue Preview</title>
+<style>
+:root{font-family:system-ui,-apple-system,Segoe UI,sans-serif;color-scheme:dark;background:#0e1320;color:#eef2ff}*{box-sizing:border-box}
+body{margin:0}header{padding:24px max(20px,calc((100vw - 1180px)/2));background:#161f34;border-bottom:1px solid #334155}
+h1{margin:0;font-size:26px}header p,.sub,.muted{color:#aab6cb}header p{margin:6px 0 0}.wrap{max-width:1180px;margin:auto;padding:22px}
+.panel{border:1px solid #334155;background:#172034;border-radius:14px;padding:17px;margin-bottom:16px}h2{font-size:17px;margin:0 0 14px}
+.controls{display:flex;gap:12px;flex-wrap:wrap;align-items:end}label{display:grid;gap:5px;color:#b5c4da;font-size:13px;flex:1;min-width:200px}
+input,select,button{font:inherit;color:inherit;border:1px solid #3d506c;border-radius:8px;background:#101a2a;padding:10px}
+button{cursor:pointer;background:#2e4c75}button:hover{background:#416598}button:disabled{opacity:.5;cursor:default}
+input[type=file]{width:100%;padding:12px} .stats{display:flex;gap:12px;flex-wrap:wrap}.pill{background:#24354b;border-radius:20px;padding:7px 12px;color:#d2deed;font-size:13px}
+.layout{display:grid;grid-template-columns:minmax(250px,350px) minmax(0,1fr);gap:16px}
+.items{max-height:70vh;overflow:auto}.entry{display:block;width:100%;text-align:left;margin:5px 0;background:#101827;border:1px solid transparent;word-break:break-word}.entry.active{border-color:#78b4ff;background:#263c57}
+.node{margin:8px 0 8px 15px;border-left:2px solid #3d506c;padding:4px 0 4px 12px}.node-head{font-weight:600}.type{font-size:12px;color:#9cc2f2}.small{font-size:12px;color:#b5c4da}
+details{margin:10px 0}summary{cursor:pointer}pre{white-space:pre-wrap;word-break:break-word;background:#0d1523;border-radius:7px;padding:10px;max-height:220px;overflow:auto}
+.warn{color:#ffe1a5}.ok{color:#9de0bf}.limit{display:inline-block;font-size:11px;padding:3px 6px;background:#33465f;border-radius:5px;margin:3px}
+@media(max-width:760px){.layout{grid-template-columns:1fr}.items{max-height:260px}}
+</style></head><body>
+<header><h1>40K 11th Edition — Catalogue Lab</h1><p>Local-only test of the recovered New Recruit catalogue structure. Nothing is uploaded.</p></header>
+<main class="wrap">
+<section class="panel"><h2>1. Load your existing New Recruit export</h2>
+<input type="file" id="file" accept=".json,application/json">
+<p class="small">Select <code>newrecruit-wh40k-11e-complete.json</code> from your computer. This page reads the file in your browser; it does not store or transmit it.</p>
+<div id="status" class="muted">No dataset loaded.</div></section>
+<section id="workspace" hidden>
+<div class="panel"><div id="stats" class="stats"></div></div>
+<div class="panel"><div class="controls">
+<label>Faction or catalogue<select id="faction"></select></label>
+<label>Find a unit<input type="search" id="search" placeholder="e.g. War Walkers, Immortals"></label>
+<label>View<select id="filter"><option value="all">All entry types</option><option value="unit">Units</option><option value="model">Models</option></select></label>
+</div></div>
+<div class="layout"><section class="panel"><h2>2. Units / entries <span id="count" class="sub"></span></h2><div id="entries" class="items"></div></section>
+<section class="panel"><h2>3. Selection structure</h2><div id="detail" class="muted">Choose an entry.</div></section></div>
+</section>
+</main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id);
+const state={records:[],byId:new Map(),factions:[],units:[],selected:null};
+const esc=v=>String(v??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));
+function txt(value){return typeof value==="string"?value:JSON.stringify(value??"");}
+function coll(o,k){return Array.isArray(o?.[k])?o[k]:[];}
+function root(rec){const d=rec.decoded;return d.catalogue||d.gameSystem||d.data||d;}
+function linksTo(rec){const r=root(rec);return coll(r,"catalogueLinks").map(x=>String(x.targetId));}
+function libraries(rec){const seen=new Set(),out=[];function visit(r){if(!r||seen.has(r.key))return;seen.add(r.key);out.push(r);for(const id of linksTo(r)){visit(state.byId.get(id));}}visit(rec);return out;}
+function indexes(rec){const idx=new Map();for(const lib of libraries(rec)){const r=root(lib);const scan=o=>{if(!o||typeof o!=="object")return;if(Array.isArray(o)){o.forEach(scan);return;}if(o.id&&(o.type==="unit"||o.type==="model"||o.type==="upgrade"||o.type==="selectionEntryGroup"||o.type==="selectionEntry"))idx.set(String(o.id),o);for(const k of ["sharedSelectionEntries","sharedSelectionEntryGroups","selectionEntries","selectionEntryGroups"])scan(o[k]);};scan(r);}return idx;}
+function buildEntries(rec){const r=root(rec),idx=indexes(rec),refs=[...coll(r,"entryLinks"),...coll(r,"selectionEntries")];if(r.library){refs.push(...coll(r,"sharedSelectionEntries"));}const found=[];for(const link of refs){const target=link.targetId?idx.get(String(link.targetId)):link;if(!target)continue;found.push({id:String(link.id||target.id),name:link.name||target.name||"Unnamed",type:target.type||link.type||"unknown",node:target,link});}
+const seen=new Set();return found.filter(x=>!seen.has(x.id)&&seen.add(x.id)).sort((a,b)=>a.name.localeCompare(b.name));}
+function childNodes(node){return [...coll(node,"selectionEntries"),...coll(node,"selectionEntryGroups"),...coll(node,"entryLinks"),...coll(node,"selectionEntryGroupLinks")];}
+function renderNode(node,idx,depth=0,vis=new Set()){if(depth>7)return '<div class="small">Maximum preview depth reached</div>';let resolved=node.targetId?idx.get(String(node.targetId)):null;let n=resolved||node;const id=String(n.id||"");if(vis.has(id))return '<div class="small">Repeated reference</div>';let next=new Set(vis);next.add(id);
+const typ=n.type||node.type||"entry";const limits=coll(n,"constraints").filter(x=>x.field==="selections").map(x=>x.type+" "+x.value+" ("+(x.scope||"self")+")");
+const cost=coll(n,"costs").filter(x=>String(x.name).toLowerCase()==="pts").map(x=>x.value+" pts");
+let html='<div class="node"><div class="node-head">'+esc(node.name||n.name||"Unnamed")+' <span class="type">'+esc(typ)+'</span></div>';
+if(cost.length)html+='<span class="limit">'+esc(cost.join(", "))+'</span>';
+for(const x of limits)html+='<span class="limit">'+esc(x)+'</span>';
+if(node.targetId&&!resolved)html+='<div class="small warn">Unresolved reference '+esc(node.targetId)+'</div>';
+const children=childNodes(n);
+if(children.length)html+='<details '+(depth<2?'open':'')+'><summary class="small">'+children.length+' nested selections</summary>'+children.map(c=>renderNode(c,idx,depth+1,next)).join("")+'</details>';
+return html+'</div>';}
+function renderDetail(item){state.selected=item.id;const rec=state.factions.find(x=>x.key===$("faction").value);const idx=indexes(rec);const node=item.node;
+$("detail").innerHTML='<h2>'+esc(item.name)+'</h2><p class="sub">'+esc(item.type)+' · '+esc(node.id)+'</p>'+
+'<p class="small">This is a structural preview, not a validated roster. Conditional modifiers, automatic defaults and complete legality checks are not yet evaluated.</p>'+
+renderNode(node,idx)+
+'<details><summary>Source keys</summary><pre>'+esc(Object.keys(node).join(", "))+'</pre></details>';
+document.querySelectorAll(".entry").forEach(x=>x.classList.toggle("active",x.dataset.id===item.id));}
+function refresh(){const rec=state.factions.find(x=>x.key===$("faction").value);if(!rec)return;
+state.units=buildEntries(rec);const term=$("search").value.toLowerCase().trim(),type=$("filter").value;
+const filtered=state.units.filter(x=>(type==="all"||x.type===type)&&x.name.toLowerCase().includes(term));$("count").textContent="("+filtered.length+")";
+$("entries").replaceChildren();for(const u of filtered.slice(0,1200)){const b=document.createElement("button");b.className="entry"+(state.selected===u.id?" active":"");b.dataset.id=u.id;b.textContent=u.name+" · "+u.type;b.addEventListener("click",()=>renderDetail(u));$("entries").append(b);}
+if(!filtered.length)$("entries").textContent="No entries found.";if(filtered.length){renderDetail(filtered.find(x=>x.id===state.selected)||filtered[0]);}else $("detail").textContent="No matching entries.";}
+$("file").addEventListener("change",async e=>{const file=e.target.files?.[0];if(!file)return;$("status").textContent="Reading local file…";try{const json=JSON.parse(await file.text());if(!Array.isArray(json.catalogues))throw Error("Expected catalogues[]");
+state.records=json.catalogues.map((r,i)=>({...r,key:String(i),decoded:typeof r.content==="string"?JSON.parse(r.content):r.content}));
+const systemId=String(json.system?.id_game_system??json.system?.id??"");const mismatched=state.records.filter(r=>String(r.id_game_system)!==systemId);
+if(!systemId||mismatched.length)throw Error("Mixed or missing game-system IDs");
+state.byId=new Map();for(const r of state.records){const obj=root(r);if(obj.id)state.byId.set(String(obj.id),r);if(r.bsid)state.byId.set(String(r.bsid),r);}
+state.factions=state.records.filter(r=>r.decoded.catalogue).sort((a,b)=>a.name.localeCompare(b.name));
+$("faction").replaceChildren();for(const r of state.factions){let option=document.createElement("option");option.value=r.key;option.textContent=r.name+(root(r).library?" (library)":"");$("faction").append(option);}
+$("stats").innerHTML='<span class="pill">'+state.records.length+' cached records</span><span class="pill">'+state.factions.length+' catalogues</span><span class="pill">System '+esc(systemId)+'</span>';
+$("status").innerHTML='<span class="ok">Loaded locally. No data sent to GitHub or a server.</span>';$("workspace").hidden=false;refresh();
+}catch(err){$("workspace").hidden=true;$("status").innerHTML='<span class="warn">Could not read: '+esc(err.message)+'</span>';console.error(err);}});
+$("faction").addEventListener("change",()=>{state.selected=null;refresh();});$("search").addEventListener("input",refresh);$("filter").addEventListener("change",refresh);
+</script></body></html>
