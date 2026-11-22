@@ -84,7 +84,7 @@ function collectIssues(){
  let out=[];for(const unit of army){
   const visit=(item,parent,ancestors)=>{
    if(item.count<=0)return;
-   const b=bounds(item.node);if(item.type!=="group"&&item.count<b.min)out.push(unit.name+": "+item.name+" below min "+b.min);
+   const b=bounds(item.node);if(item.type!=="group"&&item.count<b.min){const siblings=parent?.children.filter(x=>x.sourceId===item.sourceId)||[];const total=siblings.reduce((s,x)=>s+x.count,0);if(total<b.min)out.push(unit.name+": "+item.name+" below min "+b.min);}
    if(b.max!==null&&item.type!=="group"&&item.count>b.max)out.push(unit.name+": "+item.name+" exceeds max "+b.max);
    for(const c of item.children)visit(c,item,[...ancestors,item]);
    // Group minimum/maximum constraints on the group's own selections are tested from direct selected children
@@ -105,18 +105,30 @@ function findEntries(f){const r=root(f),out=[];const roots=[...Q(r,"entryLinks")
 function selectFaction(key,clear=true){faction=records.find(x=>x.key===key);if(!faction)return;index=sourceIndex(faction).maps;units=findEntries(faction);if(clear)army=[];render();}
 function addUnit(entry){const tree=instantiate(entry.node);if(!tree)return;tree.count=1;army.push({key:uid(),id:entry.id,name:entry.name,tree});render();}
 function setCount(key,count){function search(n){if(n.key===key){const b=bounds(n.node);n.count=Math.max(0,Math.min(b.max??99,Number(count)||0));return true;}return n.children.some(search);}for(const u of army)if(search(u.tree))break;render();}
+function cloneSelection(node){return {...node,key:uid(),children:node.children.map(cloneSelection)};}
+function splitModel(key){
+ function process(parent){
+  const at=parent.children.findIndex(x=>x.key===key);
+  if(at>=0){const model=parent.children[at];if(model.type!=="model"||model.count<=1)return true;
+   const copies=Array.from({length:model.count},()=>{const c=cloneSelection(model);c.count=1;return c;});
+   parent.children.splice(at,1,...copies);return true;}
+  return parent.children.some(process);
+ }
+ for(const u of army){if(process(u.tree))break;}render();
+}
 function setModelInstances(key,count){for(const u of army){if(u.tree.key===key){u.tree.count=Math.min(20,Math.max(1,Number(count)||1));break;}}render();}
 function drawTree(item,depth=0,ownerMult=1){if(depth>8)return "";const b=bounds(item.node),ch=item.children;
  const active=item.count>0;const type=item.type;const group=type==="group";const disabled=!active;
  let h='<div class="node"><div class="row"><span class="grow">'+esc(item.name)+' <span class="badge">'+esc(type)+'</span></span>';
  if(!group){
+  if(type==="model"&&item.count>1)h+='<button data-split="'+esc(item.key)+'">Split models</button>';
   h+='<button data-dec="'+esc(item.key)+'" aria-label="Decrease">−</button><span class="badge">'+item.count+'</span><button data-inc="'+esc(item.key)+'" aria-label="Increase">+</button>';
  }else h+='<span class="badge">choice group</span>';
  h+='</div>';
  if(ch.length&&active) {
   const visible=ch.filter(x=>!(x.node.hidden));
   h+='<details '+(depth<2?'open':'')+'><summary class="small">'+visible.length+' options</summary>';
-  if(item.type==="model"&&item.count>1)h+='<p class="small warning">These '+item.count+' models currently share a grouped configuration. Split into separate model selections for unique wargear.</p>';
+  if(item.type==="model"&&item.count>1)h+='<p class="small warning">These '+item.count+' models currently share grouped wargear. Use Split models above to configure individually.</p>';
   for(const c of visible)h+=drawTree(c,depth+1,ownerMult*item.count);
   h+='</details>';
  }
@@ -136,7 +148,7 @@ $("source").onchange=async e=>{try{const file=e.target.files[0];if(!file)return;
  $("app").hidden=false;$("loadStatus").innerHTML='<span class="ok">Loaded '+records.length+' records locally. No source data uploaded.</span>';if(factions.length)selectFaction(factions[0].key);
  }catch(err){$("loadStatus").textContent="Error: "+err.message;console.error(err);}};
 $("search").oninput=renderUnitList;$("faction").onchange=e=>{if(army.length&&!confirm("Switching factions clears this roster. Continue?")){$("faction").value=faction.key;return;}selectFaction(e.target.value);};
-$("units").onclick=e=>{const t=e.target;if(t.dataset.remove){army=army.filter(x=>x.key!==t.dataset.remove);render();return;}let key=t.dataset.inc||t.dataset.dec;if(!key)return;const item=walk(army.map(x=>x.tree)).find(x=>x.key===key);if(item)setCount(key,item.count+(t.dataset.inc?1:-1));};
+$("units").onclick=e=>{const t=e.target;if(t.dataset.remove){army=army.filter(x=>x.key!==t.dataset.remove);render();return;}if(t.dataset.split){splitModel(t.dataset.split);return;}let key=t.dataset.inc||t.dataset.dec;if(!key)return;const item=walk(army.map(x=>x.tree)).find(x=>x.key===key);if(item)setCount(key,item.count+(t.dataset.inc?1:-1));};
 function* walk(nodes){for(const n of nodes){yield n;yield* walk(n.children);}}
 $("limit").oninput=render;$("newRoster").onclick=()=>{if(confirm("Clear the current roster?")){army=[];render();}};
 function download(filename,value,type="application/json"){const blob=new Blob([value],{type});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
