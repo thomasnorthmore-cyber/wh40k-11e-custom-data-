@@ -60,7 +60,7 @@ function sourceIndex(f){
  scan(f);
  return {maps,deps};
 }
-function resolve(n){if(!n)return null;const target=n.targetId?index.get(String(n.targetId)):null;return target?{...target,...n,selectionEntries:n.selectionEntries||target.selectionEntries,selectionEntryGroups:n.selectionEntryGroups||target.selectionEntryGroups,entryLinks:n.entryLinks||target.entryLinks,selectionEntryGroupLinks:n.selectionEntryGroupLinks||target.selectionEntryGroupLinks,profiles:n.profiles||target.profiles,constraints:[...Q(target,"constraints"),...Q(n,"constraints")],costs:n.costs||target.costs,modifiers:[...Q(target,"modifiers"),...Q(n,"modifiers")]}:n;}
+function resolve(n){if(!n)return null;const target=n.targetId?index.get(String(n.targetId)):null;return target?{...target,...n,type:target.type||n.type,selectionEntries:n.selectionEntries||target.selectionEntries,selectionEntryGroups:n.selectionEntryGroups||target.selectionEntryGroups,entryLinks:n.entryLinks||target.entryLinks,selectionEntryGroupLinks:n.selectionEntryGroupLinks||target.selectionEntryGroupLinks,profiles:n.profiles||target.profiles,constraints:[...Q(target,"constraints"),...Q(n,"constraints")],costs:n.costs||target.costs,modifiers:[...Q(target,"modifiers"),...Q(n,"modifiers")]}:n;}
 function children(n){return [...Q(n,"selectionEntries"),...Q(n,"selectionEntryGroups"),...Q(n,"entryLinks"),...Q(n,"selectionEntryGroupLinks")].filter(x=>!x.hidden);}
 function isGroup(n){return n.type==="selectionEntryGroup"||(!n.type&&(!!n.selectionEntries||!!n.selectionEntryGroups));}
 function relevant(n){return Q(n,"constraints").filter(x=>x.field==="selections"&&["parent","self"].includes(x.scope)&&["min","max"].includes(x.type)&&!x.conditions&&!x.conditionGroups);}
