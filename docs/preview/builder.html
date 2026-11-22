@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>40K 11e — Army Builder (Alpha)</title>
+<style>
+:root{font-family:system-ui,Segoe UI,sans-serif;color-scheme:dark;background:#101626;color:#edf3ff}
+*{box-sizing:border-box}body{margin:0}header{background:#172239;border-bottom:1px solid #32445f;padding:18px max(16px,calc((100vw - 1280px)/2))}
+h1{font-size:24px;margin:0}h2{font-size:17px;margin:0 0 12px}h3{font-size:15px;margin:12px 0 6px}
+main{max-width:1280px;margin:auto;padding:18px}.box{border:1px solid #33465d;border-radius:12px;padding:15px;background:#182337;margin:0 0 14px}
+.grid{display:grid;grid-template-columns:320px minmax(0,1fr) 290px;gap:14px}.stack{display:grid;gap:10px}.muted,.small{color:#a8b7cf}.small{font-size:12px}
+input,select,button{font:inherit;background:#101c30;border:1px solid #465772;border-radius:8px;color:inherit;padding:9px;max-width:100%}
+button{cursor:pointer;background:#314c74}button:hover{background:#426592}button:disabled{opacity:.5}
+label{font-size:12px;color:#c3cee0;display:grid;gap:5px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.row>*{min-width:0}.grow{flex:1}.list{max-height:60vh;overflow:auto}.pick{display:block;width:100%;margin-bottom:5px;text-align:left;background:#101a2d;word-break:break-word}.pick.active{border-color:#78baff;background:#2b405e}
+.chip{display:inline-flex;background:#253751;border-radius:20px;padding:5px 10px;font-size:12px}
+.unit{border:1px solid #4a5a72;border-radius:10px;margin:10px 0;padding:12px;background:#142037}.unit.selected{border-color:#83baff}
+.node{border-left:2px solid #405574;margin:8px 0 8px 10px;padding:4px 0 4px 10px}.node>div:first-child{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.error{color:#ffc7b4}.warning{color:#ffe1a5}.ok{color:#a1edc3}.badge{font-size:11px;background:#2a3953;border-radius:5px;padding:3px 5px}
+details summary{cursor:pointer}pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px}
+.num{width:74px}.side{position:sticky;top:12px;align-self:start}.total{font-size:27px;font-weight:700}
+@media(max-width:980px){.grid{grid-template-columns:280px 1fr}.side{grid-column:1/-1;position:static}}@media(max-width:640px){.grid{grid-template-columns:1fr}.side{grid-column:auto}.list{max-height:220px}}
+</style></head><body>
+<header><h1>40K 11th Edition · Army Builder <span class="chip">Alpha</span></h1>
+<p class="small">Powered by your own offline New Recruit catalogue export. No upload to server, no third-party dependencies.</p></header>
+<main>
+<section class="box stack" id="intro">
+<div class="row"><label class="grow">Load the recovered New Recruit JSON<input type="file" id="source" accept=".json,application/json"></label><label class="grow">Import a saved builder roster<input type="file" id="importRoster" accept=".json,application/json"></label></div>
+<div id="loadStatus" class="small">Choose the recovered 11th Edition file to start. Importing a saved roster requires the source catalogue to be loaded first.</div>
+</section>
+<section id="app" hidden>
+<section class="box row">
+<label class="grow">Army / faction<select id="faction"></select></label>
+<label class="grow">Roster name<input id="rosterName" value="My 11th Edition Army"></label>
+<label>Points limit<input id="limit" type="number" min="100" step="100" value="2000" style="width:110px"></label>
+<button id="newRoster">Clear roster</button>
+<button id="saveRoster">Export roster JSON</button>
+<button id="textRoster">Export summary</button>
+</section>
+<div class="grid">
+<section class="box"><h2>Available units</h2><label>Search<input id="search" type="search" placeholder="War Walkers, Immortals, etc."></label><div class="row" style="margin:10px 0"><span class="chip" id="unitCount">0 units</span></div><div class="list" id="unitList"></div></section>
+<section class="box"><h2>My army</h2><div class="small" id="empty">Add a unit to begin. Selections and model groups are editable independently.</div><div id="units"></div></section>
+<aside class="box side"><h2>Roster checks</h2><div class="total" id="total">0 pts</div><div class="small" id="pointStatus">0 / 2,000</div><hr style="border:0;border-top:1px solid #44546a;margin:15px 0"><div id="issues"></div>
+<details><summary class="small">Alpha limitations</summary><p class="small">Conditional modifiers, repeaters, associations, dynamic cost overrides, detachment/force restrictions and full roster exports are not yet evaluated. A '0 warnings' result is not proof that a roster is legal. Some catalogue rules are stored in other linked sources. Points are estimates from base and selected costs.</p></details></aside>
+</div></section></main>
+<script>
+"use strict";
+const $=id=>document.getElementById(id),Q=(x,k)=>Array.isArray(x?.[k])?x[k]:[];
+let records=[],byRoot=new Map(),army=[],faction=null,units=[],index=new Map(),refCounter=0,sourceSignature="";
+const esc=x=>String(x??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const root=r=>r.data.catalogue||r.data.gameSystem||r.data.data||r.data;
+const uid=()=>String(++refCounter);
+function sourceIndex(f){
+ const seen=new Set();const maps=new Map();const deps=[];
+ function scan(c){if(!c||seen.has(c.key))return;seen.add(c.key);deps.push(c);let r=root(c);
+ for(let key of ["sharedSelectionEntries","sharedSelectionEntryGroups","selectionEntries","selectionEntryGroups"]){
+  function visit(v){if(Array.isArray(v)){v.forEach(visit);return;}if(!v||typeof v!=="object")return;if(v.id)maps.set(String(v.id),v);for(let k of ["sharedSelectionEntries","sharedSelectionEntryGroups","selectionEntries","selectionEntryGroups"])visit(v[k]);}
+  visit(r[key]);
+ }
+ for(let link of Q(r,"catalogueLinks"))scan(byRoot.get(String(link.targetId)));
+ }
+ scan(f);
+ return {maps,deps};
+}
+function resolve(n){if(!n)return null;const target=n.targetId?index.get(String(n.targetId)):null;return target?{...target,...n,selectionEntries:n.selectionEntries||target.selectionEntries,selectionEntryGroups:n.selectionEntryGroups||target.selectionEntryGroups,entryLinks:n.entryLinks||target.entryLinks,selectionEntryGroupLinks:n.selectionEntryGroupLinks||target.selectionEntryGroupLinks,profiles:n.profiles||target.profiles,constraints:[...Q(target,"constraints"),...Q(n,"constraints")],costs:n.costs||target.costs,modifiers:[...Q(target,"modifiers"),...Q(n,"modifiers")]}:n;}
+function children(n){return [...Q(n,"selectionEntries"),...Q(n,"selectionEntryGroups"),...Q(n,"entryLinks"),...Q(n,"selectionEntryGroupLinks")].filter(x=>!x.hidden);}
+function isGroup(n){return n.type==="selectionEntryGroup"||(!n.type&&(!!n.selectionEntries||!!n.selectionEntryGroups));}
+function relevant(n){return Q(n,"constraints").filter(x=>x.field==="selections"&&["parent","self"].includes(x.scope)&&["min","max"].includes(x.type)&&!x.conditions&&!x.conditionGroups);}
+function bounds(n){const c=relevant(n),min=Math.max(0,...c.filter(x=>x.type==="min").map(x=>Number(x.value)||0)),mx=c.filter(x=>x.type==="max").map(x=>Number(x.value));return {min,max:mx.length?Math.min(...mx):null};}
+function ownCost(n){return Q(n,"costs").filter(x=>String(x.name).toLowerCase()==="pts").reduce((t,x)=>t+(Number(x.value)||0),0);}
+function instantiate(raw,depth=0,seen=new Set()){
+ const n=resolve(raw);if(!n||depth>15)return null;
+ const key=String(n.targetId||n.id);if(seen.has(key))return null;
+ const path=new Set(seen);path.add(key);
+ const b=bounds(n),isGrp=isGroup(n),defaults=isGrp?1:Math.max(b.min,Number(n.defaultAmount)||0);
+ const item={key:uid(),id:n.id||key,sourceId:key,name:n.name||"Unnamed",type:isGrp?"group":n.type||"upgrade",count:defaults,node:n,children:[]};
+ const childDefs=children(n);for(const child of childDefs){const c=instantiate(child,depth+1,path);if(c)item.children.push(c);}
+ if(isGrp){const chosen=n.defaultSelectionEntryId; if(chosen){const selected=item.children.find(x=>x.id===chosen||x.sourceId===chosen);if(selected)selected.count=Math.max(1,selected.count);}
+ // A group holds options, but may itself be optional: do not infer all alternatives are chosen
+ }return item;
+}
+function activeChildren(item){return item.children.filter(x=>x.count>0);}
+function subtreeCost(item){if(item.count<=0)return 0;const cost=ownCost(item.node);return item.count*cost+activeChildren(item).reduce((s,c)=>s+(item.type==="model"&&item.count>1?item.count:1)*subtreeCost(c),0);}
+function points(){return army.reduce((n,u)=>n+subtreeCost(u.tree),0);}
+function collectIssues(){
+ let out=[];for(const unit of army){
+  const visit=(item,parent,ancestors)=>{
+   if(item.count<=0)return;
+   const b=bounds(item.node);if(item.type!=="group"&&item.count<b.min)out.push(unit.name+": "+item.name+" below min "+b.min);
+   if(b.max!==null&&item.type!=="group"&&item.count>b.max)out.push(unit.name+": "+item.name+" exceeds max "+b.max);
+   for(const c of item.children)visit(c,item,[...ancestors,item]);
+   // Group minimum/maximum constraints on the group's own selections are tested from direct selected children
+   if(item.type==="group"){const direct=item.children.reduce((s,x)=>s+x.count,0);
+    const gb=bounds(item.node);if(direct<gb.min)out.push(unit.name+": "+item.name+" needs "+gb.min+" selections (has "+direct+")");
+    if(gb.max!==null&&direct>gb.max)out.push(unit.name+": "+item.name+" allows max "+gb.max+" selections (has "+direct+")");
+   }
+  };visit(unit.tree,null,[]);
+ }
+ const max=Number($("limit").value)||2000;if(points()>max)out.push("Points limit exceeded by "+(points()-max));
+ return [...new Set(out)];
+}
+function findEntries(f){const r=root(f),out=[];const roots=[...Q(r,"entryLinks"),...Q(r,"selectionEntries")];
+ for(const raw of roots){const n=resolve(raw);if(!n||n.hidden)continue;
+ if(!["unit","model"].includes(n.type))continue;
+ out.push({name:raw.name||n.name,node:raw,id:raw.id||n.id,type:n.type});
+ }return out.sort((a,b)=>a.name.localeCompare(b.name));}
+function selectFaction(key,clear=true){faction=records.find(x=>x.key===key);if(!faction)return;index=sourceIndex(faction).maps;units=findEntries(faction);if(clear)army=[];render();}
+function addUnit(entry){const tree=instantiate(entry.node);if(!tree)return;tree.count=1;army.push({key:uid(),id:entry.id,name:entry.name,tree});render();}
+function setCount(key,count){function search(n){if(n.key===key){const b=bounds(n.node);n.count=Math.max(0,Math.min(b.max??99,Number(count)||0));return true;}return n.children.some(search);}for(const u of army)if(search(u.tree))break;render();}
+function setModelInstances(key,count){for(const u of army){if(u.tree.key===key){u.tree.count=Math.min(20,Math.max(1,Number(count)||1));break;}}render();}
+function drawTree(item,depth=0,ownerMult=1){if(depth>8)return "";const b=bounds(item.node),ch=item.children;
+ const active=item.count>0;const type=item.type;const group=type==="group";const disabled=!active;
+ let h='<div class="node"><div class="row"><span class="grow">'+esc(item.name)+' <span class="badge">'+esc(type)+'</span></span>';
+ if(!group){
+  h+='<button data-dec="'+esc(item.key)+'" aria-label="Decrease">−</button><span class="badge">'+item.count+'</span><button data-inc="'+esc(item.key)+'" aria-label="Increase">+</button>';
+ }else h+='<span class="badge">choice group</span>';
+ h+='</div>';
+ if(ch.length&&active) {
+  const visible=ch.filter(x=>!(x.node.hidden));
+  h+='<details '+(depth<2?'open':'')+'><summary class="small">'+visible.length+' options</summary>';
+  if(item.type==="model"&&item.count>1)h+='<p class="small warning">These '+item.count+' models currently share a grouped configuration. Split into separate model selections for unique wargear.</p>';
+  for(const c of visible)h+=drawTree(c,depth+1,ownerMult*item.count);
+  h+='</details>';
+ }
+ return h+'</div>';}
+function renderUnitList(){const q=$("search").value.toLowerCase(),items=units.filter(x=>x.name.toLowerCase().includes(q));$("unitCount").textContent=items.length+" entries";$("unitList").replaceChildren();for(const e of items){let b=document.createElement("button");b.className="pick";b.textContent=e.name+" · "+e.type;b.onclick=()=>addUnit(e);$("unitList").append(b);}if(!items.length)$("unitList").textContent="No matching entries in this faction.";}
+function render(){
+ if(!faction)return;renderUnitList();
+ $("empty").hidden=army.length>0;
+ $("units").innerHTML=army.map((u,i)=>'<article class="unit"><div class="row"><h3 class="grow">'+esc(u.name)+'</h3><span class="badge">'+subtreeCost(u.tree)+' pts estimated</span><button data-remove="'+esc(u.key)+'">Remove</button></div>'+drawTree(u.tree)+'</article>').join("");
+ $("total").textContent=points()+" pts";let lim=Number($("limit").value)||2000;$("pointStatus").textContent=points()+" / "+lim;
+ const issues=collectIssues();$("issues").innerHTML=issues.length?issues.map(x=>'<p class="error small">• '+esc(x)+'</p>').join(""):'<p class="ok small">No basic static constraint errors detected.</p>';
+ $("issues").innerHTML+='<p class="warning small">Not a complete legality or points validation yet: conditional constraints and dynamic modifiers are unsupported.</p>';
+}
+$("source").onchange=async e=>{try{const file=e.target.files[0];if(!file)return;$("loadStatus").textContent="Parsing the local catalogues…";const data=JSON.parse(await file.text());if(!Array.isArray(data.catalogues))throw Error("Missing catalogues[]");const id=String(data.system?.id_game_system??data.system?.id);records=data.catalogues.map((r,i)=>{if(String(r.id_game_system)!==id)throw Error("Mixed game-system IDs");return {...r,key:String(i),data:typeof r.content==="string"?JSON.parse(r.content):r.content};});
+ byRoot=new Map();for(const r of records){const obj=root(r);if(obj.id)byRoot.set(String(obj.id),r);}
+ sourceSignature=id+":"+records.length;const factions=records.filter(x=>x.data.catalogue&&!root(x).library);$("faction").innerHTML=factions.map(x=>'<option value="'+esc(x.key)+'">'+esc(x.name)+'</option>').join("");
+ $("app").hidden=false;$("loadStatus").innerHTML='<span class="ok">Loaded '+records.length+' records locally. No source data uploaded.</span>';if(factions.length)selectFaction(factions[0].key);
+ }catch(err){$("loadStatus").textContent="Error: "+err.message;console.error(err);}};
+$("search").oninput=renderUnitList;$("faction").onchange=e=>{if(army.length&&!confirm("Switching factions clears this roster. Continue?")){$("faction").value=faction.key;return;}selectFaction(e.target.value);};
+$("units").onclick=e=>{const t=e.target;if(t.dataset.remove){army=army.filter(x=>x.key!==t.dataset.remove);render();return;}let key=t.dataset.inc||t.dataset.dec;if(!key)return;const item=walk(army.map(x=>x.tree)).find(x=>x.key===key);if(item)setCount(key,item.count+(t.dataset.inc?1:-1));};
+function* walk(nodes){for(const n of nodes){yield n;yield* walk(n.children);}}
+$("limit").oninput=render;$("newRoster").onclick=()=>{if(confirm("Clear the current roster?")){army=[];render();}};
+function download(filename,value,type="application/json"){const blob=new Blob([value],{type});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=filename;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1500);}
+function snapshot(n){return {id:n.id,sourceId:n.sourceId,count:n.count,name:n.name,type:n.type,children:n.children.map(snapshot)};}
+$("saveRoster").onclick=()=>{download("40k11e-roster.json",JSON.stringify({format:"40k11e-builder-alpha-1",source:sourceSignature,faction:faction.name,factionId:faction.key,name:$("rosterName").value,pointsLimit:Number($("limit").value),units:army.map(x=>({name:x.name,id:x.id,tree:snapshot(x.tree)}))},null,2));};
+$("textRoster").onclick=()=>{const lines=[$("rosterName").value,faction.name,points()+" / "+$("limit").value+" pts (estimated)",""];function print(n,d){if(n.count<=0)return;lines.push(" ".repeat(d*2)+n.count+"x "+n.name);for(const c of n.children)print(c,d+1);}for(const u of army){print(u.tree,0);lines.push("");}lines.push("ALPHA: conditional points and legality not fully validated");download("40k11e-roster.txt",lines.join("\n"),"text/plain");};
+$("importRoster").onchange=async e=>{try{if(!records.length)throw Error("Load catalogue first");let r=JSON.parse(await e.target.files[0].text());if(r.format!=="40k11e-builder-alpha-1"||r.source!==sourceSignature)throw Error("Roster source/format differs from currently loaded dataset");
+const fac=records.find(x=>x.key===r.factionId&&x.name===r.faction);if(!fac)throw Error("Faction not found");$("faction").value=fac.key;selectFaction(fac.key);
+function hydrate(from,to){to.count=Number(from.count)||0;for(const child of to.children){const saved=from.children?.find(x=>x.id===child.id&&x.name===child.name);if(saved)hydrate(saved,child);}}
+army=[];for(const u of r.units||[]){const entry=units.find(x=>x.id===u.id&&x.name===u.name);if(!entry)continue;const tree=instantiate(entry.node);if(!tree)continue;hydrate(u.tree,tree);army.push({key:uid(),name:entry.name,id:entry.id,tree});}
+$("rosterName").value=r.name||"Imported";$("limit").value=r.pointsLimit||2000;render();$("loadStatus").textContent="Imported "+army.length+" units.";
+}catch(err){$("loadStatus").textContent="Import error: "+err.message;console.error(err);}};
+</script></body></html>
