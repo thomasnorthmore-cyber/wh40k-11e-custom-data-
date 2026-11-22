@@ -7,7 +7,7 @@
 **Migration started; full roster builder not yet implemented.** The recovered snapshot is a tested input to New Recruit, but the JSON export contains **catalogue/game-system definitions**, not New Recruit's own application engine. We need to implement our own interpreter for that format before promising identical validation, roster editing or exports.
 
 - Legacy preserved at [archive/legacy-aeldari-v7](../../tree/archive/legacy-aeldari-v7).
-- Experimental catalogue browser: [docs/preview/index.html](docs/preview/index.html).
+- **Interactive army-builder alpha:** [docs/preview/builder.html](docs/preview/builder.html). Load your offline JSON in the browser, add units, edit nested model options, split grouped models, and export/import alpha rosters.\n- Experimental catalogue browser: [docs/preview/index.html](docs/preview/index.html).
 - Local import auditor: [scripts/import_newrecruit_offline.py](scripts/import_newrecruit_offline.py).
 - Architecture specification: [docs/newrecruit-offline-baseline.md](docs/newrecruit-offline-baseline.md).
 
